@@ -1,3 +1,8 @@
+:root {
+    --customColorDefault: #ff7402;
+    --customColorDefaultText: #a84c00;
+  }
+
 /* --- CSS for login page --- */
 
 .login-panel-frame:before{
@@ -41,6 +46,37 @@
 
 /* --- END CSS for login page --- */
 
+textarea:focus, input:focus{
+    outline: none;
+}
+
 input{
     border-radius: 0.2em;
+    border: gray solid 1px;
+    padding: 0.1em 0.3em;
+}
+
+.customTextColor{
+    color: var(--customColorDefaultText);
+}
+
+.customTextlight{
+    color: rgb(138, 138, 138);
+}
+
+.customTextlight:hover{
+    color: rgb(94, 94, 94);
+    cursor: pointer;
+}
+
+.bg-secondary-light{
+    background-color: rgb(206, 206, 206);
+}
+
+.new-line {
+    white-space: pre-wrap;
+}
+
+input.invalid{
+    border: red solid 2px;
 }
