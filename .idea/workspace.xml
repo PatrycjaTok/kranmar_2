@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="workspace file update">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Frameworks/Libraries">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kranmar/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/kranmar/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +93,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706192738424</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Frameworks/Libraries">
+      <option name="closed" value="true" />
+      <created>1706194017183</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706194017183</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Frameworks/Libraries">
+      <option name="closed" value="true" />
+      <created>1706194047681</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706194047681</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -109,6 +127,7 @@
     <MESSAGE value="update" />
     <MESSAGE value="Create Login and registry panel (backend and fixes for frontend)" />
     <MESSAGE value="workspace file update" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace file update" />
+    <MESSAGE value="Frameworks/Libraries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Frameworks/Libraries" />
   </component>
 </project>

@@ -219,7 +219,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <h1>You are logged in!</h1>
+        <h1>You are logged in! Hi!</h1>
         <button className="btn btn-primary" onClick={this.whoami}>Kim jesten</button>    
         <button className="btn btn-primary" onClick={this.Logout}>Wyloguj się</button>    
       </div>

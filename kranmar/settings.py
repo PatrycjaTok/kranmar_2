@@ -154,7 +154,7 @@ SESSION_COOKIE_HTTPONLY = True
 # SESSION_COOKIE_HTTPONLY = True
 
 STATICFILES_DIRS = (
-    str(BASE_DIR / "myappreact" / "build"),
+    str(BASE_DIR / "myappreact" / "build/static"),
 )
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', ]
