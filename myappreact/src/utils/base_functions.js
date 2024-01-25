@@ -43,7 +43,6 @@ let passwords = [];
 let validation = true;
 let errors = [];
 
-console.log(formJQ)
 formJQ.find('input[required]').each((index, input)=>{
     let inputJQ = $(input);
     let pattern;

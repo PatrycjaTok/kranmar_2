@@ -34,34 +34,22 @@ class LoginView(View):
 class RegistryView(View):
 
     def post(self, request):
-        req = request.POST
-        form = UserCreationForm(req)
-        print(form)
-        if form.is_valid():
-            print('sssss')
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            name = form.cleaned_data['name']
-            surname = form.cleaned_data['surname']
-            email = form.cleaned_data['email']
-            if authenticate(username=username) or authenticate(email=email):
-                print('eeeee')
-                return JsonResponse({"action_success": False, "messages": {"errors": "Niektóre dane istnieją już w bazie. Wprowadź inne dane."}})
-            else:
-                print('wwww')
-                user = User.objects.create_user()
-                user.username = username
-                user.password = password
-                user.first_name = name
-                user.last_name = surname
-                user.email = email
-                user.save()
-                # messages.success(request, ('Użytkownik został zarejestrowany'))
-                # return redirect('/')
-                return JsonResponse({"action_success": True, "messages": {"success": "Konto zostało utworzone."}})
+        try:
+            data = json.loads(request.body)
+        except:
+            return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+        username = data.get('login')
+        password = data.get('password1')
+        name = data.get('name')
+        surname = data.get('surname')
+        email = data.get('email')
 
-        return JsonResponse({"action_success": False, "messages": {"errors": "Niepoprawne dane w formularzu."}})
+        if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+            return JsonResponse({"action_success": False, "messages": {"errors": "Niektóre dane istnieją już w bazie. Wprowadź inne dane."}}, status=400)
+        else:
+            user = User.objects.create_user(username=username, password=password, first_name=name, last_name=surname, email=email)
+            user.save()
+            return JsonResponse({"action_success": True, "messages": {"success": "Konto zostało utworzone."}})
 
 
 class ResetPasswordView(View):

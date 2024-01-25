@@ -24,7 +24,7 @@ class LoginPanelFrame extends React.Component{
           <BrowserRouter>
             <Routes>
               <Route  element={<LoginPanel loginMethod={this.props.loginMethod} usernameValue={this.props.usernameValue} usernameOnChange={this.props.usernameOnChange} passwordValue={this.props.passwordValue} passwordOnChange={this.props.passwordOnChange} errors={this.props.errors} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/" />
-              <Route element={<RegistryPanel handleRegistryFormSubmit={this.props.handleRegistryFormSubmit} errors={this.props.errors} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/registry" />
+              <Route element={<RegistryPanel handleRegistryFormSubmit={this.props.handleRegistryFormSubmit} errors={this.props.errors} successes={this.props.successes} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/registry" />
               <Route element={<ResetPasswordPanel clearErrorsMethod={this.props.clearErrorsMethod} />} path="/reset_password"/>
             </Routes>
           </BrowserRouter>
@@ -110,7 +110,9 @@ function RegistryPanel(props) {
   return (
     <div>
       <h1 className='px-4 text-primary text-center'>Zarejestruj się</h1>
-      <p className='text-center pb-2'>Aby utworzyć konto uzupełnij poniższe pola:</p>
+      <p className='text-center pb-0 mb-0'>Aby utworzyć konto uzupełnij poniższe pola:</p>
+      <h5 className='text-success text-center fw-bolder mb-0 mt-1'>{props.successes && <span>{props.successes}</span>}</h5>
+      <p className="text-success text-center">{props.successes && <span>Zostaniesz przekierowany na stronę logowania</span>}</p>
       <form onSubmit={props.handleRegistryFormSubmit} noValidate>
         <div className='row mb-3'>
           <div className='col-12 col-sm-auto'>

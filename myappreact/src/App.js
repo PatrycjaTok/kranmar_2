@@ -4,6 +4,7 @@ import * as React from "react";
 import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import baseURL from './utils/request';
+import baseURLFront from './utils/base_url_front.js'
 import './main.css';
 import CustomPagesLoginPage from './pages/base_page.js';
 import Cookies from "universal-cookie";
@@ -166,12 +167,7 @@ class App extends React.Component {
 
     if(validation.validation){
       const data = new FormData(event.target);
-      const objectData = Object.fromEntries(data.entries());
-      // objectData.password = objectData.password1;
-      // delete objectData.password1;
-      // delete objectData.password2
-
-      console.log(objectData)
+      const objectData = JSON.stringify(Object.fromEntries(data.entries()));
 
       $.ajax({
         url: baseURL + '/registry/',
@@ -187,13 +183,20 @@ class App extends React.Component {
         },
         // cache: false,
         success: function(data) {
-          if(this.isResponseOk){            
-            window.location.replace(baseURL + '/');
-            this.setState({success: 'Konto zostało utworzone!'})
+          if(this.isResponseOk){           
+            this.setState({
+              success: 'Konto zostało utworzone!',
+              error: '',
+            });
+            setTimeout(() => {
+              window.location.replace(baseURLFront + '/');
+            }, 5000);            
           }
         }.bind(this),
         error: function(xhr, status, err) {
-          this.setState({error: 'Coś poszło nie tak. Spróbuj ponownie.'})
+          console.log('ERROR')
+          let errorText = xhr.responseJSON.messages.errors;
+          this.setState({error: errorText})
         }.bind(this)
       });
 
@@ -213,10 +216,11 @@ class App extends React.Component {
       const csrfCookie = cookies.get("csrftoken");
       return(
         <div>
-          <CustomPagesLoginPage.LoginPanelFrame loginMethod={this.Login} passwordValue={this.state.password} passwordOnChange={this.handlePasswordChange} usernameValue={this.state.username} usernameOnChange={this.handleUserNameChange} errors={this.state.error} cookies={csrfCookie} handleRegistryFormSubmit={this.handleRegistryFormSubmit} clearErrorsMethod = {this.clearErrors} />
+          <CustomPagesLoginPage.LoginPanelFrame loginMethod={this.Login} passwordValue={this.state.password} passwordOnChange={this.handlePasswordChange} usernameValue={this.state.username} usernameOnChange={this.handleUserNameChange} errors={this.state.error} successes={this.state.success} cookies={csrfCookie} handleRegistryFormSubmit={this.handleRegistryFormSubmit} clearErrorsMethod = {this.clearErrors} />
         </div>
       )
     }
+    // TODO: if requestAnimationFrame.user.is_authenticated
     return (
       <div>
         <h1>You are logged in! Hi!</h1>
