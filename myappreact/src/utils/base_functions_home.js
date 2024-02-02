@@ -1,3 +1,5 @@
 import $ from 'jquery';
 
-// A $( document ).ready() block.
+$( document ).ready(()=>{
+    // cod...
+})

@@ -2,12 +2,12 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views import View
-from django.views.generic import TemplateView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from rest_framework.utils import json
+
+from myapp.models import Employee
 
 
 @api_view(['GET'])
@@ -68,6 +68,33 @@ class LogoutUserView(View):
         return JsonResponse({"action_success": True, "messages": {"success": "Zostałeś wylogowany!"}})
 
 
+class EmployeePageView(View):
+    def get(self, request):
+        pass
+    #     if request.user.is_authenticated:
+    #         Employee.objects.filter();
+    #         return JsonResponse({"action_success": False, "messages": {"errors": "Nie jesteś zalogowany!"}})
+    #
+
+
+@api_view(['GET'])
+def get_agreements_types(request):
+    if request.user.is_authenticated:
+        agreements_types = Employee.AGREEMENT_TYPES
+        return JsonResponse({"agreements_types": agreements_types})
+
+
+@api_view(['POST'])
+def employee_create_view(request):
+    if request.user.is_authenticated:
+        try:
+            new_employer = Employee()
+            return JsonResponse({"action_success": False, "messages": {"errors": "Nie jesteś zalogowany!"}})
+        except:
+            return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć pracownika"}},
+                            status=400)
+
+
 @ensure_csrf_cookie
 @api_view(['GET'])
 def session_view(request):
@@ -83,16 +110,3 @@ def whoami_view(request):
         "user_id": request.user.id,
         "username": request.user.username,
     })
-
-
-class HomePageView(TemplateView):
-    template_name = 'users/welcome_pages/welcome_user.html'
-    # model = Project
-
-    def get_context_data(self, **kwargs):
-
-        context = super().get_context_data(**kwargs)
-        # context = super(VisualizationView, self).get_context_data(**kwargs)
-        # context['projects'] = Project.objects.all()
-
-        return context

@@ -4,7 +4,7 @@ import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import Cookies from "universal-cookie";
-import { Route, Routes, Link, useLocation } from 'react-router-dom';
+import { Route, Routes, Link, useLocation, Navigate } from 'react-router-dom';
 // Custom server urls
 import baseURL from '../utils/request';
 // Custom files and Components
@@ -73,6 +73,7 @@ class HomePage extends React.Component{
                 <Route element={<HistoryChanges />} path="/history-changes" />
                 <Route element={<HistoryHolidays />} path="/history-holidays" />
                 <Route element={<Settings />} path="/settings" />
+                <Route path="*" element={<Navigate to ="/" />}/>
               </Routes>                            
             </div>        
           </div>          

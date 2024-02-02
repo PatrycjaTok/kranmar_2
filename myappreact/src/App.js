@@ -133,7 +133,7 @@ class App extends React.Component {
       },
       // cache: false,
       success: function(data) {
-        this.setState({isAuthenticated: false})
+        this.setState({isAuthenticated: false});
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 function inputValidation(inputJQ){
-let nameInputValidation = ['name', 'surname']
+let nameInputValidation = ['name', 'surname', 'first_name', 'last_name']
 let passwordInputValidation = ['password', 'password1', 'password2']
 let checkBoxs = ['checkbox', 'radio']
 

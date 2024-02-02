@@ -11,4 +11,6 @@ urlpatterns = [
     path('registry/', views.RegistryView.as_view(), name='registry_req'),
     path('reset-password/', views.ResetPasswordView.as_view(), name='reset_password_req'),
     path('logout/', views.LogoutUserView.as_view()),
+    path('get-agreements-types/', views.get_agreements_types),
+
 ]

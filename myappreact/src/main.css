@@ -1,8 +1,17 @@
 :root {
     --customColorDefault: #1abeff;
+    --customColorDefaultMedium: #069ad4;
+    --customColorDefaultHover: rgb(11, 121, 165);
     --customColorDefaultDark:#055474;
     --customColorDefaultText: #03709b;
     --CustomHoverWhiteText: rgb(204, 204, 204);
+
+    /* Agreements colors */
+    --agreementB2B: rgb(221, 188, 240);
+    --agreementZL: rgb(164, 186, 235);
+    --agreement1: rgb(247, 204, 204);
+    --agreement12: rgb(245, 241, 187);
+    --agreement34: rgb(156, 235, 235);
   }
 
 /* --- CSS for login page --- */
@@ -52,6 +61,14 @@
     font-size: 1.2rem;
 }
 
+.homePage .btn-primary{
+    background-color: var(--customColorDefaultMedium);
+}
+
+.homePage .btn-primary:hover, .homePage .btn-primary:active{
+    background-color: var(--customColorDefaultHover);
+}
+
 textarea:focus, input:focus{
     outline: none;
 }
@@ -60,6 +77,26 @@ input{
     border-radius: 0.2em;
     border: gray solid 1px;
     padding: 0.1em 0.3em;
+}
+
+input[type="date"], select, option{
+    cursor: pointer;
+}
+
+input[type="date"]{
+    position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-position: right;
+    background-size: auto;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: auto;
 }
 
 a.active:not(.dropdown-toggle){
@@ -185,6 +222,35 @@ nav .navbar-toggler span{
     font-size: smaller;
 }
 
+.agreement-B2B{
+    background-color: var(--agreementB2B);
+}
+
+.agreement-ZL{
+    background-color: var(--agreementZL);
+}
+
+.agreement-1{
+    background-color: var(--agreement1);
+}
+
+.agreement-12{
+    background-color: var(--agreement12);
+}
+
+.agreement-34{
+    background-color: var(--agreement34);
+}
+
+.bg-white{
+    background-color: white;
+}
+
+.swal-form, .swal-form form, .swal-form .row{
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+}
 
 /* --RESPONSIVE-- */
 
