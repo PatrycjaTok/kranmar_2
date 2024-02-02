@@ -1,14 +1,18 @@
 import * as React from "react";
 // import * as ReactDOM from "react-dom/client";
 // import { BrowserRouter as BrowserRouter, Route, Routes, redirectDocument } from 'react-router-dom';
+// Opensource Libraries
 import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
+import Cookies from "universal-cookie";
+// Custom server urls
 import baseURL from './utils/request';
 import baseURLFront from './utils/base_url_front.js'
+// Custom files and Components
 import './main.css';
 import CustomPagesLoginPage from './pages/base_page.js';
-import Cookies from "universal-cookie";
 import baseFunctions from './utils/base_functions.js';
+import HomePage from './pages/home_page.js';
 
 const cookies = new Cookies();
 
@@ -50,29 +54,6 @@ class App extends React.Component {
       }.bind(this)
     });
 
-  }
-
-  whoami = () =>{
-
-    $.ajax({
-      url: baseURL + '/whoami/',
-      method: 'GET',
-      dataType: 'json',
-      xhrFields: {
-          withCredentials: true
-      },
-      headers: {
-        "Content-Type": 'application/json',
-        "X-CSRFToken": cookies.get("csrftoken")
-      },
-      // cache: false,
-      success: function(data) {
-        console.log('You are logged in as ' + data.username);
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log(err);
-      }.bind(this)
-    });
   }
 
   clearErrors = () =>{
@@ -223,9 +204,7 @@ class App extends React.Component {
     // TODO: if requestAnimationFrame.user.is_authenticated
     return (
       <div>
-        <h1>You are logged in! Hi!</h1>
-        <button className="btn btn-primary" onClick={this.whoami}>Kim jesten</button>    
-        <button className="btn btn-primary" onClick={this.Logout}>Wyloguj się</button>    
+          <HomePage handleLogout = {this.Logout} />
       </div>
     )
   }

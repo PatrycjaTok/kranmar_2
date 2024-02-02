@@ -1,6 +1,8 @@
 :root {
-    --customColorDefault: #ff7402;
-    --customColorDefaultText: #a84c00;
+    --customColorDefault: #1abeff;
+    --customColorDefaultDark:#055474;
+    --customColorDefaultText: #03709b;
+    --CustomHoverWhiteText: rgb(204, 204, 204);
   }
 
 /* --- CSS for login page --- */
@@ -46,6 +48,10 @@
 
 /* --- END CSS for login page --- */
 
+.homePage{
+    font-size: 1.2rem;
+}
+
 textarea:focus, input:focus{
     outline: none;
 }
@@ -56,8 +62,16 @@ input{
     padding: 0.1em 0.3em;
 }
 
+a.active:not(.dropdown-toggle){
+    cursor: default;
+}
+
 .customTextColor{
     color: var(--customColorDefaultText);
+}
+
+.customTextColor:hover{
+    color: var(--customColorDefaultDark);
 }
 
 .customTextlight{
@@ -79,4 +93,184 @@ input{
 
 input.invalid{
     border: red solid 2px;
+}
+
+.container-xxl{
+    max-width: 2000px !important;
+}
+
+nav.navbar{
+    background-color: var(--customColorDefaultDark);
+    padding: 0;
+    width: 100%;
+}
+
+.content-container{
+    width: 100vw;
+    max-height: calc(100vh - 3.5rem);    
+    display: block;
+    overflow: auto;
+}
+
+nav.navbar .nav-item{
+    align-items: center;
+    display: flex;
+}
+
+nav.navbar .nav-item .nav-link{
+    color: white;
+}
+
+nav .dropdown-menu[data-bs-popper]{
+    margin-top: -8%;
+}
+
+nav .dropdown-menu, nav .dropdown-menu li a, nav .dropdown-menu li a:focus{
+    background-color: var(--customColorDefaultDark);
+    color: white;
+}
+
+nav.navbar .nav-item .nav-link:hover, nav.navbar .nav-item .nav-link:active, nav .dropdown-menu li a:hover, nav .dropdown-menu li a:active, nav.navbar .nav-item .nav-link.active{
+    color: var(--CustomHoverWhiteText);
+}
+
+nav .dropdown-menu li a:hover, nav .dropdown-menu li a:active{
+    background-color: var(--customColorDefault);
+    color: black;
+}
+
+nav.navbar .btn{
+    color: white;
+    font-size: 1.7rem;
+}
+
+nav.navbar .btn:hover{
+    color: var(--CustomHoverWhiteText);
+}
+
+.customBgColor{
+    background-color: var(--customColorDefault);
+}
+
+nav .navbar-brand, nav .navbar-brand:hover, nav .navbar-brand:active, nav .navbar-brand:focus{
+    color: var(--customColorDefault);
+    font-weight: 500;
+    cursor: default;
+}
+
+nav .navbar-toggler, nav .navbar-toggler:focus{
+    font-size: smaller;
+    border: white 2px solid;
+    box-shadow: none;
+}
+
+nav .navbar-toggler:hover, nav .navbar-toggler:active{
+    border: var(--CustomHoverWhiteText) 2px solid;
+    box-shadow: none;
+}
+
+nav .navbar-toggler span{
+    color: white;
+}
+
+.h-100vh{
+    height: 100vh;
+}
+
+.logoutBtnContainer{
+    padding-right: 1rem;
+}
+
+.logoutBtnContainer span{
+    font-size: smaller;
+}
+
+
+/* --RESPONSIVE-- */
+
+/* < lg */
+@media only screen and (max-width: 991px) {
+
+    nav.navbar{
+        align-items: baseline;
+    }
+
+    nav.navbar > .container-fluid{
+        justify-content: flex-start;
+        width: fit-content;
+        margin: 0;
+        height: 100%;
+        /* display: inline-block; */
+    }
+
+    nav.navbar > .logoutBtnContainer{
+        /* display: inline-block; */
+    }
+
+}
+
+
+/* < md */
+@media only screen and (max-width: 767px) {
+
+    .logoutBtnContainer{
+        padding-right: 0.5rem;
+    }
+
+}
+
+/* < sm */
+@media only screen and (max-width: 575px) {
+
+    nav.navbar > .container-fluid{
+        justify-content: center;
+        width: 100%;
+    }
+
+    nav.navbar > .container-fluid .navbar-nav{
+        padding-top: 0.5rem;;
+    }
+
+    nav.navbar > .container-fluid .nav-item{
+        justify-content: center;
+    }
+
+    .logoutBtnContainer{
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 0.1rem;
+        margin-bottom: 0.3rem;
+        padding-left: 0;
+        font-size: medium;
+    }
+
+    .content-container{
+        width: 100vw;
+        max-height: calc(100vh - 7rem);    
+        display: block;
+        overflow: auto;
+    }
+    
+
+
+}
+
+
+/* > xl */
+@media only screen and (min-width: 1200px) {
+
+    nav.navbar .navbar-collapse{
+        display: flex;
+        justify-content: center;
+    }
+
+    nav.navbar .navbar-collapse ul{
+        margin: 0 !important;
+    }
+
+    nav.navbar .nav-item{
+        padding: 0 1rem;
+    }
+
 }

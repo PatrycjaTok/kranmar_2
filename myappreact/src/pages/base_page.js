@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as BrowserRouter, Route, Routes, Link, useLocation } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 // import $ from 'jquery';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -21,13 +21,11 @@ class LoginPanelFrame extends React.Component{
           <div className='logo position-absolute bg-secondary-light d-flex w-100 align-items-center'>
             <h5 className='customTextColor px-3 my-0'>KRANMAR.pl</h5>
           </div>
-          <BrowserRouter>
             <Routes>
               <Route  element={<LoginPanel loginMethod={this.props.loginMethod} usernameValue={this.props.usernameValue} usernameOnChange={this.props.usernameOnChange} passwordValue={this.props.passwordValue} passwordOnChange={this.props.passwordOnChange} errors={this.props.errors} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/" />
               <Route element={<RegistryPanel handleRegistryFormSubmit={this.props.handleRegistryFormSubmit} errors={this.props.errors} successes={this.props.successes} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/registry" />
               <Route element={<ResetPasswordPanel clearErrorsMethod={this.props.clearErrorsMethod} />} path="/reset_password"/>
             </Routes>
-          </BrowserRouter>
         </div>
       </div>
     )
