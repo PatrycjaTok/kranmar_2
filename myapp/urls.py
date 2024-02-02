@@ -10,5 +10,5 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login_req'),
     path('registry/', views.RegistryView.as_view(), name='registry_req'),
     path('reset-password/', views.ResetPasswordView.as_view(), name='reset_password_req'),
-    path('logout/', views.LogoutUser.as_view()),
+    path('logout/', views.LogoutUserView.as_view()),
 ]

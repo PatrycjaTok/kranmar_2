@@ -60,7 +60,7 @@ class ResetPasswordView(View):
         pass
 
 
-class LogoutUser(View):
+class LogoutUserView(View):
     def get(self, request):
         if not request.user.is_authenticated:
             return JsonResponse({"action_success": False, "messages": {"errors": "Nie jesteś zalogowany!"}}, status=400)
@@ -79,7 +79,10 @@ def session_view(request):
 def whoami_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
-    return JsonResponse({"username": request.user.username})
+    return JsonResponse({
+        "user_id": request.user.id,
+        "username": request.user.username,
+    })
 
 
 class HomePageView(TemplateView):
