@@ -110,7 +110,6 @@ const swalAddEmployee = () => {
     confirmButtonText: "Dodaj",
     willOpen: () => {
         if(!agreementsTypes || Object.keys(agreementsTypes).length === 0){
-            console.log('backend querry')
             $.ajax({
                 url: baseURL + '/get-agreements-types/',
                 dataType: 'json',
@@ -145,9 +144,7 @@ const swalAddEmployee = () => {
             // handle Select BgColor
             agreementSelect.change((ev)=>{
                 let evTarget = $(ev.target);
-                ev.target.classList = `agreement-${evTarget.val().replace("/","")} w-100`
-                console.log('ddd')
-                console.log(evTarget.val())
+                ev.target.classList = `agreement-${evTarget.val().replace("/","")} w-100`;
                 evTarget.addClass();
             });
             

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="home_page: frontend frame and navigation update">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
@@ -157,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706879745991</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)">
+      <option name="closed" value="true" />
+      <created>1706894987275</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1706894987275</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -181,6 +189,7 @@
     <MESSAGE value="home_page: backend" />
     <MESSAGE value="home_page: frontend frame and navigation" />
     <MESSAGE value="home_page: frontend frame and navigation update" />
-    <option name="LAST_COMMIT_MESSAGE" value="home_page: frontend frame and navigation update" />
+    <MESSAGE value="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)" />
   </component>
 </project>
