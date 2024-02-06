@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Console.logs removeing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/base_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/base_page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/pages/employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/employees.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/pages/home_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/home_page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_functions_home.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_functions_home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706894987275</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Console.logs removeing">
+      <option name="closed" value="true" />
+      <created>1706895112980</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1706895112980</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,6 +194,7 @@
     <MESSAGE value="home_page: frontend frame and navigation" />
     <MESSAGE value="home_page: frontend frame and navigation update" />
     <MESSAGE value="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)" />
+    <MESSAGE value="Console.logs removeing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Console.logs removeing" />
   </component>
 </project>

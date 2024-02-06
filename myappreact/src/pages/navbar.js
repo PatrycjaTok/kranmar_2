@@ -139,13 +139,13 @@ function NavBarTop(props){
     return(
 
         <nav className="row navbar navbar-expand-lg navbar-light py-1 mx-0">
-            <div className="container-fluid col order-2 order-sm-1">
+            <div className="container-fluid col order-2 order-sm-1 pb-lg-2 pb-xxl-0">
                 <Link className="navbar-brand" to="/">Kranmar</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbar">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">                    
                     {Object.entries(links).map(([href, data]) => {         
                         if(!data.dropdown){
                             return(

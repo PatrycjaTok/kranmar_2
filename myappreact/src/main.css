@@ -47,6 +47,7 @@
     height: 2.5em;
     top: 0;
     left: 0;
+    cursor: default;
 }
 
 @media only screen and (max-width: 575px) {
@@ -107,8 +108,12 @@ a.active:not(.dropdown-toggle){
     color: var(--customColorDefaultText);
 }
 
-.customTextColor:hover{
+.customTextColor:not(.noHover):hover{
     color: var(--customColorDefaultDark);
+}
+
+.noHover{
+    cursor: default !important;
 }
 
 .customTextlight{
@@ -118,6 +123,10 @@ a.active:not(.dropdown-toggle){
 .customTextlight:hover{
     color: rgb(94, 94, 94);
     cursor: pointer;
+}
+
+.login-panel-frame .logo .customTextColor:hover{
+    color: var(--customColorDefaultText);
 }
 
 .bg-secondary-light{
@@ -187,6 +196,16 @@ nav.navbar .btn:hover{
 
 .customBgColor{
     background-color: var(--customColorDefault);
+}
+
+.username-container{
+    font-size: smaller;
+    float: right;
+    padding-right: 1.5rem;
+}
+
+.username-container .svg-inline--fa {
+    height: 0.8em;
 }
 
 nav .navbar-brand, nav .navbar-brand:hover, nav .navbar-brand:active, nav .navbar-brand:focus{
@@ -266,10 +285,6 @@ nav .navbar-toggler span{
         width: fit-content;
         margin: 0;
         height: 100%;
-        /* display: inline-block; */
-    }
-
-    nav.navbar > .logoutBtnContainer{
         /* display: inline-block; */
     }
 

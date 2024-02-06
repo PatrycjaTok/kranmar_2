@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import Cookies from "universal-cookie";
 import { Route, Routes, Link, useLocation, Navigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUser} from "@fortawesome/free-solid-svg-icons";
 // Custom server urls
 import baseURL from '../utils/request';
 // Custom files and Components
@@ -20,14 +23,19 @@ import Settings from './settings.js';
 import Companies from './comapnies.js';
 
 const cookies = new Cookies();
+library.add(faUser);
 
 class HomePage extends React.Component{
   
   constructor(props){
     super(props);
+    this.state={
+      username : '',
+    }
   }
 
   whoami = () =>{
+    const self = this; 
 
     $.ajax({
       url: baseURL + '/whoami/',
@@ -42,7 +50,7 @@ class HomePage extends React.Component{
       },
       // cache: false,
       success: function(data) {
-        console.log('You are logged in as ' + data.username);
+        self.setState({username: data.username})
       },
       error: function(xhr, status, err) {
         console.log(err);
@@ -55,13 +63,16 @@ class HomePage extends React.Component{
     
   }
 
+  componentDidMount(){
+    this.whoami();
+  }
+
   render(){
+
     return(
       <div className='h-100vh homePage'>
           <NavBarTop handleLogout={this.props.handleLogout}/>
-         {/* <h1>You are logged in! Hi!</h1>
-          <button className="btn btn-primary" onClick={this.whoami}>Kim jesten</button>    
-          <button className="btn btn-primary" onClick={this.Logout}>Wyloguj się</button>     */}
+          <div className='text-primary noHover username-container'><FontAwesomeIcon icon={faUser} /><span className='px-1'>{this.state.username}</span></div>
           <div className='container-xxl d-flex px-0'>
             <div className='content-container'>
               <Routes>

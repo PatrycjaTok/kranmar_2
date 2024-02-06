@@ -6,6 +6,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.utils import json
+import datetime
+
+import traceback
 
 from myapp.models import Employee
 
@@ -68,13 +71,42 @@ class LogoutUserView(View):
         return JsonResponse({"action_success": True, "messages": {"success": "Zostałeś wylogowany!"}})
 
 
-class EmployeePageView(View):
+class EmployeeCreateView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            first_name = data.get('first_name', None)
+            last_name = data.get('last_name', None)
+            agreement_type = data.get('agreement_type', None)
+            agreement_end_date = datetime.datetime.fromisoformat(data.get('agreement_end_date')).date() if data.get('agreement_end_date') else None
+            medical_end_date = datetime.datetime.fromisoformat(data.get('medical_end_date')).date() if data.get('medical_end_date') else None
+            building_license_end_date = datetime.datetime.fromisoformat(data.get('building_license_end_date')).date() if data.get('building_license_end_date') else None
+            default_build = data.get('default_build', None)
+            comments = data.get('comments', None)
+            try:
+                new_employer = Employee(user=request.user, first_name=first_name, last_name=last_name, agreement_type=agreement_type, agreement_end_date=agreement_end_date, medical_end_date=medical_end_date, building_license_end_date=building_license_end_date, default_build=default_build, comments=comments)
+                new_employer.save()
+                return JsonResponse({"action_success": True, "messages": {"success": "Dodano pracownika."}})
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć pracownika"}},
+                                status=400)
+
+
+class EmployeesView(View):
     def get(self, request):
-        pass
-    #     if request.user.is_authenticated:
-    #         Employee.objects.filter();
-    #         return JsonResponse({"action_success": False, "messages": {"errors": "Nie jesteś zalogowany!"}})
-    #
+        if request.user.is_authenticated:
+            try:
+                employees = Employee.objects.filter(user_id=request.user.id)
+                result = list(employees.values())
+                return JsonResponse({"employees": result})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować pracowników."}},
+                                status=400)
 
 
 @api_view(['GET'])
@@ -82,17 +114,6 @@ def get_agreements_types(request):
     if request.user.is_authenticated:
         agreements_types = Employee.AGREEMENT_TYPES
         return JsonResponse({"agreements_types": agreements_types})
-
-
-@api_view(['POST'])
-def employee_create_view(request):
-    if request.user.is_authenticated:
-        try:
-            new_employer = Employee()
-            return JsonResponse({"action_success": False, "messages": {"errors": "Nie jesteś zalogowany!"}})
-        except:
-            return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć pracownika"}},
-                            status=400)
 
 
 @ensure_csrf_cookie
