@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Console.logs removeing">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1. Employees page update:&#10;- adding view for creating new employee&#10;- adding view to end data to frontend&#10;- show employees in a table&#10;2. Displaying username below nav">
+      <change afterPath="$PROJECT_DIR$/myapp/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myapp/migrations/0002_employee_user.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myapp/migrations/0003_alter_employee_options_and_more.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
@@ -169,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706895112980</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="1. Employees page update:&#10;- adding view for creating new employee&#10;- adding view to end data to frontend&#10;- show employees in a table&#10;2. Displaying username below nav">
+      <option name="closed" value="true" />
+      <created>1707217135831</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1707217135831</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,6 +206,7 @@
     <MESSAGE value="home_page: frontend frame and navigation update" />
     <MESSAGE value="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)" />
     <MESSAGE value="Console.logs removeing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Console.logs removeing" />
+    <MESSAGE value="1. Employees page update:&#10;- adding view for creating new employee&#10;- adding view to end data to frontend&#10;- show employees in a table&#10;2. Displaying username below nav" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Employees page update:&#10;- adding view for creating new employee&#10;- adding view to end data to frontend&#10;- show employees in a table&#10;2. Displaying username below nav" />
   </component>
 </project>
