@@ -4,19 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1. Employees page update:&#10;- adding view for creating new employee&#10;- adding view to end data to frontend&#10;- show employees in a table&#10;2. Displaying username below nav">
-      <change afterPath="$PROJECT_DIR$/myapp/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapp/migrations/0002_employee_user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapp/migrations/0003_alter_employee_options_and_more.py" afterDir="false" />
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/myapp/utils/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/pages/employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/employees.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/pages/home_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/home_page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/pages/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_functions_home.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_functions_home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -4,8 +4,10 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Cookies from "universal-cookie";
 // import { Select2 } from "select2-react-component";
+import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
 import baseFunctions from "../utils/base_functions";
+import baseHomeFunctions from "../utils/base_functions_home.js";
 
 const cookies = new Cookies();
 let agreementsTypes = {};
@@ -46,7 +48,7 @@ class Employees extends React.Component{
                     // timerProgressBar: true
                 })                       
             }
-        })
+        });
     }
 
     swalAddEmployee = () => {
@@ -131,25 +133,6 @@ class Employees extends React.Component{
         showCloseButton: true,
         confirmButtonText: "Dodaj",
         showLoaderOnConfirm: true,
-        willOpen: () => {
-            if(!agreementsTypes || Object.keys(agreementsTypes).length === 0){
-                $.ajax({
-                    url: baseURL + '/get-agreements-types/',
-                    dataType: 'json',
-                    xhrFields: {
-                        withCredentials: true
-                    },
-                    success: function(data) {
-                        if (data.agreements_types){
-                            agreementsTypes = data.agreements_types;
-                        }
-                    },
-                    error: function(xhr, status, err) {
-                    console.log(err);
-                    }
-                }); 
-            }     
-        },
         didOpen: (swalWindow) => {
             // `MySwal` is a subclass of `Swal` with all the same instance & static methods
             // addEmployeeSwal.showLoading()
@@ -232,34 +215,83 @@ class Employees extends React.Component{
     }
 
     componentDidMount(){
-        this.fetchData();
+        this.fetchData(); 
+
+        if(!agreementsTypes || Object.keys(agreementsTypes).length === 0){
+            $.ajax({
+                url: baseURL + '/get-agreements-types/',
+                dataType: 'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(data) {
+                    if (data.agreements_types){
+                        agreementsTypes = data.agreements_types;
+                    }
+                },
+                error: function(xhr, status, err) {
+                console.log(err);
+                }
+            }); 
+        }
+
+        setTimeout(() => { 
+            $(".custom-fancytable").fancyTable({
+                sortColumn: 1,
+                pagination: true,
+                searchable: true,
+                globalSearch: false,
+                perPage: 20,
+            });
+
+            $('.no-action, .no-action a').off();	 
+        }, 300);     
+      
     }
 
     render(){
         const employees = this.state.employees;
-    
+       
         return(
             <div>
-            <p><button onClick={this.swalAddEmployee} className="btn btn-primary">Dodaj pracownika</button></p>
-            <table>
-                <tbody>
-                    {employees.map((employee, i) => {
-                       return(
-                        <tr key={i} data-employee_id={employee.id}>
-                            <td>{employee.first_name}</td>
-                            <td>{employee.last_name}</td>
-                            <td>{employee.agreement_type}</td>
-                            <td>{employee.agreement_end_date}</td>
-                            <td>{employee.medical_end_date}</td>
-                            <td>{employee.building_license_end_date}</td>
-                            <td>{employee.default_build}</td>
-                            <td>{employee.comments}</td>
-                        </tr>
-                       )
-                    })}                 
-                </tbody>
-            </table>
-            
+            <h2 className="text-center">Pracownicy</h2>
+            <p className="px-2"><button onClick={this.swalAddEmployee} className="btn btn-primary">Dodaj pracownika</button></p>
+            <div className="table-wrapper">
+                <table className="custom-fancytable">
+                    <thead>
+                        <tr> 
+                            <th data-sortas="case-insensitive">Imię</th> 
+                            <th data-sortas="case-insensitive">Nazwisko</th> 
+                            <th data-sortas="case-insensitive">Typ umowy</th> 
+                            <th data-sortas="case-insensitive">Umowa do</th> 
+                            <th data-sortas="case-insensitive">Badania do</th> 
+                            <th data-sortas="case-insensitive">Uprawnienia do</th> 
+                            <th data-sortas="case-insensitive">Domyślna budowa</th> 
+                            <th className="no-action">Komenatrz</th>
+                            <th className="no-action">Akcje</th> 
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        {employees.map((employee, i) => {
+                            const agreeClassName = `agreement-${employee.agreement_type}`;
+
+                            return(
+                            <tr key={i} data-employee_id={employee.id}>
+                                <td>{employee.first_name}</td>
+                                <td>{employee.last_name}</td>
+                                <td className={agreeClassName}>{agreementsTypes[employee.agreement_type]}</td>
+                                <td data-sortvalue={employee.agreement_end_date}>{baseHomeFunctions.YMDtoDMY(employee.agreement_end_date)}</td>
+                                <td data-sortvalue={employee.medical_end_date}>{baseHomeFunctions.YMDtoDMY(employee.medical_end_date)}</td>
+                                <td data-sortvalue={employee.building_license_end_date}>{baseHomeFunctions.YMDtoDMY(employee.building_license_end_date)}</td>
+                                <td>{employee.default_build}</td>
+                                <td className="no-search">{employee.comments}</td>
+                                <td className="no-search">Akcje</td>
+                            </tr>
+                            )
+                        })}      
+                    </tbody>                           
+                </table>
+            </div>
             </div>
         )
     }

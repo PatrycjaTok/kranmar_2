@@ -70,11 +70,11 @@ class HomePage extends React.Component{
   render(){
 
     return(
-      <div className='h-100vh homePage'>
+      <div className='homePage'>
           <NavBarTop handleLogout={this.props.handleLogout}/>
           <div className='text-primary noHover username-container'><FontAwesomeIcon icon={faUser} /><span className='px-1'>{this.state.username}</span></div>
           <div className='container-xxl d-flex px-0'>
-            <div className='content-container'>
+            <div className='content-container px-1 p-md-3'>
               <Routes>
                 {/* <Route  element={<Dashboard loginMethod={this.props.loginMethod} usernameValue={this.props.usernameValue} usernameOnChange={this.props.usernameOnChange} passwordValue={this.props.passwordValue} passwordOnChange={this.props.passwordOnChange} errors={this.props.errors} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/" /> */}
                 <Route  element={<Dashboard />} path="/" />

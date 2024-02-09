@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import $ from 'jquery';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faDoorOpen} from "@fortawesome/free-solid-svg-icons";
@@ -150,7 +151,7 @@ function NavBarTop(props){
                         if(!data.dropdown){
                             return(
                                 <li className="nav-item" key={href}>
-                                    <Link className={data.current ? "nav-link active" : "nav-link"} to={href}>{data.label}</Link>
+                                    <Link className={data.current ? "nav-link active" : "nav-link"} to={href} onClick={(ev)=>{collapseNav(ev)}}>{data.label}</Link>
                                 </li>
                             )
                         }
@@ -159,7 +160,7 @@ function NavBarTop(props){
                         for (const [itemhref, itemdata] of Object.entries(data.items)) {                 
                             dropdownItems.push(
                                 <li key={itemhref}>
-                                    <Link className={itemdata['current'] ? "dropdown-item active" : "dropdown-item"} to={itemhref}>{itemdata['label']}</Link>
+                                    <Link className={itemdata['current'] ? "dropdown-item active" : "dropdown-item"} to={itemhref} onClick={(ev)=>{collapseNav(ev)}}>{itemdata['label']}</Link>
                                 </li>
                             )
                         }
@@ -183,6 +184,15 @@ function NavBarTop(props){
         </nav>
 
     )
+}
+
+function collapseNav(ev){
+    let evTarget = $(ev.target);
+    let navbar = evTarget.closest('#navbar');
+    let toggleButton = navbar.siblings('button.navbar-toggler');
+    if(toggleButton.css('display') !== 'none' && navbar.hasClass('show')){
+        navbar.removeClass('show')
+    }
 }
 
 export default  NavBarTop; 

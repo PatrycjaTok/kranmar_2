@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import F, Value
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views import View
@@ -101,7 +102,8 @@ class EmployeesView(View):
         if request.user.is_authenticated:
             try:
                 employees = Employee.objects.filter(user_id=request.user.id)
-                result = list(employees.values())
+                employees_list = list(employees.values())
+                result = employees_list
                 return JsonResponse({"employees": result})
             except:
                 # print(traceback.format_exc())

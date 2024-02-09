@@ -1,5 +1,12 @@
 import $ from 'jquery';
 
-$( document ).ready(()=>{
-    // cod...
-})
+let YMDtoDMY = (ymd) => {
+    let dmy = ymd ? ymd.split('-').reverse().join('-') : ymd;
+    return dmy;
+}
+
+const exportedObject = {
+    YMDtoDMY,
+};
+
+export default  exportedObject;

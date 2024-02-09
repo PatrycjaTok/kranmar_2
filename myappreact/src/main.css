@@ -100,6 +100,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: auto;
 }
 
+table th, table td{
+    padding: 2px 4px;
+    min-width: 120px;
+}
+
+table tr:nth-child(even){
+    background: #E6E6E6
+}
+
+table tr:nth-child(odd){
+    background: #FFF
+}
+
+.table-wrapper{
+    max-width: 100%;
+    overflow: auto;
+}
+
 a.active:not(.dropdown-toggle){
     cursor: default;
 }
@@ -328,7 +346,6 @@ nav .navbar-toggler span{
 
     .content-container{
         width: 100vw;
-        max-height: calc(100vh - 7rem);    
         display: block;
         overflow: auto;
     }
