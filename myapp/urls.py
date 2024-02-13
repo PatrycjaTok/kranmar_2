@@ -14,6 +14,7 @@ urlpatterns = [
     path('get-agreements-types/', views.get_agreements_types),
     path('employee-create/', views.EmployeeCreateView.as_view()),
     path('employee-remove/', views.EmployeeRemoveView.as_view()),
+    path('employee-edit/', views.EmployeeEditView.as_view()),
     path('get-employee-data/', views.GetEmployeeByIdView.as_view()),
     path('get-employees/', views.EmployeesView.as_view()),
 

@@ -131,6 +131,33 @@ class EmployeeRemoveView(View):
                                     status=400)
 
 
+class EmployeeEditView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+
+            employee_id = int(data.get('employeeId'))
+            if employee_id:
+                first_name = data.get('first_name', None)
+                last_name = data.get('last_name', None)
+                agreement_type = data.get('agreement_type', None)
+                agreement_end_date = datetime.datetime.fromisoformat(data.get('agreement_end_date')).date() if data.get('agreement_end_date') else None
+                medical_end_date = datetime.datetime.fromisoformat(data.get('medical_end_date')).date() if data.get('medical_end_date') else None
+                building_license_end_date = datetime.datetime.fromisoformat(data.get('building_license_end_date')).date() if data.get('building_license_end_date') else None
+                default_build = data.get('default_build', None)
+                comments = data.get('comments', None)
+                try:
+                    employee = Employee.objects.filter(id=employee_id)
+                    employee.update(first_name=first_name, last_name=last_name, agreement_type=agreement_type, agreement_end_date=agreement_end_date, medical_end_date=medical_end_date, building_license_end_date=building_license_end_date, default_build=default_build, comments=comments)
+                    return JsonResponse({"action_success": True, "messages": {"success": "Edytowano pracownika: " + first_name + ' ' + last_name}})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować pracownika."}},
+                                    status=400)
+
+
 class GetEmployeeByIdView(View):
     def post(self, request):
         if request.user.is_authenticated:

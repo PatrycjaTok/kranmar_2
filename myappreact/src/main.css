@@ -100,6 +100,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: auto;
 }
 
+div:has(> .coverLabelForDateInput) {
+    position: relative;
+}
+
+.coverLabelForDateInput{
+    position: absolute;
+    top: 0.1em;
+    left: 18px;
+    padding-top: 0.1em;
+    padding-right: 20px;
+    width: fit-content;
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+}
+
 table th, table td{
     padding: 2px 4px;
     min-width: 120px;
@@ -120,8 +136,11 @@ table tr:nth-child(odd){
 
 table .td-action{
     color: var(--customColorDefaultMedium);
-    display: flex;
+    display: inline-flex;
     justify-content: space-around;
+    padding-top: 2px;
+    align-items: center;
+    height: 100%;
 }
 
 table .td-action, table .th-action{

@@ -144,7 +144,7 @@ class Employees extends React.Component{
             baseHomeFunctions.bindDatesInputsInSwal(swalWindow);  
         },
         preConfirm: () => {
-            const form = $('.swal-form.add-employee-form form').first();
+            let form = $('.swal-form.add-employee-form form').first();
             let validation = baseFunctions.formValidation(form);        
             if(!validation.validation){
                 Swal.showValidationMessage(`<i class="fa fa-info-circle"></i> ${validation.errors}`);
@@ -195,9 +195,9 @@ class Employees extends React.Component{
 
     removeEmployee(ev){
         let evTarget = $(ev.target);
-        const employeeId = evTarget.closest('tr').data('employee_id');
-        const self = this;
-        const fullName = evTarget.closest('tr').find('td')[0].innerText +' '+evTarget.closest('tr').find('td')[1].innerText;
+        let employeeId = evTarget.closest('tr').data('employee_id');
+        let self = this;
+        let fullName = evTarget.closest('tr').find('td')[0].innerText +' '+evTarget.closest('tr').find('td')[1].innerText;
 
         withReactContent(Swal).fire({
             html: <div>
@@ -254,8 +254,10 @@ class Employees extends React.Component{
 
     editEmployee(ev){
         let evTarget = $(ev.target);
-        const employeeId = evTarget.closest('tr').data('employee_id');
-        const self = this;
+        let employeeId = evTarget.closest('tr').data('employee_id');
+
+        // TODO: bug when remove employee
+        let self = this;
 
         $.ajax({
             url: baseURL + '/get-employee-data/',
@@ -273,11 +275,12 @@ class Employees extends React.Component{
             success: function(data) {
                 let employeeData = data.employee;
 
-                const htmlContent = <div className="swal-form add-employee-form">
+                let htmlContent = <div className="swal-form edit-employee-form">
                     <h3 className="text-center pb-3">Edytuj pracownika
                     </h3>
                     <div>
                         <form noValidate>
+                            <input type="hidden" name='employeeId' value={employeeId}></input>
                             <div className='row mb-3'>
                                 <div className='col-12 col-sm-auto'>
                                     <label className='my-1 my-sm-0'>Imię: </label>
@@ -357,16 +360,16 @@ class Employees extends React.Component{
                     confirmButtonText: 'Zapisz',
                     cancelButtonText: 'Anuluj',
                     didOpen: (swalWindow) => {
-                        // `MySwal` is a subclass of `Swal` with all the same instance & static methods
                         // addEmployeeSwal.showLoading()
                         baseHomeFunctions.bindAgreementTypesSelectInSwal(agreementsTypes, swalWindow);
                         baseHomeFunctions.bindDatesInputsInSwal(swalWindow);
                         if(employeeData.agreement_type){
                             $(swalWindow).find(`select[name="agreement_type"] option[value=${employeeData.agreement_type}]`).attr('selected', true);
+                            $(swalWindow).find(`select[name="agreement_type"]`)[0].classList = `agreement-${employeeData.agreement_type} w-100`;
                         }
                     },
                     preConfirm: () => {
-                        const form = $('.swal-form.add-employee-form form').first();
+                        let form = $('.swal-form.edit-employee-form form').first();
                         let validation = baseFunctions.formValidation(form);        
                         if(!validation.validation){
                             Swal.showValidationMessage(`<i class="fa fa-info-circle"></i> ${validation.errors}`);
@@ -376,7 +379,7 @@ class Employees extends React.Component{
                             let result = false;
                 
                             $.ajax({
-                                url: baseURL + '/employee-create/',
+                                url: baseURL + '/employee-edit/',
                                 method: 'POST',
                                 dataType: 'json',
                                 async: false,
@@ -420,47 +423,6 @@ class Employees extends React.Component{
             }
         });
     
-
-
-
-        
-    
-
-        // $.ajax({
-        //     url: baseURL + '/employee-remove/',
-        //     method: 'POST',
-        //     dataType: 'json',
-        //     async: false,
-        //     headers: {
-        //         "Content-Type": 'application/json',
-        //         "X-CSRFToken": cookies.get("csrftoken")
-        //     },
-        //     data: JSON.stringify({"employeeId": employeeId}),
-        //     xhrFields: {
-        //         withCredentials: true
-        //     },
-        //     success: function(data) {
-        //         withReactContent(Swal).fire({
-        //             title: `Usunięto pracownika: ${data.full_name}.`,
-        //             showConfirmButton: false,
-        //             icon: 'success',
-        //             timer: 3000,
-        //             // timerProgressBar: true
-        //         }).then(()=>{
-        //             self.fetchData();
-        //         });   
-        //     },
-        //     error: function(xhr, status, err) {
-        //         // let errorText = xhr.responseJSON.messages.errors;
-        //         withReactContent(Swal).fire({
-        //             title: 'Nie udało się usunąć pracownika.',
-        //             showConfirmButton: false,
-        //             icon: 'error',
-        //             timer: 3000,
-        //             // timerProgressBar: true
-        //         })                 
-        //     }
-        // });
     }
 
     componentDidMount(){

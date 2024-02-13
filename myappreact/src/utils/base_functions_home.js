@@ -25,15 +25,37 @@ let bindAgreementTypesSelectInSwal = (agreementsTypes, swalWindow) =>{
     }   
 }
 
+let createDateInputCoverLabel = (input) =>{
+    let inputVal = input.val();
+    let labelText = 'dd - mm - YYYY';
+    if(inputVal){
+        labelText = YMDtoDMY(inputVal);
+    }
+    let coverLabel = $(`<div class='coverLabelForDateInput'>${labelText}</div>`);
+    coverLabel.click((ev)=>{
+        $(ev.target).siblings("input")[0].showPicker();
+    });
+    coverLabel.insertAfter(input);
+}
+
+let changeDateInputCoverLabel = (input) =>{
+    let inputVal = input.val();
+    let labelText = 'dd-mm-YYYY';
+    if(inputVal){
+        labelText = YMDtoDMY(inputVal);
+    }
+    input.siblings('.coverLabelForDateInput').text(labelText);
+}
+
 let bindDatesInputsInSwal = (swalWindow) =>{
     let swalWindowJQ = $(swalWindow);
 
-    // open date window on label click
     let dateInputs = swalWindowJQ.find('input[type="date"]');
     dateInputs.each((ind, input)=>{
-        $(input).click((ev)=>{
-            let evTarget = $(ev.target);
-            $(input).closest('.row').find('label').click();
+        const inputJQ = $(input);
+        createDateInputCoverLabel(inputJQ);
+        inputJQ.change((ev)=>{
+            changeDateInputCoverLabel($(ev.target));
         });
     }) 
 }
