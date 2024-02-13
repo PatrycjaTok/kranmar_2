@@ -92,7 +92,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-position: right;
     background-size: auto;
     cursor: pointer;
-    position: absolute;
+    position: absolute !important;
     bottom: 0;
     left: 0;
     right: 0;
@@ -116,6 +116,21 @@ table tr:nth-child(odd){
 .table-wrapper{
     max-width: 100%;
     overflow: auto;
+}
+
+table .td-action{
+    color: var(--customColorDefaultMedium);
+    display: flex;
+    justify-content: space-around;
+}
+
+table .td-action, table .th-action{
+    min-width: 80px;
+}
+
+table .td-action svg:hover, table .td-action svg:active{
+    color: var(--customColorDefaultHover);
+    cursor: pointer;
 }
 
 a.active:not(.dropdown-toggle){

@@ -111,6 +111,44 @@ class EmployeesView(View):
                                 status=400)
 
 
+class EmployeeRemoveView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            employee_id = int(data.get('employeeId'))
+            if employee_id:
+                try:
+                    employee = Employee.objects.get(id=employee_id)
+                    full_name = employee.full_name
+                    employee.delete()
+                    return JsonResponse({"action_success": True, 'full_name': full_name})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class GetEmployeeByIdView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            employee_id = int(data.get('employeeId'))
+            if employee_id:
+                try:
+                    employee = list(Employee.objects.filter(id=employee_id).values())[0]
+                    return JsonResponse({'employee': employee})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
 @api_view(['GET'])
 def get_agreements_types(request):
     if request.user.is_authenticated:
