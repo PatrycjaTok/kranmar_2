@@ -17,5 +17,9 @@ urlpatterns = [
     path('employee-edit/', views.EmployeeEditView.as_view()),
     path('get-employee-data/', views.GetEmployeeByIdView.as_view()),
     path('get-employees/', views.EmployeesView.as_view()),
-
+    path('get-companies/', views.CompaniesView.as_view()),
+    path('company-create/', views.CompanyCreateView.as_view()),
+    path('company-remove/', views.CompanyRemoveView.as_view()),
+    path('get-company-data/', views.GetCompanyByIdView.as_view()),
+    path('company-edit/', views.CompanyEditView.as_view()),
 ]

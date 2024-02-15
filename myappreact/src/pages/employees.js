@@ -142,6 +142,7 @@ class Employees extends React.Component{
             // addEmployeeSwal.showLoading()
             baseHomeFunctions.bindAgreementTypesSelectInSwal(agreementsTypes, swalWindow);
             baseHomeFunctions.bindDatesInputsInSwal(swalWindow);  
+            $(swalWindow).find('input[name="first_name"').focus();
         },
         preConfirm: () => {
             let form = $('.swal-form.add-employee-form form').first();
@@ -367,6 +368,7 @@ class Employees extends React.Component{
                             $(swalWindow).find(`select[name="agreement_type"] option[value=${employeeData.agreement_type}]`).attr('selected', true);
                             $(swalWindow).find(`select[name="agreement_type"]`)[0].classList = `agreement-${employeeData.agreement_type} w-100`;
                         }
+                        $(swalWindow).find('input[name="first_name"').focus();
                     },
                     preConfirm: () => {
                         let form = $('.swal-form.edit-employee-form form').first();

@@ -30,3 +30,14 @@ class Employee(models.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Company(models.Model):
+    objects = models.Manager()
+
+    name = models.CharField(max_length=60)
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    comments = models.CharField(max_length=200)
+
+    class Meta:
+        ordering = ["name"]

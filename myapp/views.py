@@ -11,7 +11,7 @@ import datetime
 
 import traceback
 
-from myapp.models import Employee
+from myapp.models import Employee, Company
 
 
 @api_view(['GET'])
@@ -72,6 +72,7 @@ class LogoutUserView(View):
         return JsonResponse({"action_success": True, "messages": {"success": "Zostałeś wylogowany!"}})
 
 
+# Employees page
 class EmployeeCreateView(View):
     def post(self, request):
         if request.user.is_authenticated:
@@ -101,10 +102,8 @@ class EmployeesView(View):
     def get(self, request):
         if request.user.is_authenticated:
             try:
-                employees = Employee.objects.filter(user_id=request.user.id)
-                employees_list = list(employees.values())
-                result = employees_list
-                return JsonResponse({"employees": result})
+                employees = list(Employee.objects.filter(user_id=request.user.id).values())
+                return JsonResponse({"employees": employees})
             except:
                 # print(traceback.format_exc())
                 return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować pracowników."}},
@@ -175,6 +174,95 @@ class GetEmployeeByIdView(View):
                     return JsonResponse({"action_success": False},
                                     status=400)
 
+
+# Companies page
+class CompaniesView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            try:
+                companies = list(Company.objects.filter(user_id=request.user.id).values())
+                return JsonResponse({"companies": companies})
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować firm."}},
+                                status=400)
+
+
+class CompanyCreateView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            name = data.get('company_name', None)
+            comments = data.get('comments', None)
+            try:
+                new_company = Company(user=request.user, name=name, comments=comments)
+                new_company.save()
+                return JsonResponse({"action_success": True, "messages": {"success": "Dodano firmę."}})
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć firmy"}},
+                                status=400)
+
+
+class CompanyRemoveView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            company_id = int(data.get('companyId'))
+            if company_id:
+                try:
+                    company = Company.objects.get(id=company_id)
+                    name = company.name
+                    company.delete()
+                    return JsonResponse({"action_success": True, 'name': name})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class GetCompanyByIdView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            company_id = int(data.get('companyId'))
+            if company_id:
+                try:
+                    company = list(Company.objects.filter(id=company_id).values())[0]
+                    return JsonResponse({'company': company})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class CompanyEditView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+
+            company_id = int(data.get('companyId'))
+            if company_id:
+                name = data.get('company_name', None)
+                comments = data.get('comments', None)
+                try:
+                    company = Company.objects.filter(id=company_id)
+                    company.update(name=name, comments=comments)
+                    return JsonResponse({"action_success": True, "messages": {"success": "Edytowano firmę: " + name}})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować firmy."}},
+                                    status=400)
 
 @api_view(['GET'])
 def get_agreements_types(request):
