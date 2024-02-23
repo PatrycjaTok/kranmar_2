@@ -11,7 +11,7 @@ import datetime
 
 import traceback
 
-from myapp.models import Employee, Company
+from myapp.models import Employee, Company, Substitution
 
 
 @api_view(['GET'])
@@ -264,6 +264,48 @@ class CompanyEditView(View):
                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować firmy."}},
                                     status=400)
 
+
+# Dashboard page
+class SubstitutionsView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            try:
+                # substitutions = list(Substitution.objects.filter(user_id=request.user.id).values())
+                substitutions = list(Substitution.objects.filter(user_id=request.user.id).values())
+
+                return JsonResponse({"substitutions": substitutions})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować zastępstw."}},
+                                status=400)
+
+
+class EmployeesSelectView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            try:
+                employees = list(Employee.objects.filter(user_id=request.user.id).values('id', 'first_name', 'last_name'))
+                return JsonResponse({"employees": employees})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse(
+                    {"action_success": False, "messages": {"errors": "Nie udało się załadować listy Pracowników."}},
+                    status=400)
+
+
+class CompaniesSelectView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            try:
+                companies = list(Company.objects.filter(user_id=request.user.id).values('id', 'name'))
+                return JsonResponse({"companies": companies})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse(
+                    {"action_success": False, "messages": {"errors": "Nie udało się załadować listy Firm."}},
+                    status=400)
+
+
 @api_view(['GET'])
 def get_agreements_types(request):
     if request.user.is_authenticated:
@@ -286,3 +328,9 @@ def whoami_view(request):
         "user_id": request.user.id,
         "username": request.user.username,
     })
+
+@api_view(['GET'])
+def get_action_types(request):
+    if request.user.is_authenticated:
+        action_types = Substitution.ACTION_TYPES
+        return JsonResponse({"action_types": action_types})

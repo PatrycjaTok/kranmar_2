@@ -22,4 +22,8 @@ urlpatterns = [
     path('company-remove/', views.CompanyRemoveView.as_view()),
     path('get-company-data/', views.GetCompanyByIdView.as_view()),
     path('company-edit/', views.CompanyEditView.as_view()),
+    path('get-substitutions/', views.SubstitutionsView.as_view()),
+    path('get-action-types/', views.get_action_types),
+    path('get-employees-for-select-list/', views.EmployeesSelectView.as_view()),
+    path('get-companies-for-select-list/', views.CompaniesSelectView.as_view()),
 ]

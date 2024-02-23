@@ -12,6 +12,13 @@
     --agreement1: rgb(247, 204, 204);
     --agreement12: rgb(245, 241, 187);
     --agreement34: rgb(156, 235, 235);
+
+
+    /* Action-types colors */
+    --actionTypeZn: rgb(255, 188, 143);
+    --actionTypeZi: rgb(172, 203, 245);
+    --actionTypeZ: rgb(239, 184, 250);
+    --actionTypeW: rgb(248, 241, 181);
   }
 
 /* --- CSS for login page --- */
@@ -84,6 +91,14 @@ input[type="date"], select, option{
     cursor: pointer;
 }
 
+select{
+    padding: 0.1em 0.3em;
+}
+
+option{
+    padding: 1rem;
+}
+
 input[type="date"]{
     position: relative;
 }
@@ -100,7 +115,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: auto;
 }
 
-div:has(> .coverLabelForDateInput) {
+div:has(> .coverLabelForDateInput), td:has(> .coverLabelForDateInput) {
     position: relative;
 }
 
@@ -118,9 +133,40 @@ div:has(> .coverLabelForDateInput) {
     cursor: pointer;
 }
 
+td .coverLabelForDateInput{
+    position: absolute;
+    top: 0.2em;
+    left: 11px;
+    padding-top: 0.1em;
+    /* padding-right: 20px; */
+    /* width: fit-content; */
+    padding-right: 0;
+    width: calc(100% - 40px);
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+}
+
 table th, table td{
     padding: 2px 4px;
     min-width: 120px;
+}
+
+table td:has(input[type='date']){
+    min-width: 180px;
+    display: flex;
+    align-items: center;
+}
+
+table td select{
+    width: fit-content;
+}
+
+table tr:not(.fancySearchRow) td input, table tr:not(.fancySearchRow) td select, table tr:not(.fancySearchRow) td textarea{
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    min-height: 38px;
 }
 
 table tr:nth-child(even){
@@ -133,7 +179,9 @@ table tr:nth-child(odd){
 
 .table-wrapper{
     max-width: 100%;
-    overflow: auto;
+    overflow-x: auto;
+    min-height: 300px;
+    height: fit-content;
 }
 
 table .td-action{
@@ -153,6 +201,76 @@ table .td-action svg:hover, table .td-action svg:active{
     color: var(--customColorDefaultHover);
     cursor: pointer;
 }
+
+.react-select-custom{
+    width: 220px;
+}
+
+.react-select-custom div[role="listbox"]{
+    top: 0;
+    width: 220px;
+}
+
+.react-select-custom div:has([role="listbox"]){
+    width: 220px;
+}
+
+table td .react-select-custom > div:not([class$="-menu"]){
+    border-radius: 0.2em;
+    border: gray solid 1px;
+    padding: 0.1em 0;
+    height: 38px;
+}
+
+table td .react-select-custom > div:not([class$="-menu"]) div[class$='-IndicatorsContainer'] > div[class$='indicatorContainer']{
+    padding: 2px;
+}
+
+table td .react-select-custom > div[class$="-menu"], table td .react-select-custom > div[class$="-menu"] > div, table td .react-select-custom > div[class$="-menu"] div[class$="-Group"]{
+    margin: 0;
+    padding: 0;
+}
+
+table td .react-select-custom > div[class$="-menu"] div[class$="-Group"] > div[class$="-group"]{
+    margin: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: white;
+}
+
+table td .react-select-custom > div[class$="-menu"], table td .react-select-custom > div[class$="-menu"] > div{
+    height: fit-content;
+    max-height: 150px;
+}
+
+table td .react-select-custom > div[class$="-menu"] > div > div > div >div{
+    padding: 3px 10px;
+    /* font-size: 0.9rem; */
+}
+
+table td .react-select-custom > div[class$="-menu"] div[class$="-Group"]:nth-child(1) > div:nth-child(1){
+    background-color: #376b4b;
+}
+
+table td .react-select-custom > div[class$="-menu"] div[class$="-Group"]:nth-child(1) > div:nth-child(2){
+    background-color: #e1f3e8;
+}
+
+table td .react-select-custom > div[class$="-menu"] div[class$="-Group"]:nth-child(2) > div:nth-child(1){
+    background-color: #53329b;
+}
+
+table td .react-select-custom > div[class$="-menu"] div[class$="-Group"]:nth-child(2) > div:nth-child(2){
+    background-color: #e8e1f5;
+}
+
+table td .react-select-custom > div:not([class$="-menu"]) > div > div{
+    height: calc(2.2rem - 8px);
+    min-height: none;
+    display: flex;
+    align-items: center;
+}
+
 
 a.active:not(.dropdown-toggle){
     cursor: default;
@@ -314,6 +432,22 @@ nav .navbar-toggler span{
 
 .agreement-34{
     background-color: var(--agreement34);
+}
+
+.action-type-zn{
+    background-color: var(--actionTypeZn);
+}
+
+.action-type-zi{
+    background-color: var(--actionTypeZi);
+}
+
+.action-type-z{
+    background-color: var(--actionTypeZ);
+}
+
+.action-type-w{
+    background-color: var(--actionTypeW);
 }
 
 .bg-white{

@@ -20,7 +20,6 @@ let bindAgreementTypesSelectInSwal = (agreementsTypes, swalWindow) =>{
         agreementSelect.change((ev)=>{
             let evTarget = $(ev.target);
             ev.target.classList = `agreement-${evTarget.val()} w-100`;
-            evTarget.addClass();
         });
     }   
 }
@@ -60,10 +59,29 @@ let bindDatesInputsInSwal = (swalWindow) =>{
     }) 
 }
 
+let handleActionTypesSelectChange = (ev) =>{
+    // handle Select BgColor
+    let evTarget = $(ev.target);
+    ev.target.classList = `action-type-${evTarget.val()} w-100`;
+}
+
+let bindDatesInputs = (parent) =>{
+    let dateInputs = parent.find('input[type="date"]');
+    dateInputs.each((ind, input)=>{
+        const inputJQ = $(input);
+        createDateInputCoverLabel(inputJQ);
+        inputJQ.change((ev)=>{
+            changeDateInputCoverLabel($(ev.target));
+        });
+    }) 
+}
+
 const exportedObject = {
     YMDtoDMY,
     bindAgreementTypesSelectInSwal,
     bindDatesInputsInSwal,
+    bindDatesInputs,
+    handleActionTypesSelectChange,
 };
 
 export default  exportedObject;

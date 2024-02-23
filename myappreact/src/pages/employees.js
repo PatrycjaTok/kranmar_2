@@ -6,7 +6,6 @@ import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTrash, faUserEdit} from "@fortawesome/free-solid-svg-icons";
-// import { Select2 } from "select2-react-component";
 import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
 import baseFunctions from "../utils/base_functions";
