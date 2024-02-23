@@ -180,7 +180,7 @@ table tr:nth-child(odd){
 .table-wrapper{
     max-width: 100%;
     overflow-x: auto;
-    min-height: 300px;
+    min-height: 360px;
     height: fit-content;
 }
 
@@ -240,7 +240,7 @@ table td .react-select-custom > div[class$="-menu"] div[class$="-Group"] > div[c
 
 table td .react-select-custom > div[class$="-menu"], table td .react-select-custom > div[class$="-menu"] > div{
     height: fit-content;
-    max-height: 150px;
+    max-height: 240px;
 }
 
 table td .react-select-custom > div[class$="-menu"] > div > div > div >div{
@@ -250,6 +250,7 @@ table td .react-select-custom > div[class$="-menu"] > div > div > div >div{
 
 table td .react-select-custom > div[class$="-menu"] div[class$="-Group"]:nth-child(1) > div:nth-child(1){
     background-color: #376b4b;
+    /* font-size: 0.75em; */
 }
 
 table td .react-select-custom > div[class$="-menu"] div[class$="-Group"]:nth-child(1) > div:nth-child(2){
