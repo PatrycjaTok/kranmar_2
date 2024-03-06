@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Dashboard little css update">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update">
+      <change afterPath="$PROJECT_DIR$/myapp/migrations/0007_alter_substitution_amount_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/elements/add_substitution_table_row.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
@@ -240,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708718107958</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update">
+      <option name="closed" value="true" />
+      <created>1709744660256</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1709744660256</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -274,6 +284,7 @@
     <MESSAGE value="Library select2 clearing" />
     <MESSAGE value="Dashboard page update." />
     <MESSAGE value="Dashboard little css update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dashboard little css update" />
+    <MESSAGE value="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update" />
   </component>
 </project>
