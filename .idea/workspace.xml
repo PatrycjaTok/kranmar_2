@@ -4,25 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update">
-      <change afterPath="$PROJECT_DIR$/myapp/migrations/0007_alter_substitution_amount_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myappreact/src/elements/add_substitution_table_row.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/elements/select_action_types.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/select_action_types.js" afterDir="false" />
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Dashboard page: little select fix (adding empty option for employe/company select list)">
       <change beforePath="$PROJECT_DIR$/myappreact/src/elements/select_employees_companies.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/select_employees_companies.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/comapnies.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/comapnies.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/employees.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/history_changes.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/history_changes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/home_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/home_page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/scripts/fancytable.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/scripts/fancytable.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_functions_home.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_functions_home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +233,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709744660256</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="workspace">
+      <option name="closed" value="true" />
+      <created>1709744676717</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1709744676717</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Dashboard page: little select fix (adding empty option for employe/company select list)">
+      <option name="closed" value="true" />
+      <created>1709745106135</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1709745106135</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,6 +284,8 @@
     <MESSAGE value="Dashboard page update." />
     <MESSAGE value="Dashboard little css update" />
     <MESSAGE value="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update" />
+    <MESSAGE value="workspace" />
+    <MESSAGE value="Dashboard page: little select fix (adding empty option for employe/company select list)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dashboard page: little select fix (adding empty option for employe/company select list)" />
   </component>
 </project>
