@@ -97,7 +97,7 @@ class SelectEmployeesAndCompanies extends React.Component{
     render(){    
         let employees = this.state.employees;
         let companies = this.state.companies;
-        let employeesData = []
+        let employeesData = [{value: '', label: 'Wybierz...'}]
         let companiesData = []
         let selectData = [            
             {
