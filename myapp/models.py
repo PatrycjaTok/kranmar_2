@@ -61,11 +61,11 @@ class Substitution(models.Model):
     action_type = models.CharField(max_length=30, choices=ACTION_TYPES)
     location = models.CharField(max_length=30)
     crane = models.CharField(max_length=30)
-    duration_hours = models.IntegerField()
-    amount = models.IntegerField()
+    duration_hours = models.IntegerField(null=True)
+    amount = models.IntegerField(null=True)
     comments = models.CharField(max_length=200)
     class Meta:
-        ordering = ["date"]
+        ordering = ["-date"]
 
     # @property
     # def full_name(self):

@@ -14,7 +14,7 @@ class SelectEmployeesAndCompanies extends React.Component{
         super(props);
         this.state={
             employees: [],
-            companies: [],
+            companies: [],            
         }
     }
 
@@ -92,7 +92,6 @@ class SelectEmployeesAndCompanies extends React.Component{
         if(!this.state.companies || Object.keys(this.state.companies).length === 0){
             this.getCompaniesForSelectList();
         }
-      
     }
 
     render(){    
@@ -100,7 +99,7 @@ class SelectEmployeesAndCompanies extends React.Component{
         let companies = this.state.companies;
         let employeesData = []
         let companiesData = []
-        let selectData = [
+        let selectData = [            
             {
                 label: 'Pracownicy', 
                 options: employeesData,               
@@ -121,9 +120,16 @@ class SelectEmployeesAndCompanies extends React.Component{
         }
 
         return(
-            <Select options={selectData} className="react-select-custom" />             
+            <span>
+                <Select options={selectData} className="react-select-custom" name={this.props.name} defaultValue={this.props.defaultSelectValue} value={this.props.value} placeholder="Wybierz..." onChange={(ev)=>{this.props.handleSelectChange(ev)}}/>     
+            </span>        
         )
     }
 }
+
+SelectEmployeesAndCompanies.defaultProps = {
+    defaultSelectValue: '',
+    handleSelectChange: ()=>{},
+};
 
 export default SelectEmployeesAndCompanies;

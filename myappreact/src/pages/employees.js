@@ -467,11 +467,11 @@ class Employees extends React.Component{
         return(
             <div>
             <h2 className="text-center">Pracownicy</h2>
-            <p className="px-2"><button onClick={this.swalAddEmployee} className="btn btn-primary">Dodaj pracownika</button></p>
+            <p className="px-2 text-center"><button onClick={this.swalAddEmployee} className="btn btn-primary">Dodaj pracownika</button></p>
             <div className="table-wrapper">
                 <table className="custom-fancytable">
                     <thead>
-                        <tr> 
+                        <tr className="bg-primary bg-gradient text-light"> 
                             <th data-sortas="case-insensitive">Imię</th> 
                             <th data-sortas="case-insensitive">Nazwisko</th> 
                             <th data-sortas="case-insensitive">Typ umowy</th> 
@@ -488,7 +488,7 @@ class Employees extends React.Component{
                             const agreeClassName = `agreement-${employee.agreement_type}`;
 
                             return(
-                            <tr key={i} data-employee_id={employee.id}>
+                            <tr key={employee.id} data-employee_id={employee.id}>
                                 <td>{employee.first_name}</td>
                                 <td>{employee.last_name}</td>
                                 <td className={agreeClassName}>{agreementsTypes[employee.agreement_type]}</td>
@@ -497,7 +497,7 @@ class Employees extends React.Component{
                                 <td data-sortvalue={employee.building_license_end_date}>{baseHomeFunctions.YMDtoDMY(employee.building_license_end_date)}</td>
                                 <td>{employee.default_build}</td>
                                 <td className="no-search">{employee.comments}</td>
-                                <td className="no-search td-action"><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeEmployee(ev)}} title="usuń" /><FontAwesomeIcon icon={faUserEdit} onClick={(ev)=>{this.editEmployee(ev)}} title="edytuj"/></td>
+                                <td className="no-search td-action"><FontAwesomeIcon icon={faUserEdit} onClick={(ev)=>{this.editEmployee(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeEmployee(ev)}} title="usuń" /></td>
                             </tr>
                             )
                         })}      

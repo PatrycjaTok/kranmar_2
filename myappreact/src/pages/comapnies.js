@@ -339,11 +339,11 @@ class Companies extends React.Component{
         return(
             <div>
             <h2 className="text-center">Firmy</h2>
-            <p className="px-2"><button onClick={this.swalAddCompany} className="btn btn-primary">Dodaj firmę</button></p>
+            <p className="px-2 text-center"><button onClick={this.swalAddCompany} className="btn btn-primary">Dodaj firmę</button></p>
             <div className="table-wrapper">
                 <table className="custom-fancytable">
                     <thead>
-                        <tr> 
+                        <tr className="bg-primary bg-gradient text-light"> 
                             <th data-sortas="case-insensitive">Nazwa firmy</th> 
                             <th className="no-action">Komenatrz</th>
                             <th className="no-action th-action">Akcje</th> 
@@ -353,10 +353,10 @@ class Companies extends React.Component{
                         {companies.map((company, i) => {
 
                             return(
-                            <tr key={i} data-company_id={company.id}>
+                            <tr key={company.id} data-company_id={company.id}>
                                 <td>{company.name}</td>                            
                                 <td className="no-search">{company.comments}</td>
-                                <td className="no-search td-action"><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeCompany(ev)}} title="usuń" /><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editCompany(ev)}} title="edytuj"/></td>
+                                <td className="no-search td-action"><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editCompany(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeCompany(ev)}} title="usuń" /></td>
                             </tr>
                             )
                         })}      

@@ -59,12 +59,6 @@ let bindDatesInputsInSwal = (swalWindow) =>{
     }) 
 }
 
-let handleActionTypesSelectChange = (ev) =>{
-    // handle Select BgColor
-    let evTarget = $(ev.target);
-    ev.target.classList = `action-type-${evTarget.val()} w-100`;
-}
-
 let bindDatesInputs = (parent) =>{
     let dateInputs = parent.find('input[type="date"]');
     dateInputs.each((ind, input)=>{
@@ -76,12 +70,16 @@ let bindDatesInputs = (parent) =>{
     }) 
 }
 
+let handleMonthsInputLabelClick = (ev) =>{
+    ev.target.showPicker();
+}
+
 const exportedObject = {
     YMDtoDMY,
     bindAgreementTypesSelectInSwal,
     bindDatesInputsInSwal,
     bindDatesInputs,
-    handleActionTypesSelectChange,
+    handleMonthsInputLabelClick,
 };
 
 export default  exportedObject;

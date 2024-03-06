@@ -13,26 +13,27 @@ if(inputVal.length === 0){
     inputJQ.addClass('invalid');
 }else if(!checkBoxs.includes(String((inputJQ.attr('type'))).toLowerCase())){
     if(inputName === 'email'){
-    pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     }else if(nameInputValidation.includes(inputName)){
-    pattern = /^[a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ][a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ\s\-]*$/
+        pattern = /^[a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ][a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ\s\-]*$/
     }else if(passwordInputValidation.includes(inputName)){
-    pattern = /^[a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ0-9\*\._][a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ\-0-9\*\._]*$/
+        pattern = /^[a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ0-9\*\._][a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ\-0-9\*\._]*$/
     }else if(inputName === 'login'){
-    pattern = /^[A-Za-z0-9][A-Za-z0-9._]{2,19}$/
+        pattern = /^[A-Za-z0-9][A-Za-z0-9._]{2,19}$/
     }else{
-    pattern = /.\n*/
+        pattern = /.\n*/
     }
 
     let result = pattern.test(inputVal);
     
     if(!result){
-    inputJQ.addClass('invalid');
+        inputJQ.addClass('invalid');
     }else{
-    inputJQ.removeClass('invalid');
+        inputJQ.removeClass('invalid');
     }
-}
-}
+
+    return result
+}}
 
 function formValidation(formJQ){
 let nameInputValidation = ['name', 'surname', 'first_name', 'last_name']
@@ -86,6 +87,22 @@ formJQ.find('input[required]').each((index, input)=>{
     }else{
         inputJQ.removeClass('invalid');
     }
+    }
+})
+
+formJQ.find('select[required]').each((index, select)=>{
+    let selectJQ = $(select);
+    let selecttVal = String(selectJQ.val());
+
+    if(selecttVal.length === 0){
+        selectJQ.addClass('invalid');
+        validation = false;
+
+        selectJQ.change((ev)=>{
+            let evTarget = $(ev.target);
+            inputValidation(evTarget);
+        });
+    
     }
 })
 

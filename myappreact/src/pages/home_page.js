@@ -31,6 +31,7 @@ class HomePage extends React.Component{
     super(props);
     this.state={
       username : '',
+      date: '',
     }
   }
 
@@ -65,6 +66,17 @@ class HomePage extends React.Component{
 
   componentDidMount(){
     this.whoami();
+    const todayDate = new Date();
+    let day = todayDate.getDate();
+    let month = todayDate.getMonth();
+    let year = todayDate.getFullYear();
+
+    if(day<10){day = "0" + day;}
+    if(month<10){month = "0" + (month+1);}
+    if(year<10){year = "0" + year;}
+
+    let todayDateDisplay = `${day}-${month}-${year}`;
+    this.setState({date: todayDateDisplay});
   }
 
   render(){
@@ -72,7 +84,7 @@ class HomePage extends React.Component{
     return(
       <div className='homePage'>
           <NavBarTop handleLogout={this.props.handleLogout}/>
-          <div className='text-primary noHover username-container'><FontAwesomeIcon icon={faUser} /><span className='px-1'>{this.state.username}</span></div>
+          <div className='text-primary noHover username-container'><span className='px-2 text-dark'>{this.state.date}</span><FontAwesomeIcon icon={faUser} /><span className='px-1'>{this.state.username}</span></div>
           <div className='container-xxl d-flex px-0 justify-content-center'>
             <div className='content-container px-1 p-md-3'>
               <Routes>

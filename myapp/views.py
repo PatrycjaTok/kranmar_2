@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.db.models import F, Value
+from django.db.models import F, Value, Subquery, OuterRef
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views import View
@@ -121,7 +121,7 @@ class EmployeeRemoveView(View):
             employee_id = int(data.get('employeeId'))
             if employee_id:
                 try:
-                    employee = Employee.objects.get(id=employee_id)
+                    employee = Employee.objects.get(id=employee_id, user=request.user)
                     full_name = employee.full_name
                     employee.delete()
                     return JsonResponse({"action_success": True, 'full_name': full_name})
@@ -149,7 +149,7 @@ class EmployeeEditView(View):
                 default_build = data.get('default_build', None)
                 comments = data.get('comments', None)
                 try:
-                    employee = Employee.objects.filter(id=employee_id)
+                    employee = Employee.objects.filter(user_id=request.user.id, id=employee_id)
                     employee.update(first_name=first_name, last_name=last_name, agreement_type=agreement_type, agreement_end_date=agreement_end_date, medical_end_date=medical_end_date, building_license_end_date=building_license_end_date, default_build=default_build, comments=comments)
                     return JsonResponse({"action_success": True, "messages": {"success": "Edytowano pracownika: " + first_name + ' ' + last_name}})
                 except:
@@ -168,7 +168,7 @@ class GetEmployeeByIdView(View):
             employee_id = int(data.get('employeeId'))
             if employee_id:
                 try:
-                    employee = list(Employee.objects.filter(id=employee_id).values())[0]
+                    employee = list(Employee.objects.filter(user_id=request.user.id, id=employee_id).values())[0]
                     return JsonResponse({'employee': employee})
                 except:
                     return JsonResponse({"action_success": False},
@@ -217,7 +217,7 @@ class CompanyRemoveView(View):
             company_id = int(data.get('companyId'))
             if company_id:
                 try:
-                    company = Company.objects.get(id=company_id)
+                    company = Company.objects.get(user_id=request.user.id, id=company_id)
                     name = company.name
                     company.delete()
                     return JsonResponse({"action_success": True, 'name': name})
@@ -237,7 +237,7 @@ class GetCompanyByIdView(View):
             company_id = int(data.get('companyId'))
             if company_id:
                 try:
-                    company = list(Company.objects.filter(id=company_id).values())[0]
+                    company = list(Company.objects.filter(user_id=request.user.id, id=company_id).values())[0]
                     return JsonResponse({'company': company})
                 except:
                     return JsonResponse({"action_success": False},
@@ -257,7 +257,7 @@ class CompanyEditView(View):
                 name = data.get('company_name', None)
                 comments = data.get('comments', None)
                 try:
-                    company = Company.objects.filter(id=company_id)
+                    company = Company.objects.filter(user_id=request.user.id, id=company_id)
                     company.update(name=name, comments=comments)
                     return JsonResponse({"action_success": True, "messages": {"success": "Edytowano firmę: " + name}})
                 except:
@@ -267,19 +267,197 @@ class CompanyEditView(View):
 
 # Dashboard page
 class SubstitutionsView(View):
-    def get(self, request):
+    history = False
+
+    def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             try:
-                # substitutions = list(Substitution.objects.filter(user_id=request.user.id).values())
-                substitutions = list(Substitution.objects.filter(user_id=request.user.id).values())
+                substitutions = list(Substitution.objects.filter(user_id=request.user.id, history=self.history).values())
+
+                for substitution in substitutions:
+
+                    substitution['substituted_full_name'] = (
+                        Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).full_name if
+                        (substitution['substituted'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else Company.objects.get(
+                            user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).name if (substitution[
+                        'substituted'] and Company.objects.filter(
+                            user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else None)
+
+                    substitution['substituted_by_full_name'] = (
+                        Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).full_name if
+                        (substitution['substituted_by'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else Company.objects.get(
+                            user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).name if (substitution[
+                        'substituted_by'] and Company.objects.filter(
+                            user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else None)
 
                 return JsonResponse({"substitutions": substitutions})
             except:
-                # print(traceback.format_exc())
                 return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować zastępstw."}},
                                 status=400)
 
 
+class SubstitutionCreateView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            date = datetime.datetime.fromisoformat(data.get('date')).date() if data.get('date') else None
+            substituted = data.get('substituted', None)
+            substituted_by = data.get('substituted_by', None)
+            action_type = data.get('action_type', None)
+            location = data.get('location', None)
+            crane = data.get('crane', None)
+            duration_hours = int(data.get('duration_hours')) if data.get('duration_hours') else None
+            amount = int(data.get('amount')) if data.get('amount') else None
+            comments = data.get('comments', None)
+
+            try:
+                new_substitution = Substitution(user=request.user, date=date, substituted=substituted, substituted_by=substituted_by, action_type=action_type, location=location, crane=crane, duration_hours=duration_hours, amount=amount, comments=comments)
+                new_substitution.save()
+                return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie dodano " + Substitution.ACTION_TYPES[action_type] + "."}})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć: " + Substitution.ACTION_TYPES[action_type] + "."}},
+                                status=400)
+
+
+class SubstitutionToHistory(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            date = data.get('date', None)
+            if date is not None:
+                try:
+                    date_splited = date.split("-")
+                    year = date_splited[0]
+                    month = date_splited[1]
+                    Substitution.objects.filter(user_id=request.user.id, date__year=year, date__month=month).update(history=True)
+                    return JsonResponse({"action_success": True, "messages": {"success": "Przeniesiono do historii zastępstwa z okresu: " + date + "."}})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się przenieść zastępstw do historii."}},
+                                    status=400)
+
+
+class SubstitutionRemoveView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            substitution_id = int(data.get('substitution_id'))
+            if substitution_id:
+                try:
+                    substitution = Substitution.objects.get(user_id=request.user.id, id=substitution_id)
+                    substitution.delete()
+                    return JsonResponse({"action_success": True})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class GetSubstitutionByIdView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            substitution_id = int(data.get('substitution_id'))
+            if substitution_id:
+                try:
+                    substitution = list(Substitution.objects.filter(user_id=request.user.id, id=substitution_id).values())[0]
+
+                    substitution['substituted_full_name'] = (
+                        Employee.objects.get(user_id=request.user.id,
+                                             id=int(substitution['substituted'].split('-')[-1])).full_name if
+                        (substitution['substituted'].split('-')[0].startswith("employee") and Employee.objects.filter(
+                            user_id=request.user.id,
+                            id=int(substitution['substituted'].split('-')[-1])).exists()) else Company.objects.get(
+                            user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).name if (
+                                    substitution[
+                                        'substituted'] and Company.objects.filter(
+                                user_id=request.user.id,
+                                id=int(substitution['substituted'].split('-')[-1])).exists()) else None)
+
+                    substitution['substituted_by_full_name'] = (
+                        Employee.objects.get(user_id=request.user.id,
+                                             id=int(substitution['substituted_by'].split('-')[-1])).full_name if
+                        (substitution['substituted_by'].split('-')[0].startswith(
+                            "employee") and Employee.objects.filter(user_id=request.user.id, id=int(
+                            substitution['substituted_by'].split('-')[-1])).exists()) else Company.objects.get(
+                            user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).name if (
+                                    substitution[
+                                        'substituted_by'] and Company.objects.filter(
+                                user_id=request.user.id,
+                                id=int(substitution['substituted_by'].split('-')[-1])).exists()) else None)
+
+                    return JsonResponse({'substitution': substitution})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+class SubstitutionEditView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+
+            substitution_id = int(data.get('substitution_id'))
+            if substitution_id:
+                date = datetime.datetime.fromisoformat(data.get('date')).date() if data.get('date') else None
+                substituted = data.get('substituted', None)
+                substituted_by = data.get('substituted_by', None)
+                action_type = data.get('action_type', None)
+                location = data.get('location', None)
+                crane = data.get('crane', None)
+                duration_hours = int(data.get('duration_hours')) if data.get('duration_hours') else None
+                amount = int(data.get('amount')) if data.get('amount') else None
+                comments = data.get('comments', None)
+
+                try:
+                    substitution = Substitution.objects.filter(user_id=request.user.id, id=substitution_id)
+                    substitution.update(date=date, substituted=substituted, substituted_by=substituted_by, action_type=action_type, location=location, crane=crane, duration_hours=duration_hours, amount=amount, comments=comments)
+
+                    return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie edytowano pozycję." }})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować pozycji."}},
+                                    status=400)
+
+
+class SubstitutionsToRemoveFromDB(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            date = data.get('date', None)
+            if date is not None:
+                try:
+                    date_splited = date.split("-")
+                    year = date_splited[0]
+                    month = date_splited[1]
+                    Substitution.objects.filter(user_id=request.user.id, date__year=year, date__month=month).delete()
+                    return JsonResponse({"action_success": True, "messages": {"success": "Usunięto na zawsze pozycje z: " + date + "."}})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się usunąć pozycji z historii."}},
+                                    status=400)
+
+
+# Other
 class EmployeesSelectView(View):
     def get(self, request):
         if request.user.is_authenticated:
