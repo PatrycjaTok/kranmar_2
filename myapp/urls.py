@@ -33,4 +33,5 @@ urlpatterns = [
     path('substitution-edit/', views.SubstitutionEditView.as_view()),
     path('get-history-substitutions/', views.SubstitutionsView.as_view(history=True)),
     path('substitutions-to-remove-from-db/', views.SubstitutionsToRemoveFromDB.as_view()),
+    path('get-info-box-data/', views.InfoBoxData.as_view()),
 ]

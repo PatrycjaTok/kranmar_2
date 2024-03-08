@@ -548,6 +548,21 @@ nav .navbar-toggler span{
     cursor: default !important;
 }
 
+.min-w-120{
+    min-width: 120px;
+}
+
+.info-box-swal-popup h2{
+    color: red;
+    font-weight: bolder;
+    text-decoration: underline;
+    margin-bottom: 1.5rem;
+}
+
+.info-box-swal-popup h4{
+    color: red;
+}
+
 /* --RESPONSIVE-- */
 
 /* < lg */

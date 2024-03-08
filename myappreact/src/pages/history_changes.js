@@ -76,9 +76,8 @@ class HistoryChanges extends React.Component{
         let backed_result = false;
 
         let htmlContent = <div className="swal-form remove-substitution-from-db-form">
-            <h3 className="text-center text-warning pb-0">Usuń na zawsze
-            </h3>
-            <p className="pb-0 text-danger"><b>UWAGA!</b><br></br> wybrane pozycje zostaną <span className="fw-bold text-decoration-underline">na zawsze</span> (nieodwracalnie) usunięte.</p>
+            <h2 className="text-center text-warning pb-0">Usuń na zawsze</h2>
+            <h4 className="pb-0 text-danger"><b>UWAGA!</b><br></br> wybrane pozycje zostaną na zawsze (<span className="fw-bold text-decoration-underline">nieodwracalnie</span>) usunięte.</h4>
             <p className="pb-2">Jeśli mimo to chcesz kontynuować wybierz miesiąc i rok.</p>
             <div>
                 <form noValidate>

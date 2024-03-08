@@ -5,7 +5,7 @@ import withReactContent from 'sweetalert2-react-content';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEdit, faExchangeAlt} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faExchangeAlt, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
 import baseFunctions from "../utils/base_functions";
@@ -13,9 +13,10 @@ import baseHomeFunctions from "../utils/base_functions_home.js";
 import SelectEmployeesAndCompanies from "../elements/select_employees_companies.js";
 import SelectActionTypes from "../elements/select_action_types.js";
 import AddSubstitutionRow from "../elements/add_substitution_table_row.js";
+import StartDisplayingInfoBox from "../elements/info_box.js";
 
 const cookies = new Cookies();
-library.add(faTrash, faEdit, faExchangeAlt);
+library.add(faTrash, faEdit, faExchangeAlt, faExclamationTriangle);
 
 const initialAddSubstitutionDict = {
     date: '',
@@ -35,7 +36,8 @@ class Dashboard extends React.Component{
         this.state={
             substitutions: [],
             actionTypes: {},
-            AddSubstitutionRow: {...initialAddSubstitutionDict}
+            AddSubstitutionRow: {...initialAddSubstitutionDict},
+            infoBox:{show: false, classes: 'd-none text-warning'}
         }
         this.handleSubstitutedByChange = this.handleSubstitutedByChange.bind(this);
         this.handleSubstitutedChange = this.handleSubstitutedChange.bind(this);
@@ -60,6 +62,43 @@ class Dashboard extends React.Component{
             success: function(data) {
                 if(data.substitutions){
                     self.setState({substitutions: data.substitutions});            
+                }               
+            },
+            error: function(xhr, status, err) {
+                let errorText = xhr.responseJSON.messages.errors;   
+                withReactContent(Swal).fire({
+                    title: errorText,
+                    showConfirmButton: false,
+                    icon: 'error',
+                    timer: 3000,
+                    // timerProgressBar: true
+                })                       
+            }
+        });
+    }
+
+    fetchInfoBoxData = () =>{
+        let self = this;
+        
+        $.ajax({
+            url: baseURL + '/get-info-box-data/',
+            method: 'GET',
+            dataType: 'json',
+            // async: false,
+            headers: {
+              "Content-Type": 'application/json',
+              "X-CSRFToken": cookies.get("csrftoken")
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(data) {
+                if(data.info_box_data){
+                    let result = data.info_box_data
+                    if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
+                        self.setState({infoBox: {show: true, classes:'text-warning'}}); 
+                        StartDisplayingInfoBox(result);
+                    }                              
                 }               
             },
             error: function(xhr, status, err) {
@@ -457,6 +496,7 @@ class Dashboard extends React.Component{
 
     componentDidMount(){
         this.fetchData(); 
+        this.fetchInfoBoxData();
 
         setTimeout(() => { 
             $(".custom-fancytable").fancyTable({
@@ -480,7 +520,7 @@ class Dashboard extends React.Component{
        
         return(
             <div className="position-relative">
-            <h2 className="text-center pb-2 pb-lg-3">Zastępstwa</h2>
+            <h2 className="text-center pb-2 pb-lg-3">Zastępstwa <span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span></h2>
             <button className="btn btn-secondary to-history-btn" onClick={()=>{this.ToHistorySwal()}}>Przenieś <FontAwesomeIcon icon={faExchangeAlt} className="px-2" title="Przeniś do historii"></FontAwesomeIcon></button>
             <div className="table-wrapper">
                 <div></div>

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.db.models import F, Value, Subquery, OuterRef
+from django.db.models import F, Value, Subquery, OuterRef, Q
+from django.db.models.functions import Concat
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views import View
@@ -455,6 +456,44 @@ class SubstitutionsToRemoveFromDB(View):
                 except:
                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się usunąć pozycji z historii."}},
                                     status=400)
+
+
+class InfoBoxData(View):
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            try:
+                now_date = datetime.datetime.now().date()
+                deadline_date = now_date + datetime.timedelta(days=14)
+                user_employees = Employee.objects.filter(user_id=request.user.id)
+                employees = list(user_employees.filter(
+                    Q(agreement_end_date__isnull=False) & Q(agreement_end_date__lte=deadline_date) |
+                    Q(medical_end_date__isnull=False) & Q(medical_end_date__lte=deadline_date) |
+                    Q(building_license_end_date__isnull=False) & Q(building_license_end_date__lte=deadline_date)
+                    ).annotate(full_name=Concat('first_name', Value(' '), 'last_name')).values())
+                agreement_end_date_list, medical_end_date_list, building_license_end_date_list = [], [], []
+
+                for employee in employees:
+                    empl_agreement_end_date = employee['agreement_end_date']
+                    empl_medical_end_date = employee['medical_end_date']
+                    empl_building_license_end_date = employee['building_license_end_date']
+
+                    if empl_agreement_end_date is not None and empl_agreement_end_date <= deadline_date:
+                        delta = (empl_agreement_end_date - now_date).days if empl_agreement_end_date > now_date else 0
+                        agreement_end_date_list.append({'name': employee['full_name'], 'date': empl_agreement_end_date, 'delta': delta})
+
+                    if empl_medical_end_date is not None and empl_medical_end_date <= deadline_date:
+                        delta = (empl_medical_end_date - now_date).days if empl_medical_end_date > now_date else 0
+                        medical_end_date_list.append({'name': employee['full_name'], 'date': empl_medical_end_date, 'delta': delta})
+
+                    if empl_building_license_end_date is not None and empl_building_license_end_date <= deadline_date:
+                        delta = (empl_building_license_end_date - now_date).days if empl_building_license_end_date > now_date else 0
+                        building_license_end_date_list.append({'name': employee['full_name'], 'date': empl_building_license_end_date, 'delta': delta})
+
+                return JsonResponse({"info_box_data": {'building_license_end_date': building_license_end_date_list, 'medical_end_date': medical_end_date_list, 'agreement_end_date': agreement_end_date_list}})
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować danych o terminach umów/badań/uprawnień pracowników."}},
+                                status=400)
 
 
 # Other
