@@ -552,11 +552,17 @@ class Dashboard extends React.Component{
                             if((substitution.substituted).startsWith('employee-')){
                                 let href = "/employee-data?empl=" + (substitution.substituted).split('-')[1];
                                 substitutedButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>)
+                            }else if((substitution.substituted).startsWith('company-')){
+                                let href = "/employee-data?comp=" + (substitution.substituted).split('-')[1];
+                                substitutedButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>)
                             }
                             
                             let substitutedByButton = '';
                             if((substitution.substituted_by).startsWith('employee-')){
                                 let href = "/employee-data?empl=" + (substitution.substituted_by).split('-')[1];
+                                substitutedByButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>) 
+                            }else if((substitution.substituted_by).startsWith('company-')){
+                                let href = "/employee-data?comp=" + (substitution.substituted_by).split('-')[1];
                                 substitutedByButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>) 
                             }
 

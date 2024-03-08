@@ -30,6 +30,7 @@ class Employee extends React.Component{
     fetchData = () =>{
         let self = this;
         let employee_id =  new URLSearchParams(window.location.search).get('empl');
+        let company_id =  new URLSearchParams(window.location.search).get('comp');
         $.ajax({
             url: baseURL + '/get-single-employee-data/',
             method: 'POST',
@@ -39,7 +40,10 @@ class Employee extends React.Component{
               "Content-Type": 'application/json',
               "X-CSRFToken": cookies.get("csrftoken")
             },
-            data: JSON.stringify({employee_id : employee_id}),
+            data: JSON.stringify({
+                employee_id : employee_id,
+                company_id: company_id
+            }),
             xhrFields: {
                 withCredentials: true
             },

@@ -490,7 +490,7 @@ class InfoBoxData(View):
                         delta = (empl_building_license_end_date - now_date).days if empl_building_license_end_date > now_date else 0
                         building_license_end_date_list.append({'name': employee['full_name'], 'date': empl_building_license_end_date, 'delta': delta})
 
-                return JsonResponse({"info_box_data": {'building_license_end_date': building_license_end_date_list, 'medical_end_date': medical_end_date_list, 'agreement_end_date': agreement_end_date_list}})
+                return JsonResponse({"info_box_data": {'agreement_end_date': agreement_end_date_list, 'medical_end_date': medical_end_date_list, 'building_license_end_date': building_license_end_date_list}})
             except:
                 return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować danych o terminach umów/badań/uprawnień pracowników."}},
                                 status=400)
@@ -508,6 +508,7 @@ class SingleEmployeeData(View):
                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
 
             employee_id = data.get('employee_id', None)
+            company_id = data.get('company_id', None)
 
             if employee_id:
                 try:
@@ -554,9 +555,54 @@ class SingleEmployeeData(View):
                 except:
                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować danych pracownika."}},
                                     status=400)
+            elif company_id:
+                try:
+                    substitutions_all = Substitution.objects.filter(user_id=request.user.id, history=False)
+                    substitutions_history_all = Substitution.objects.filter(user_id=request.user.id, history=True)
+                    substitutions = list(substitutions_all.filter(Q(substituted=f'company-{company_id}') | Q(substituted_by=f'company-{company_id}')).values())
+                    substitutions_history = list(substitutions_history_all.filter(Q(substituted=f'company-{company_id}') | Q(substituted_by=f'company-{company_id}')).values())
+                    action_types = Substitution.ACTION_TYPES
+                    employee_full_name = Company.objects.get(user_id=request.user.id, id=company_id).name
+
+                    for substitution in substitutions:
+
+                        substitution['substituted_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).full_name if
+                            (substitution['substituted'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).name if (substitution[
+                            'substituted'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else None)
+
+                        substitution['substituted_by_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).full_name if
+                            (substitution['substituted_by'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).name if (substitution[
+                            'substituted_by'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else None)
+
+                    for substitution in substitutions_history:
+
+                        substitution['substituted_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).full_name if
+                            (substitution['substituted'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).name if (substitution[
+                            'substituted'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else None)
+
+                        substitution['substituted_by_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).full_name if
+                            (substitution['substituted_by'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).name if (substitution[
+                            'substituted_by'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else None)
+
+                    return JsonResponse({"employee_full_name": employee_full_name, "substitutions": substitutions, 'substitutions_history': substitutions_history, 'action_types': action_types})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować danych firmy."}},
+                                    status=400)
             else:
                 return JsonResponse(
-                    {"action_success": False, "messages": {"errors": "Nie udało się znaleźć pracownika."}},
+                    {"action_success": False, "messages": {"errors": "Nie udało się znaleźć pracownika/firmy."}},
                     status=400)
 
 

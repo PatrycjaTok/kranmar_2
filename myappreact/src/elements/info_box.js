@@ -28,7 +28,7 @@ function StartDisplayingInfoBox(data, setIntervalBool=true, firstUsage=true){
     for (const [key, value] of Object.entries(data)) {
         if(value.length > 0){
             let contextcContainer = $(`<div></div>`);
-            contextcContainer.append(`<h4 class="fw-bold">${titles[key]} dla: </h4>`);
+            contextcContainer.append(`<h5 class="fw-bold">${titles[key]} dla: </h5>`);
             
             value.forEach(infoEmployee => {
                 contextcContainer.append(`<p><b>${infoEmployee['name']}</b>: mija za <b>${infoEmployee['delta']}</b> dni (${baseHomeFunctions.YMDtoDMY(infoEmployee['date'])})</p>`);

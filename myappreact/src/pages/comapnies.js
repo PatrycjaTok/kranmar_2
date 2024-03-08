@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEdit} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 // import { Select2 } from "select2-react-component";
 import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
@@ -13,7 +14,7 @@ import baseFunctions from "../utils/base_functions";
 import baseHomeFunctions from "../utils/base_functions_home.js";
 
 const cookies = new Cookies();
-library.add(faTrash, faEdit);
+library.add(faTrash, faEdit, faExternalLinkAlt);
 let agreementsTypes = {};
 
 
@@ -351,12 +352,13 @@ class Companies extends React.Component{
                     </thead>
                     <tbody>
                         {companies.map((company, i) => {
-
+                            let href = `/employee-data?comp=${company.id}`;
+                            
                             return(
                             <tr key={company.id} data-company_id={company.id}>
                                 <td>{company.name}</td>                            
                                 <td className="no-search">{company.comments}</td>
-                                <td className="no-search td-action"><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editCompany(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeCompany(ev)}} title="usuń" /></td>
+                                <td className="no-search td-action"><Link to={href}><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editCompany(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeCompany(ev)}} title="usuń" /></td>
                             </tr>
                             )
                         })}      
