@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="InfoBox on EmployeePage -&gt; multiple click-events fix.">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="wsp">
       <change beforePath="$PROJECT_DIR$/myappreact/src/elements/info_box.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/info_box.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -297,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709897924082</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="wsp">
+      <option name="closed" value="true" />
+      <created>1709897933740</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1709897933740</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -312,7 +320,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="workspace file update" />
     <MESSAGE value="Frameworks/Libraries" />
     <MESSAGE value="Fix staticfiles error" />
     <MESSAGE value="Update registry panel" />
@@ -337,6 +344,7 @@
     <MESSAGE value="Info-Box on Employeepage update." />
     <MESSAGE value="Wsp" />
     <MESSAGE value="InfoBox on EmployeePage -&gt; multiple click-events fix." />
-    <option name="LAST_COMMIT_MESSAGE" value="InfoBox on EmployeePage -&gt; multiple click-events fix." />
+    <MESSAGE value="wsp" />
+    <option name="LAST_COMMIT_MESSAGE" value="wsp" />
   </component>
 </project>

@@ -38,8 +38,7 @@ function StartDisplayingInfoBox(data, setIntervalBool=true, firstUsage=true){
         }
     }
     
-    infoBox.unbind('click').click((ev)=>{
-        console.log('click')
+    infoBox.unbind('click').click(()=>{
             // Swal options
         withReactContent(Swal).fire({
             html: htmlContent,

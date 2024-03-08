@@ -98,7 +98,9 @@ class Dashboard extends React.Component{
                     if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
                         self.setState({infoBox: {show: true, classes:'text-warning'}}); 
                         StartDisplayingInfoBox(result);
-                    }                              
+                    }else{
+                        self.setState({infoBox: {show: false, classes:'d-none text-warning'}});  
+                    }                               
                 }               
             },
             error: function(xhr, status, err) {

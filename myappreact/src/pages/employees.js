@@ -76,6 +76,8 @@ class Employees extends React.Component{
                     let result = data.info_box_data
                     if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
                         self.setState({infoBox: {show: true, classes:'text-warning', data: result}}, ()=>{StartDisplayingInfoBox(self.state.infoBox.data, setIntervalBool);});  
+                    }else{
+                        self.setState({infoBox: {show: false, classes:'d-none text-warning', data: {}}});  
                     }                              
                 }               
             },
