@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import baseHomeFunctions from "../utils/base_functions_home.js";
 
-function StartDisplayingInfoBox(data, setIntervalBool=true){
+function StartDisplayingInfoBox(data, setIntervalBool=true, firstUsage=true){
     let infoBox = $('#infoBox');
     let titles = {
         'agreement_end_date': 'UMOWY',
@@ -38,7 +38,8 @@ function StartDisplayingInfoBox(data, setIntervalBool=true){
         }
     }
     
-    infoBox.click((ev)=>{
+    infoBox.unbind('click').click((ev)=>{
+        console.log('click')
             // Swal options
         withReactContent(Swal).fire({
             html: htmlContent,
