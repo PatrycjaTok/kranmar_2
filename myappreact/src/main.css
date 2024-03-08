@@ -6,6 +6,8 @@
     --customColorDefaultLight: #a7daee;
     --customColorDefaultText: #03709b;
     --CustomHoverWhiteText: rgb(204, 204, 204);
+    --CustomTextMuted: rgb(180, 180, 180);
+    --CustomTextMutedHover: rgb(158, 158, 158);
 
     /* Agreements colors */
     --agreementB2B: rgb(221, 188, 240);
@@ -226,9 +228,13 @@ table .td-action{
     height: 100%;
 }
 
+table .td-action a{
+    color: var(--customColorDefaultMedium);
+}
+
 table .td-action svg{
-    padding-left: 0.6em;
-    padding-right: 0.6em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
 }
 
 table .td-action, table .th-action{
@@ -344,9 +350,12 @@ table td .react-select-custom > div:not([class$="-menu"]) > div > div{
     align-items: center;
 }
 
-
 a.active:not(.dropdown-toggle){
     cursor: default;
+}
+
+.custom-accordion-class{
+    width: calc(100vw - 3em);
 }
 
 .customTextColor{
@@ -563,6 +572,29 @@ nav .navbar-toggler span{
     color: red;
 }
 
+#infoBox{
+    cursor: pointer;
+}
+
+.redirect-icon{
+    font-size: smaller;
+    cursor: pointer;
+    color: var(--CustomTextMuted);
+}
+
+.redirect-icon:hover, .redirect-icon:active{
+    color: var(--CustomTextMutedHover);
+}
+
+.font-smaller{
+    font-size: smaller !important;
+}
+
+.accordion-button.collapsed{
+    background-color: #dadada;
+    box-shadow:  0 0 0 0.25rem rgba(114, 114, 114, 0.25);
+}
+
 /* --RESPONSIVE-- */
 
 /* < lg */
@@ -578,6 +610,10 @@ nav .navbar-toggler span{
         margin: 0;
         height: 100%;
         /* display: inline-block; */
+    }
+
+    .custom-accordion-class{
+        width: calc(100vw - 1em);
     }
 
 }
@@ -624,7 +660,9 @@ nav .navbar-toggler span{
         overflow: auto;
     }
     
-
+    .custom-accordion-class{
+        width: calc(100vw - 0.2em);
+    }
 
 }
 

@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEdit, faExchangeAlt, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faExchangeAlt, faExclamationTriangle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
 import baseFunctions from "../utils/base_functions";
@@ -546,13 +547,25 @@ class Dashboard extends React.Component{
                     <tbody>                        
                         {substitutions.map((substitution, i) => {
                             const actionTypeClassName = `action-type-${substitution.action_type}`;
-                        
+                            let substitutedButton = '';
+                            
+                            if((substitution.substituted).startsWith('employee-')){
+                                let href = "/employee-data?empl=" + (substitution.substituted).split('-')[1];
+                                substitutedButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>)
+                            }
+                            
+                            let substitutedByButton = '';
+                            if((substitution.substituted_by).startsWith('employee-')){
+                                let href = "/employee-data?empl=" + (substitution.substituted_by).split('-')[1];
+                                substitutedByButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>) 
+                            }
+
                             return(
                             <tr key={substitution.id} data-substitution_id={substitution.id}>                               
                                 <td>{i+1}</td>
                                 <td data-sortvalue={substitution.date}>{baseHomeFunctions.YMDtoDMY(substitution.date)}</td>
-                                <td>{substitution.substituted_full_name}</td>
-                                <td>{substitution.substituted_by_full_name}</td>
+                                <td>{substitution.substituted_full_name} {substitutedButton}</td>
+                                <td>{substitution.substituted_by_full_name} {substitutedByButton}</td>
                                 <td className={actionTypeClassName}>{this.state.actionTypes[substitution.action_type]}</td>
                                 <td>{substitution.location}</td>
                                 <td>{substitution.crane}</td>

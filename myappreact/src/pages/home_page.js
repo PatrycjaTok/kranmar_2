@@ -21,6 +21,7 @@ import HistoryChanges from './history_changes.js';
 import HistoryHolidays from './history_holidays.js';
 import Settings from './settings.js';
 import Companies from './comapnies.js';
+import Employee from './employee_data.js';
 
 const cookies = new Cookies();
 library.add(faUser);
@@ -96,6 +97,7 @@ class HomePage extends React.Component{
                 <Route element={<HistoryChanges />} path="/history-changes" />
                 <Route element={<HistoryHolidays />} path="/history-holidays" />
                 <Route element={<Settings />} path="/settings" />
+                <Route element={<Employee />} path="/employee-data" />
                 <Route path="*" element={<Navigate to ="/" />}/>
               </Routes>                            
             </div>        

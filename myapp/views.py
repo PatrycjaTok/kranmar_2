@@ -496,6 +496,70 @@ class InfoBoxData(View):
                                 status=400)
 
 
+# Single Employee data
+class SingleEmployeeData(View):
+
+    def post(self, request):
+        if request.user.is_authenticated:
+
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            employee_id = data.get('employee_id', None)
+
+            if employee_id:
+                try:
+                    substitutions_all = Substitution.objects.filter(user_id=request.user.id, history=False)
+                    substitutions_history_all = Substitution.objects.filter(user_id=request.user.id, history=True)
+                    substitutions = list(substitutions_all.filter(Q(substituted=f'employee-{employee_id}') | Q(substituted_by=f'employee-{employee_id}')).values())
+                    substitutions_history = list(substitutions_history_all.filter(Q(substituted=f'employee-{employee_id}') | Q(substituted_by=f'employee-{employee_id}')).values())
+                    action_types = Substitution.ACTION_TYPES
+                    employee_full_name = Employee.objects.get(user_id=request.user.id, id=employee_id).full_name
+
+                    for substitution in substitutions:
+
+                        substitution['substituted_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).full_name if
+                            (substitution['substituted'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).name if (substitution[
+                            'substituted'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else None)
+
+                        substitution['substituted_by_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).full_name if
+                            (substitution['substituted_by'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).name if (substitution[
+                            'substituted_by'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else None)
+
+                    for substitution in substitutions_history:
+
+                        substitution['substituted_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).full_name if
+                            (substitution['substituted'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).name if (substitution[
+                            'substituted'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted'].split('-')[-1])).exists()) else None)
+
+                        substitution['substituted_by_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).full_name if
+                            (substitution['substituted_by'].split('-')[0].startswith("employee") and Employee.objects.filter(user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).name if (substitution[
+                            'substituted_by'] and Company.objects.filter(
+                                user_id=request.user.id, id=int(substitution['substituted_by'].split('-')[-1])).exists()) else None)
+
+                    return JsonResponse({"employee_full_name": employee_full_name, "substitutions": substitutions, 'substitutions_history': substitutions_history, 'action_types': action_types})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować danych pracownika."}},
+                                    status=400)
+            else:
+                return JsonResponse(
+                    {"action_success": False, "messages": {"errors": "Nie udało się znaleźć pracownika."}},
+                    status=400)
+
+
 # Other
 class EmployeesSelectView(View):
     def get(self, request):

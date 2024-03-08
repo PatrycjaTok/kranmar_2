@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faUserEdit, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faUserEdit, faExclamationTriangle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
 import baseFunctions from "../utils/base_functions";
@@ -13,7 +14,7 @@ import baseHomeFunctions from "../utils/base_functions_home.js";
 import StartDisplayingInfoBox from "../elements/info_box.js";
 
 const cookies = new Cookies();
-library.add(faTrash, faUserEdit, faExclamationTriangle);
+library.add(faTrash, faUserEdit, faExclamationTriangle, faExternalLinkAlt);
 let agreementsTypes = {};
 
 
@@ -530,7 +531,8 @@ class Employees extends React.Component{
                     <tbody>
                         {employees.map((employee, i) => {
                             const agreeClassName = `agreement-${employee.agreement_type}`;
-
+                            let href = `/employee-data?empl=${employee.id}`;
+                            
                             return(
                             <tr key={employee.id} data-employee_id={employee.id}>
                                 <td>{employee.first_name}</td>
@@ -541,7 +543,7 @@ class Employees extends React.Component{
                                 <td data-sortvalue={employee.building_license_end_date}>{baseHomeFunctions.YMDtoDMY(employee.building_license_end_date)}</td>
                                 <td>{employee.default_build}</td>
                                 <td className="no-search">{employee.comments}</td>
-                                <td className="no-search td-action"><FontAwesomeIcon icon={faUserEdit} onClick={(ev)=>{this.editEmployee(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeEmployee(ev)}} title="usuń" /></td>
+                                <td className="no-search td-action"><Link to={href}><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link><FontAwesomeIcon icon={faUserEdit} onClick={(ev)=>{this.editEmployee(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeEmployee(ev)}} title="usuń" /></td>
                             </tr>
                             )
                         })}      
