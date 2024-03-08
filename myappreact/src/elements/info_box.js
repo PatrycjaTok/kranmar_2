@@ -4,21 +4,23 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import baseHomeFunctions from "../utils/base_functions_home.js";
 
-function StartDisplayingInfoBox(data){
+function StartDisplayingInfoBox(data, setIntervalBool=true){
     let infoBox = $('#infoBox');
     let titles = {
         'agreement_end_date': 'UMOWY',
         'medical_end_date': 'BADAŃ LEKARSKICH',
         'building_license_end_date': 'UPRAWNIEŃ',
     }
-    
-    setInterval(()=>{
-        if(infoBox.hasClass('text-warning')){
-            infoBox.removeClass('text-warning').addClass('text-danger');
-        }else{
-            infoBox.removeClass('text-danger').addClass('text-warning');
-        }
-    }, 1000);
+
+    if(setIntervalBool){
+        setInterval(()=>{
+            if(infoBox.hasClass('text-warning')){
+                infoBox.removeClass('text-warning').addClass('text-danger');
+            }else{
+                infoBox.removeClass('text-danger').addClass('text-warning');
+            }
+        }, 1000);
+    }
 
     let htmlContent = $(`<div></div>`);
     htmlContent.append(`<h2 class="text-center text-danger pb-2">!! Upływa/upłynął termin !!</h2>`);     
@@ -50,7 +52,7 @@ function StartDisplayingInfoBox(data){
                 popup: 'info-box-swal-popup'                   
             },    
         });
-    })
+    });
 }
 
 export default StartDisplayingInfoBox;

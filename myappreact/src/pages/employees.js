@@ -22,7 +22,7 @@ class Employees extends React.Component{
         super(props);
         this.state={
             employees: [],
-            infoBox:{show: false, classes: 'd-none text-warning'}
+            infoBox:{show: false, classes: 'd-none text-warning', data: {}}
         }
     }
 
@@ -56,7 +56,7 @@ class Employees extends React.Component{
         });
     }
 
-    fetchInfoBoxData = () =>{
+    fetchInfoBoxData = (setIntervalBool=true) =>{
         let self = this;
         
         $.ajax({
@@ -75,8 +75,7 @@ class Employees extends React.Component{
                 if(data.info_box_data){
                     let result = data.info_box_data
                     if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
-                        self.setState({infoBox: {show: true, classes:'text-warning'}}); 
-                        StartDisplayingInfoBox(result);
+                        self.setState({infoBox: {show: true, classes:'text-warning', data: result}}, ()=>{StartDisplayingInfoBox(self.state.infoBox.data, setIntervalBool);});  
                     }                              
                 }               
             },
@@ -206,7 +205,7 @@ class Employees extends React.Component{
                         withCredentials: true
                     },
                     success: function(data) {
-                        result = data;
+                        result = data;                      
                     },
                     error: function(xhr, status, err) {
                       let errorText = xhr.responseJSON.messages.errors;
@@ -227,6 +226,7 @@ class Employees extends React.Component{
                     // timerProgressBar: true
                 }).then(()=>{
                     self.fetchData();
+                    self.fetchInfoBoxData(false);
                 });
             };        
         })
@@ -273,6 +273,7 @@ class Employees extends React.Component{
                             // timerProgressBar: true
                         }).then(()=>{
                             self.fetchData();
+                            self.fetchInfoBoxData(false);
                         });   
                     },
                     error: function(xhr, status, err) {
@@ -453,6 +454,7 @@ class Employees extends React.Component{
                             // timerProgressBar: true
                         }).then(()=>{
                             self.fetchData();
+                            self.fetchInfoBoxData(false);
                         });
                     };        
                 });

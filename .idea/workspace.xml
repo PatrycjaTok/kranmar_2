@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="workspace">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kranmar/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/kranmar/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/employees.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/history_changes.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/history_changes.js" afterDir="false" />
-    </list>
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Info-Box create. (Informations about Employees's date-deadlines) c.d." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -264,7 +255,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709745130410</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Info-Box create. (Informations about Employees's date-deadlines)">
+      <option name="closed" value="true" />
+      <created>1709856546834</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1709856546834</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Info-Box create. (Informations about Employees's date-deadlines) c.d.">
+      <option name="closed" value="true" />
+      <created>1709856570508</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1709856570508</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -301,6 +308,8 @@
     <MESSAGE value="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update" />
     <MESSAGE value="Dashboard page: little select fix (adding empty option for employe/company select list)" />
     <MESSAGE value="workspace" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace" />
+    <MESSAGE value="Info-Box create. (Informations about Employees's date-deadlines)" />
+    <MESSAGE value="Info-Box create. (Informations about Employees's date-deadlines) c.d." />
+    <option name="LAST_COMMIT_MESSAGE" value="Info-Box create. (Informations about Employees's date-deadlines) c.d." />
   </component>
 </project>
