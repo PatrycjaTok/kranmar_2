@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Single EMployee's data Page create. Acces from Dashboard and EMployee Page v2">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Adding single Company's data (to single-Employee data page) . Acces from Dashboard and Company Page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/elements/info_box.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/info_box.js" afterDir="false" />
@@ -342,7 +342,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709919803509</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Adding single Company's data (to single-Employee data page) . Acces from Dashboard and Company Page">
+      <option name="closed" value="true" />
+      <created>1709922303026</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1709922303026</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -357,7 +365,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="home_page: backend" />
     <MESSAGE value="home_page: frontend frame and navigation" />
     <MESSAGE value="home_page: frontend frame and navigation update" />
     <MESSAGE value="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)" />
@@ -382,6 +389,7 @@
     <MESSAGE value="wsp" />
     <MESSAGE value="Single EMployee's data Page create. Acces from Dashboard and EMployee Page" />
     <MESSAGE value="Single EMployee's data Page create. Acces from Dashboard and EMployee Page v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Single EMployee's data Page create. Acces from Dashboard and EMployee Page v2" />
+    <MESSAGE value="Adding single Company's data (to single-Employee data page) . Acces from Dashboard and Company Page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding single Company's data (to single-Employee data page) . Acces from Dashboard and Company Page" />
   </component>
 </project>
