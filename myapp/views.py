@@ -12,7 +12,7 @@ import datetime
 
 import traceback
 
-from myapp.models import Employee, Company, Substitution
+from myapp.models import Employee, Company, Substitution, Holiday
 
 
 @api_view(['GET'])
@@ -169,7 +169,7 @@ class GetEmployeeByIdView(View):
             employee_id = int(data.get('employeeId'))
             if employee_id:
                 try:
-                    employee = list(Employee.objects.filter(user_id=request.user.id, id=employee_id).values())[0]
+                    employee = list(Employee.objects.filter(id=employee_id, user_id=request.user.id).values())[0]
                     return JsonResponse({'employee': employee})
                 except:
                     return JsonResponse({"action_success": False},
@@ -238,7 +238,7 @@ class GetCompanyByIdView(View):
             company_id = int(data.get('companyId'))
             if company_id:
                 try:
-                    company = list(Company.objects.filter(user_id=request.user.id, id=company_id).values())[0]
+                    company = list(Company.objects.filter(id=company_id, user_id=request.user.id).values())[0]
                     return JsonResponse({'company': company})
                 except:
                     return JsonResponse({"action_success": False},
@@ -376,7 +376,7 @@ class GetSubstitutionByIdView(View):
             substitution_id = int(data.get('substitution_id'))
             if substitution_id:
                 try:
-                    substitution = list(Substitution.objects.filter(user_id=request.user.id, id=substitution_id).values())[0]
+                    substitution = list(Substitution.objects.filter(id=substitution_id, user_id=request.user.id).values())[0]
 
                     substitution['substituted_full_name'] = (
                         Employee.objects.get(user_id=request.user.id,
@@ -407,6 +407,7 @@ class GetSubstitutionByIdView(View):
                     return JsonResponse({"action_success": False},
                                     status=400)
 
+
 class SubstitutionEditView(View):
     def post(self, request):
         if request.user.is_authenticated:
@@ -428,7 +429,7 @@ class SubstitutionEditView(View):
                 comments = data.get('comments', None)
 
                 try:
-                    substitution = Substitution.objects.filter(user_id=request.user.id, id=substitution_id)
+                    substitution = Substitution.objects.filter(id=substitution_id, user_id=request.user.id)
                     substitution.update(date=date, substituted=substituted, substituted_by=substituted_by, action_type=action_type, location=location, crane=crane, duration_hours=duration_hours, amount=amount, comments=comments)
 
                     return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie edytowano pozycję." }})
@@ -455,6 +456,170 @@ class SubstitutionsToRemoveFromDB(View):
                     return JsonResponse({"action_success": True, "messages": {"success": "Usunięto na zawsze pozycje z: " + date + "."}})
                 except:
                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się usunąć pozycji z historii."}},
+                                    status=400)
+
+
+# Holidays Page
+class HolidaysView(View):
+
+    def get(self, request):
+        if request.user.is_authenticated:
+
+            try:
+                date_year = request.GET.get('date_year', None)
+                current_date = datetime.date(date_year, 1, 1) if date_year is not None else datetime.datetime.now().date()
+                first_day_of_year = datetime.date(current_date.year, 1, 1)
+                last_day_of_year = datetime.date(current_date.year, 12, 31)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            try:
+                holidays_objs = Holiday.objects.filter(user_id=request.user.id)
+                holidays = list(holidays_objs.filter(Q(date_from__year=current_date.year) | Q(date_to__year=current_date.year)).values())
+
+                for holiday in holidays:
+                    if holiday['date_from'] < first_day_of_year:
+                        holiday['date_from'] = first_day_of_year
+
+                    if holiday['date_to'] > last_day_of_year:
+                        holiday['date_to'] = last_day_of_year
+
+                    holiday['duration_days'] = (holiday['date_to'] - holiday['date_from']).days + 1
+                    holiday['employee_full_name'] = Employee.objects.get(user_id=request.user.id, id=holiday['employee_id']).full_name
+
+                chart_labels = []
+
+                for month in range(1, 13, 1):
+                    first_day_of_month = datetime.date(current_date.year, month, 1)
+
+                    chart_labels.append({
+                        'value': first_day_of_month,
+                        'month': True,
+                        'week': False
+                    })
+
+                    # all days
+                    next_day = first_day_of_month + datetime.timedelta(days=1)
+
+                    while next_day.month == month:
+                        # for end of december
+                        if month == 12 and next_day.day == 31:
+                            chart_labels.append({
+                                'value': next_day,
+                                'month': True,
+                                'week': False
+                            })
+                        elif next_day.weekday() == 0:
+                            chart_labels.append({
+                                'value': next_day,
+                                'month': False,
+                                'week': True
+                            })
+                        else:
+                            chart_labels.append({
+                                'value': next_day,
+                                'month': False,
+                                'week': False
+                            })
+                        next_day += datetime.timedelta(days=1)
+
+                return JsonResponse({"holidays": holidays, 'chart_labels': chart_labels})
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować urlopów."}},
+                                status=400)
+
+
+class HolidayCreateView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            date_from = datetime.datetime.fromisoformat(data.get('date_from')).date() if data.get('date_from') else None
+            date_to = datetime.datetime.fromisoformat(data.get('date_to')).date() if data.get('date_to') else None
+            employee = int(data.get('employee', None))
+            comments = data.get('comments', None)
+
+            if date_from > date_to:
+                return JsonResponse({"action_success": False, "messages": {"errors": 'Data "Od" musi być większa lub równa dacie "Do".'}},
+                                    status=400)
+
+            try:
+                new_holiday = Holiday(user=request.user, date_from=date_from, date_to=date_to, employee=Employee.objects.get(id=employee, user_id=request.user.id), comments=comments)
+                new_holiday.save()
+                return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie dodano urlop."}})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć urlopu."}},
+                                status=400)
+
+
+class HolidayRemoveView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            holiday_id = int(data.get('holiday_id', None))
+            if holiday_id:
+                try:
+                    holiday = Holiday.objects.get(user_id=request.user.id, id=holiday_id)
+                    holiday.delete()
+                    return JsonResponse({"action_success": True})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class GetHolidayByIdView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            holiday_id = int(data.get('holiday_id', None))
+            if holiday_id:
+                try:
+                    holiday = list(Holiday.objects.filter(id=holiday_id, user_id=request.user.id).values())[0]
+
+                    holiday['duration_days'] = (holiday['date_to'] - holiday['date_from']).days + 1
+                    holiday['employee_full_name'] = Employee.objects.get(user_id=request.user.id,
+                                                                             id=holiday['employee_id']).full_name
+
+                    return JsonResponse({'holiday': holiday})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class HolidayEditView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+
+            holiday_id = int(data.get('holiday_id', None))
+            if holiday_id:
+                date_from = datetime.datetime.fromisoformat(data.get('date_from')).date() if data.get('date_from') else None
+                date_to = datetime.datetime.fromisoformat(data.get('date_to')).date() if data.get('date_to') else None
+                employee = data.get('employee', None)
+                comments = data.get('comments', None)
+
+                try:
+                    holiday = Holiday.objects.filter(id=holiday_id, user_id=request.user.id)
+                    holiday.update(date_from=date_from, date_to=date_to, employee=Employee.objects.get(id=employee, user_id=request.user.id), comments=comments)
+
+                    return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie edytowano urlop." }})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować urlopu."}},
                                     status=400)
 
 

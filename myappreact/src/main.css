@@ -159,7 +159,7 @@ table th, table td{
     min-width: 120px;
 }
 
-table.substitutions-table tr th:first-child, table.substitutions-table tr td:first-child{
+table.substitutions-table tr th:first-child, table.substitutions-table tr td:first-child, table.holidays-table tr th:first-child, table.holidays-table tr td:first-child{
     width: fit-content;
     max-width: 80px;
     min-width: unset;
@@ -177,10 +177,14 @@ table thead tr:first-child{
     z-index: 5;
 }
 
-table td:has(input[type='date']){
+table tr:not(.add-holiday-row, .swal-holidays-row) td:has(input[type='date']){
     min-width: 180px;
     display: flex;
     align-items: center;
+}
+
+table tr.add-holiday-row td:has(input[type='date']){
+    min-width: 180px;
 }
 
 table td select{
@@ -208,6 +212,10 @@ table tr:nth-child(odd){
     min-height: 360px;
     height: fit-content;
     max-height: calc(100vh - 200px);
+}
+
+.holidays-page .table-wrapper{
+    min-height: 10px;
 }
 
 .table-wrapper.swal-tabble-wrapper{
@@ -255,6 +263,10 @@ table .td-action svg:hover, table .td-action svg:active{
     background-color: var(--customColorDefaultLight) !important;
 }
 
+.add-holiday-row{
+    background-color: rgb(209, 240, 219) !important;
+}
+
 .fancySearchRow input{
     border: #e36105 solid 2px;
 }
@@ -263,7 +275,7 @@ table td .react-select-custom > div:not([class$="-menu"]) input{
     border: none;
 }
 
-.substitutions-table .fancySearchRow th{
+.substitutions-table .fancySearchRow th, .holidays-table .fancySearchRow th{
     padding-top: 1em !important;
 }
 
@@ -409,7 +421,7 @@ nav.navbar{
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 20;
 }
 
 .homePage{
@@ -595,7 +607,127 @@ nav .navbar-toggler span{
     box-shadow:  0 0 0 0.25rem rgba(114, 114, 114, 0.25);
 }
 
+#HolidaysChartContainer{
+    overflow: auto;
+    flex-direction: column;
+}
+
+#HolidaysChartLegend ul{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+#HolidaysChartLegend ul li{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: row;
+    margin-bottom: 5px;
+    padding-right: 18px;
+}
+
+#HolidaysChartLegend ul li span{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: 3px;
+    border-style: solid;
+    border-width: 1px;
+    /* to awoid click bug */
+    line-height: 22px;
+    border-radius: 3px;
+}
+
+#HolidaysChartLegend ul li.legend-box-dataset-hide span{
+    opacity: 0.3;
+}
+
+#HolidaysChartLegend ul li p{
+    margin: 0;
+    padding: 0;
+    color: rgba(102, 102, 102, 1);
+}
+
+#HolidaysChartLegend ul li.legend-box-dataset-hide p{
+    text-decoration: line-through;
+    color: rgb(131, 130, 130);
+}
+
+#HolidaysChartContainer .chartContainer{
+    width: 100%;
+    min-width: 100%;
+}
+
+#HolidaysChartContainer .chartContainer{
+    width: 4500px;
+    min-width: 4500px;
+}
+
+.chartContainer{
+    position: relative;
+    padding-top: 25px;
+}
+
+.chart-absolute-paint-area{
+    position: absolute;
+    top: 0;
+    left: 32px;
+    /* width: calc(100% - 63px); */
+    height: 36px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* background-color: red; */
+}
+
+
+.chart-absolute-paint-area .month-box{
+    border-left: solid rgb(128, 127, 127) 2px;
+    border-top: solid rgb(202, 202, 202) 1px;
+    width: 100%;
+}
+
+.chart-absolute-paint-area .month-box:last-child{
+    border-right: solid black 2px;
+}
+
+.chart-absolute-paint-area .month-box p{
+    padding-top: 2px;
+    text-align: center;
+}
+
+.chart-absolute-paint-area .month-box[data-days_count='28']{
+    width: 341px;
+}
+
+.chart-absolute-paint-area .month-box[data-days_count='29']{
+    width: 352px;
+}
+
+.chart-absolute-paint-area .month-box[data-days_count='30']{
+    width: 364px;
+}
+
+.chart-absolute-paint-area .month-box[data-days_count='31']{
+    width: 377px;
+}
+
+.chart-absolute-paint-area .month-box[data-days_count='31']:last-child{
+    width: 365px;
+}
+
 /* --RESPONSIVE-- */
+
+/* < xl */
+@media only screen and (max-width: 1199px) {
+
+   /* ss */
+}
+
 
 /* < lg */
 @media only screen and (max-width: 991px) {
@@ -704,6 +836,11 @@ nav .navbar-toggler span{
 
     nav.navbar .nav-item{
         padding: 0 1rem;
+    }
+
+    .lg-d-flex-justify-center{
+         display: flex !important;
+         justify-content: center !important;
     }
 
 }

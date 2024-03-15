@@ -64,9 +64,19 @@ class Substitution(models.Model):
     duration_hours = models.IntegerField(null=True)
     amount = models.IntegerField(null=True)
     comments = models.CharField(max_length=200)
+
     class Meta:
         ordering = ["-date"]
 
-    # @property
-    # def full_name(self):
-    #     return f"{self.first_name} {self.last_name}"
+
+class Holiday(models.Model):
+    objects = models.Manager()
+
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    date_from = models.DateField(null=True)
+    date_to = models.DateField(null=True)
+    employee = models.ForeignKey(Employee, default=None, on_delete=models.CASCADE)
+    comments = models.CharField(max_length=200)
+
+    class Meta:
+        ordering = ["-date_from"]

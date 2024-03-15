@@ -35,4 +35,9 @@ urlpatterns = [
     path('substitutions-to-remove-from-db/', views.SubstitutionsToRemoveFromDB.as_view()),
     path('get-info-box-data/', views.InfoBoxData.as_view()),
     path('get-single-employee-data/', views.SingleEmployeeData.as_view()),
+    path('get-holidays/', views.HolidaysView.as_view()),
+    path('holidays-create/', views.HolidayCreateView.as_view()),
+    path('holiday-remove/', views.HolidayRemoveView.as_view()),
+    path('get-holiday-data/', views.GetHolidayByIdView.as_view()),
+    path('holiday-edit/', views.HolidayEditView.as_view()),
 ]
