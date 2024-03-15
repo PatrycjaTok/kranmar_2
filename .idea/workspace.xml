@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Holidays Page update">
-      <change afterPath="$PROJECT_DIR$/myapp/migrations/0008_alter_substitution_options_holiday.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapp/migrations/0009_remove_holiday_history.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myappreact/src/elements/add_holidays_table_row.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myappreact/src/elements/select_employees.js" afterDir="false" />
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="css little fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/pages/holidays.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/holidays.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -372,7 +363,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710515590458</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="wsp">
+      <option name="closed" value="true" />
+      <created>1710515598865</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1710515598865</updated>
+    </task>
+    <task id="LOCAL-00039" summary="css little fix">
+      <option name="closed" value="true" />
+      <created>1710515871714</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1710515871714</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -387,7 +394,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="home_page: frontend frame and navigation update" />
     <MESSAGE value="1. Default navigation to &quot;/&quot; when no matched URL&#10;2. Employees page update: &#10; - create add-employee button (frontend),&#10; - create Swal (frontend),&#10; - create Employee Model (backend - models)" />
     <MESSAGE value="Console.logs removeing" />
     <MESSAGE value="1. Employees page update:&#10;- adding view for creating new employee&#10;- adding view to end data to frontend&#10;- show employees in a table&#10;2. Displaying username below nav" />
@@ -410,9 +416,10 @@
     <MESSAGE value="Single EMployee's data Page create. Acces from Dashboard and EMployee Page" />
     <MESSAGE value="Single EMployee's data Page create. Acces from Dashboard and EMployee Page v2" />
     <MESSAGE value="Adding single Company's data (to single-Employee data page) . Acces from Dashboard and Company Page" />
-    <MESSAGE value="wsp" />
     <MESSAGE value="Holidays Page update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Holidays Page update" />
+    <MESSAGE value="wsp" />
+    <MESSAGE value="css little fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="css little fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

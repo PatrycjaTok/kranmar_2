@@ -142,14 +142,14 @@ class Holidays extends React.Component{
                             data: [{x: holidayData.date_from, y: yHeight}, {x: holidayData.date_to, y: yHeight}],
                             borderColor: color,
                             tension: 0,
-                            fill: {value: 0}, 
+                            fill: {value: 0},
                             // scales: { 
                             // },
                             pointRadius: 4,
                             pointHoverRadius: 6,   
                             pointBackgroundColor: color,  
                             // pointBorderColor: color,   
-                            pointBorderWidth: 1,                                   
+                            pointBorderWidth: 1,                                            
                             tooltip:{
                                 callbacks:{
                                     label: function(context) {
@@ -466,6 +466,35 @@ class Holidays extends React.Component{
         // legend update
         $(ev.target).closest('li').toggleClass('legend-box-dataset-hide');
         chart.update();
+        ev.stopPropagation();
+    }
+
+    handleChartLiMouseOver = (ev, datasetIndex) =>{     
+        let activeHoverColor = '#4cff00';   
+        let chart = this.chartRef.current;
+        let metaDataset = chart.getDatasetMeta(datasetIndex).dataset;
+
+        metaDataset.options.borderColor = activeHoverColor;
+        metaDataset._points[0].options.borderColor = activeHoverColor;
+        metaDataset._points[0].options.backgroundColor = activeHoverColor;
+        metaDataset._points[1].options.borderColor = activeHoverColor;
+        metaDataset._points[1].options.backgroundColor = activeHoverColor;
+        chart.render();
+        ev.stopPropagation();
+    }
+
+    handleChartLiMouseOut = (ev, datasetIndex) =>{ 
+        let chart = this.chartRef.current;
+        let metaDataset = chart.getDatasetMeta(datasetIndex).dataset;
+        let lastHoverLineColor = $(ev.target).closest('li').find('span').css('background-color');
+
+        metaDataset.options.borderColor = lastHoverLineColor;
+        metaDataset._points[0].options.borderColor = lastHoverLineColor;
+        metaDataset._points[0].options.backgroundColor = lastHoverLineColor;
+        metaDataset._points[1].options.borderColor = lastHoverLineColor;
+        metaDataset._points[1].options.backgroundColor = lastHoverLineColor;
+        chart.render();
+        ev.stopPropagation();
     }
 
     updateChartLegend = () => {
@@ -484,8 +513,17 @@ class Holidays extends React.Component{
                     // let fontColor = dataset.fontColor;
         
                     const liElement = $(`<li><span style=" border-color:${bColor}; background-color:${bColor}"></span><p>${text}</p></li>`);
+                    
                     liElement.click((ev)=>{
                         self.handleChartLiClick(ev, datasetIndex);
+                    })
+
+                    liElement.mouseover((ev)=>{
+                        self.handleChartLiMouseOver(ev, datasetIndex);
+                    })
+
+                    liElement.mouseout((ev)=>{
+                        self.handleChartLiMouseOut(ev, datasetIndex);
                     })
     
                     ulElement.append(liElement);

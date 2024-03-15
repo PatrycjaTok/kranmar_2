@@ -632,20 +632,20 @@ class InfoBoxData(View):
                 deadline_date = now_date + datetime.timedelta(days=14)
                 user_employees = Employee.objects.filter(user_id=request.user.id)
                 employees = list(user_employees.filter(
-                    Q(agreement_end_date__isnull=False) & Q(agreement_end_date__lte=deadline_date) |
+                    # Q(agreement_end_date__isnull=False) & Q(agreement_end_date__lte=deadline_date) |
                     Q(medical_end_date__isnull=False) & Q(medical_end_date__lte=deadline_date) |
                     Q(building_license_end_date__isnull=False) & Q(building_license_end_date__lte=deadline_date)
                     ).annotate(full_name=Concat('first_name', Value(' '), 'last_name')).values())
                 agreement_end_date_list, medical_end_date_list, building_license_end_date_list = [], [], []
 
                 for employee in employees:
-                    empl_agreement_end_date = employee['agreement_end_date']
+                    # empl_agreement_end_date = employee['agreement_end_date']
                     empl_medical_end_date = employee['medical_end_date']
                     empl_building_license_end_date = employee['building_license_end_date']
 
-                    if empl_agreement_end_date is not None and empl_agreement_end_date <= deadline_date:
-                        delta = (empl_agreement_end_date - now_date).days if empl_agreement_end_date > now_date else 0
-                        agreement_end_date_list.append({'name': employee['full_name'], 'date': empl_agreement_end_date, 'delta': delta})
+                    # if empl_agreement_end_date is not None and empl_agreement_end_date <= deadline_date:
+                    #     delta = (empl_agreement_end_date - now_date).days if empl_agreement_end_date > now_date else 0
+                    #     agreement_end_date_list.append({'name': employee['full_name'], 'date': empl_agreement_end_date, 'delta': delta})
 
                     if empl_medical_end_date is not None and empl_medical_end_date <= deadline_date:
                         delta = (empl_medical_end_date - now_date).days if empl_medical_end_date > now_date else 0
