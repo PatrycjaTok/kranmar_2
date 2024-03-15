@@ -215,7 +215,7 @@ table tr:nth-child(odd){
 }
 
 .holidays-page .table-wrapper{
-    min-height: 10px;
+    min-height: 150px;
 }
 
 .table-wrapper.swal-tabble-wrapper{
