@@ -23,12 +23,12 @@ function StartDisplayingInfoBox(data, setIntervalBool=true, firstUsage=true){
     }
 
     let htmlContent = $(`<div></div>`);
-    htmlContent.append(`<h2 class="text-center text-danger pb-2">!! Upływa/upłynął termin !!</h2>`);     
+    htmlContent.append(`<h2 class="text-center text-danger pb-0 mb-4">!! Upływa/upłynął termin !!</h2>`);     
 
     for (const [key, value] of Object.entries(data)) {
         if(value.length > 0){
             let contextcContainer = $(`<div></div>`);
-            contextcContainer.append(`<h5 class="fw-bold">${titles[key]} dla: </h5>`);
+            contextcContainer.append(`<h5 class="fw-bold text-primary">${titles[key]} dla: </h5>`);
             
             value.forEach(infoEmployee => {
                 contextcContainer.append(`<p><b>${infoEmployee['name']}</b>: mija za <b>${infoEmployee['delta']}</b> dni (${baseHomeFunctions.YMDtoDMY(infoEmployee['date'])})</p>`);

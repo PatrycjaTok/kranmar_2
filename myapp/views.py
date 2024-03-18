@@ -466,12 +466,17 @@ class HolidaysView(View):
         if request.user.is_authenticated:
 
             try:
-                date_year = request.GET.get('date_year', None)
-                current_date = datetime.date(date_year, 1, 1) if date_year is not None else datetime.datetime.now().date()
+                data = request.GET
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            try:
+                date_year = data.get('date_year', None)
+                current_date = datetime.date(int(date_year), 1, 1) if date_year is not None else datetime.datetime.now().date()
                 first_day_of_year = datetime.date(current_date.year, 1, 1)
                 last_day_of_year = datetime.date(current_date.year, 12, 31)
             except:
-                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+                return JsonResponse({"action_success": False, "messages": {"errors": "Problem z konwersją dat."}}, status=400)
 
             try:
                 holidays_objs = Holiday.objects.filter(user_id=request.user.id)
@@ -658,6 +663,26 @@ class InfoBoxData(View):
                 return JsonResponse({"info_box_data": {'agreement_end_date': agreement_end_date_list, 'medical_end_date': medical_end_date_list, 'building_license_end_date': building_license_end_date_list}})
             except:
                 return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować danych o terminach umów/badań/uprawnień pracowników."}},
+                                status=400)
+
+
+class HolidaysInfoBoxData(View):
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            try:
+                now_date = datetime.datetime.now().date()
+                deadline_date = now_date + datetime.timedelta(days=3)
+                all_holidays = Holiday.objects.filter(user_id=request.user.id)
+                holidays = list(all_holidays.filter(Q(date_from__isnull=False) & Q(date_from__lte=deadline_date) & Q(date_from__gte=now_date)).order_by('date_from').values())
+
+                for holiday in holidays:
+                    holiday['delta'] = (holiday['date_from'] - now_date).days if holiday['date_from'] > now_date else 0
+                    holiday['employee_full_name'] = Employee.objects.get(id=holiday['employee_id'], user_id=request.user.id).full_name
+
+                return JsonResponse({"holidays_info_box_data": holidays})
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować danych o terminach urlopów."}},
                                 status=400)
 
 

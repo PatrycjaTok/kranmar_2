@@ -41,10 +41,6 @@ function NavBarTop(props){
                 "/history-changes": {
                     current: false,                 
                     label: "Historia Zastępstw",
-                },
-                "/history-holidays" : {
-                    current: false,               
-                    label: "Historia Urlopów",
                 }
             }
             

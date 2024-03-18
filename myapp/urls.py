@@ -40,4 +40,5 @@ urlpatterns = [
     path('holiday-remove/', views.HolidayRemoveView.as_view()),
     path('get-holiday-data/', views.GetHolidayByIdView.as_view()),
     path('holiday-edit/', views.HolidayEditView.as_view()),
+    path('get-holidays-info-box-data/', views.HolidaysInfoBoxData.as_view()),
 ]

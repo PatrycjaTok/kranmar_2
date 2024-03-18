@@ -6,7 +6,7 @@ import withReactContent from 'sweetalert2-react-content';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEdit, faExchangeAlt, faExclamationTriangle, faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faExchangeAlt, faExclamationTriangle, faExternalLinkAlt, faUmbrellaBeach} from "@fortawesome/free-solid-svg-icons";
 import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
 import baseFunctions from "../utils/base_functions";
@@ -15,9 +15,10 @@ import SelectEmployeesAndCompanies from "../elements/select_employees_companies.
 import SelectActionTypes from "../elements/select_action_types.js";
 import AddSubstitutionRow from "../elements/add_substitution_table_row.js";
 import StartDisplayingInfoBox from "../elements/info_box.js";
+import StartDisplayingHolidayInfoBox from  "../elements/holiday_info_box.js"
 
 const cookies = new Cookies();
-library.add(faTrash, faEdit, faExchangeAlt, faExclamationTriangle);
+library.add(faTrash, faEdit, faExchangeAlt, faExclamationTriangle, faUmbrellaBeach);
 
 const initialAddSubstitutionDict = {
     date: '',
@@ -38,7 +39,8 @@ class Dashboard extends React.Component{
             substitutions: [],
             actionTypes: {},
             AddSubstitutionRow: {...initialAddSubstitutionDict},
-            infoBox:{show: false, classes: 'd-none text-warning'}
+            infoBox:{show: false, classes: 'd-none text-warning'},
+            holidaysInfoBox: {show: false, classes: 'd-none text-smooth-orange'}
         }
         this.handleSubstitutedByChange = this.handleSubstitutedByChange.bind(this);
         this.handleSubstitutedChange = this.handleSubstitutedChange.bind(this);
@@ -101,6 +103,45 @@ class Dashboard extends React.Component{
                         StartDisplayingInfoBox(result);
                     }else{
                         self.setState({infoBox: {show: false, classes:'d-none text-warning'}});  
+                    }                               
+                }               
+            },
+            error: function(xhr, status, err) {
+                let errorText = xhr.responseJSON.messages.errors;   
+                withReactContent(Swal).fire({
+                    title: errorText,
+                    showConfirmButton: false,
+                    icon: 'error',
+                    timer: 3000,
+                    // timerProgressBar: true
+                })                       
+            }
+        });
+    }
+
+    fetchHolidaysInfoBoxData = () =>{
+        let self = this;
+        
+        $.ajax({
+            url: baseURL + '/get-holidays-info-box-data/',
+            method: 'GET',
+            dataType: 'json',
+            // async: false,
+            headers: {
+              "Content-Type": 'application/json',
+              "X-CSRFToken": cookies.get("csrftoken")
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(data) {
+                if(data.holidays_info_box_data){
+                    let result = data.holidays_info_box_data
+                    if(result.length > 0){
+                        self.setState({holidaysInfoBox: {show: true, classes:'text-smooth-orange'}}); 
+                        StartDisplayingHolidayInfoBox(result);
+                    }else{
+                        self.setState({holidaysInfoBox: {show: false, classes:'d-none text-smooth-orange'}});  
                     }                               
                 }               
             },
@@ -298,13 +339,13 @@ class Dashboard extends React.Component{
         let tr = $(ev.target).closest('tr');
         let substitutionId = tr.data('substitution_id');
         let substitutionNr = tr.find('td').first().text();
-        let substitutionName1 = tr.find('td:nth-child(3)').text();
-        let substitutionName2 = tr.find('td:nth-child(4)').text();
+        let substitutionName1 = tr.find('td:nth-child(3) span').text();
+        let substitutionName2 = tr.find('td:nth-child(4) span').text();
         let substitutionType = tr.find('td:nth-child(5)').text();
         let headerText = `Dotyczy: `;
         if(substitutionType){headerText += substitutionType}
-        if(substitutionName1){headerText += " | " + substitutionName1}
-        if(substitutionName2){headerText += " | " + substitutionName2}
+        if(substitutionName1.length > 1){headerText += " | " + substitutionName1}
+        if(substitutionName2.length > 1){headerText += " | " + substitutionName2}
 
         withReactContent(Swal).fire({
             html: <div>
@@ -500,6 +541,7 @@ class Dashboard extends React.Component{
     componentDidMount(){
         this.fetchData(); 
         this.fetchInfoBoxData();
+        this.fetchHolidaysInfoBoxData();
 
         setTimeout(() => { 
             $(".custom-fancytable").fancyTable({
@@ -523,7 +565,7 @@ class Dashboard extends React.Component{
        
         return(
             <div className="position-relative">
-            <h2 className="text-center pb-2 pb-lg-3">Zastępstwa <span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span></h2>
+            <h2 className="text-center pb-2 pb-lg-3">Zastępstwa <span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span> <span className={this.state.holidaysInfoBox.classes} id="holidaysInfoBox"><FontAwesomeIcon icon={faUmbrellaBeach} /></span></h2>
             <button className="btn btn-secondary to-history-btn" onClick={()=>{this.ToHistorySwal()}}>Przenieś <FontAwesomeIcon icon={faExchangeAlt} className="px-2" title="Przeniś do historii"></FontAwesomeIcon></button>
             <div className="table-wrapper">
                 <div></div>
@@ -570,8 +612,8 @@ class Dashboard extends React.Component{
                             <tr key={substitution.id} data-substitution_id={substitution.id}>                               
                                 <td>{i+1}</td>
                                 <td data-sortvalue={substitution.date}>{baseHomeFunctions.YMDtoDMY(substitution.date)}</td>
-                                <td>{substitution.substituted_full_name} {substitutedButton}</td>
-                                <td>{substitution.substituted_by_full_name} {substitutedByButton}</td>
+                                <td><span>{substitution.substituted_full_name}</span> {substitutedButton}</td>
+                                <td><span>{substitution.substituted_by_full_name}</span> {substitutedByButton}</td>
                                 <td className={actionTypeClassName}>{this.state.actionTypes[substitution.action_type]}</td>
                                 <td>{substitution.location}</td>
                                 <td>{substitution.crane}</td>

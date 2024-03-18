@@ -45,6 +45,7 @@ class Holidays extends React.Component{
         this.chartRef = React.createRef();
         this.state={
             AddHolidayRow: {...initialAddHolidayDict},
+            settedDateYear: currentDateYear,
             holidays: [],
             chartData: {
                 labels: [''],
@@ -63,7 +64,7 @@ class Holidays extends React.Component{
         this.handleEmployeeChange = this.handleEmployeeChange.bind(this);
     }
 
-    fetchData = () =>{
+    fetchData = (date_year=currentDateYear) => {
         let self = this;
         
         $.ajax({
@@ -75,7 +76,7 @@ class Holidays extends React.Component{
               "Content-Type": 'application/json',
               "X-CSRFToken": cookies.get("csrftoken")
             },
-            data: JSON.stringify({}),
+            data: {"date_year" : `${date_year}`},
             xhrFields: {
                 withCredentials: true
             },
@@ -149,7 +150,7 @@ class Holidays extends React.Component{
                             pointHoverRadius: 6,   
                             pointBackgroundColor: color,  
                             // pointBorderColor: color,   
-                            pointBorderWidth: 1,                                            
+                            pointBorderWidth: 1,                    
                             tooltip:{
                                 callbacks:{
                                     label: function(context) {
@@ -204,6 +205,12 @@ class Holidays extends React.Component{
         let copyAddHolidayRow = { ...this.state.AddHolidayRow}; //create a new copy of state AddSubstitutionRow
         copyAddHolidayRow[name] = value; //change the value of name
         this.setState({AddHolidayRow: copyAddHolidayRow}) // settings state
+    }
+
+    handleOnInputYear(ev){
+        let year = ev.target.value;
+        this.fetchData(year);
+        this.setState({settedDateYear: year})
     }
 
     handleEmployeeChange(ev){     
@@ -464,7 +471,7 @@ class Holidays extends React.Component{
         chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
         
         // legend update
-        $(ev.target).closest('li').toggleClass('legend-box-dataset-hide');
+        $(ev.target).closest('li').toggleClass('legend-box-dataset-hide')
         chart.update();
         ev.stopPropagation();
     }
@@ -475,6 +482,7 @@ class Holidays extends React.Component{
         let metaDataset = chart.getDatasetMeta(datasetIndex).dataset;
 
         metaDataset.options.borderColor = activeHoverColor;
+        metaDataset.options.borderWidth = 4;
         metaDataset._points[0].options.borderColor = activeHoverColor;
         metaDataset._points[0].options.backgroundColor = activeHoverColor;
         metaDataset._points[1].options.borderColor = activeHoverColor;
@@ -489,6 +497,7 @@ class Holidays extends React.Component{
         let lastHoverLineColor = $(ev.target).closest('li').find('span').css('background-color');
 
         metaDataset.options.borderColor = lastHoverLineColor;
+        metaDataset.options.borderWidth = 3;
         metaDataset._points[0].options.borderColor = lastHoverLineColor;
         metaDataset._points[0].options.backgroundColor = lastHoverLineColor;
         metaDataset._points[1].options.borderColor = lastHoverLineColor;
@@ -499,18 +508,21 @@ class Holidays extends React.Component{
 
     updateChartLegend = () => {
         let self = this;
-        let ulElement = $('#HolidaysChartLegend ul');
+        let ulElementPast = $('#HolidaysChartLegend div[data-piece_of_time="past"] ul');
+        let ulElementCurrenAndPast = $('#HolidaysChartLegend div[data-piece_of_time="current_and_future"] ul');
         let chart = this.chartRef.current;
 
-        ulElement.html('');
+        ulElementPast.html('');
+        ulElementCurrenAndPast.html('');
+        
         if(chart){   
             setTimeout(()=>{
                 chart.legend.legendItems.forEach((dataset, index) => {
                     let text = dataset.text;
                     let datasetIndex = dataset.datasetIndex;
-                    // let bgColor = dataset.fillStyle;
                     let bColor = dataset.strokeStyle;
-                    // let fontColor = dataset.fontColor;
+                    let firstPoint = chart.data.datasets[dataset.datasetIndex].data[0].x;
+                    let secondPoint = chart.data.datasets[dataset.datasetIndex].data[1].x;
         
                     const liElement = $(`<li><span style=" border-color:${bColor}; background-color:${bColor}"></span><p>${text}</p></li>`);
                     
@@ -526,7 +538,12 @@ class Holidays extends React.Component{
                         self.handleChartLiMouseOut(ev, datasetIndex);
                     })
     
-                    ulElement.append(liElement);
+                    if(firstPoint < String(todayDateYMD) && secondPoint < String(todayDateYMD)){
+                        ulElementPast.prepend(liElement);
+                    }else{
+                        ulElementCurrenAndPast.prepend(liElement);
+                    }
+                    
                 });
             }, 500)    
         }
@@ -549,7 +566,7 @@ class Holidays extends React.Component{
                 pagination: true,
                 searchable: true,
                 globalSearch: false,
-                perPage: 10,
+                perPage: 40,
             });
 
             $('.no-action, .no-action a').off();	 
@@ -561,7 +578,8 @@ class Holidays extends React.Component{
 
     render(){ 
         let self = this;
-        let februaryDaysCount = new Date(currentDateYear, 2, 0).getDate();
+        let settedDateYear = this.state.settedDateYear;
+        let februaryDaysCount = new Date(settedDateYear, 2, 0).getDate();
         let holidays = this.state.holidays;
         let chartData = this.state.chartData;
         let chartOptions = {
@@ -619,7 +637,7 @@ class Holidays extends React.Component{
 
         return(
             <div className="position-relative holidays-page">
-                <h2 className="text-center pb-2 pb-lg-3">Urlopy</h2>
+                <h2 className="text-center pb-2 pb-lg-3">Urlopy <span className="holidays-year-container"><input className='' type='number' name='date_year' defaultValue={currentDateYear} onInput={(ev)=>{this.handleOnInputYear(ev)}}></input></span></h2>
                 <div className="table-wrapper lg-d-flex-justify-center">
                     <table className="custom-fancytable holidays-table">
                         <thead>
@@ -654,8 +672,28 @@ class Holidays extends React.Component{
                 </div>
 
                 <div id='HolidaysChartLegend' className="chart-js-custom-legend-box pt-3 pb-0">
-                    <ul>
-                    </ul>
+                    <div className="accordion" id="accordionChartLegendPast">
+                        <div className="accordion-item">
+                            <h2 className="accordion-header d-flex justify-content-center" id="ChartLegendPastHeadingOne">
+                            <button className="accordion-button collapsed p-1" type="button" data-bs-toggle="collapse" data-bs-target="#accChartLegendcollapseOne" aria-expanded="false" aria-controls="accChartLegendcollapseOne">
+                                <span>Pokaż legendy z przeszłości</span>
+                            </button>
+                            </h2>
+                            <div id="accChartLegendcollapseOne" className="accordion-collapse collapse" aria-labelledby="ChartLegendPastHeadingOne" data-bs-parent="#accordionChartLegendPast">
+                            <div className="accordion-body p-1">
+                                <div data-piece_of_time="past">
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div data-piece_of_time="current_and_future">
+                        <ul>
+                        </ul>
+                    </div>
                 </div>
 
                 <div id='HolidaysChartContainer' className="d-flex justify-content-start w-100">
@@ -665,7 +703,7 @@ class Holidays extends React.Component{
                             <div className="month-box" data-days_count='31'>
                                 <p>Styczeń</p>
                             </div>
-                            <div className="month-box" data-days_count={februaryDaysCount}>
+                            <div className="month-box month-box-february" data-days_count={februaryDaysCount}>
                                 <p>Luty</p>
                             </div>
                             <div className="month-box" data-days_count='31'>

@@ -584,7 +584,7 @@ nav .navbar-toggler span{
     color: red;
 }
 
-#infoBox{
+#infoBox, #holidaysInfoBox{
     cursor: pointer;
 }
 
@@ -718,6 +718,67 @@ nav .navbar-toggler span{
 
 .chart-absolute-paint-area .month-box[data-days_count='31']:last-child{
     width: 365px;
+}
+
+.holidays-year-container{
+    font-size: smaller;
+}
+
+.holidays-year-container input{
+    width: 100px;
+    border-color: var(--customColorDefaultMedium);
+    border-width: 2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#HolidaysChartLegend  .accordion-item{
+    border: none;
+}
+
+#HolidaysChartLegend .accordion-button{
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#HolidaysChartLegend .accordion-button {
+    font-size: 1.1rem;
+    color: var(--customColorDefaultMedium);
+}
+
+#HolidaysChartLegend .accordion-button::after{
+    filter: invert(70%);
+}
+
+#HolidaysChartLegend .accordion-button span{
+    padding-right: 0.5em;
+    text-decoration: underline;
+}
+
+#HolidaysChartLegend .accordion-body{
+    background-color: rgb(234, 247, 253)
+}
+
+.text-smooth-pink{
+    color: rgb(232, 8, 240);
+    
+    -webkit-transition: color 1000ms linear;
+    -moz-transition: color 1000ms linear;
+    -o-transition: color 1000ms linear;
+    -ms-transition:color 1000ms linear;
+    transition: color 1000ms linear;
+}
+
+.text-smooth-orange{
+    color: rgb(245, 125, 12);
+    
+    -webkit-transition: color 1000ms linear;
+    -moz-transition: color 1000ms linear;
+    -o-transition: color 1000ms linear;
+    -ms-transition: color 1000ms linear;
+    transition: color 1000ms linear;
 }
 
 /* --RESPONSIVE-- */
