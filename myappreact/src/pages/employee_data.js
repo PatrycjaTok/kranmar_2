@@ -12,6 +12,7 @@ import baseFunctions from "../utils/base_functions";
 import baseHomeFunctions from "../utils/base_functions_home.js";
 import SelectEmployeesAndCompanies from "../elements/select_employees_companies.js";
 import SelectActionTypes from "../elements/select_action_types.js";
+import EmployeeFiles from "../elements/employee_files.js";
 
 const cookies = new Cookies();
 library.add(faTrash, faEdit, faUser);
@@ -20,6 +21,8 @@ class Employee extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            employee_id: '',
+            company_id: '',
             substitutions: [],
             substitutions_history: [],
             actionTypes: {},
@@ -31,6 +34,9 @@ class Employee extends React.Component{
         let self = this;
         let employee_id =  new URLSearchParams(window.location.search).get('empl');
         let company_id =  new URLSearchParams(window.location.search).get('comp');
+        if(employee_id){this.setState({employee_id: employee_id})};
+        if(company_id){this.setState({company_id: company_id})};
+
         $.ajax({
             url: baseURL + '/get-single-employee-data/',
             method: 'POST',
@@ -303,7 +309,7 @@ class Employee extends React.Component{
                     <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                <h4 className="w-100 text-center mb-0">Zastępstwa</h4>
+                                <h4 className="w-100 text-center text-primary mb-0">Zastępstwa</h4>
                             </button>
                         </h2>
                         <div id="collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -357,7 +363,7 @@ class Employee extends React.Component{
                     <div className="accordion-item">
                         <h2 className="accordion-header">
                             <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <h4 className="w-100 text-center mb-0">Historia - Zastępstwa</h4>
+                                <h4 className="w-100 text-center text-primary mb-0">Historia - Zastępstwa</h4>
                             </button>
                         </h2>
                         <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -405,6 +411,23 @@ class Employee extends React.Component{
                             </div>
                         </div>
                     </div>
+
+                    {this.state.employee_id && <div className="accordion-item">
+                        <h2 className="accordion-header">
+                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <h4 className="w-100 text-center text-primary mb-0">Pliki</h4>
+                            </button>
+                        </h2>
+                        <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div className="accordion-body p-0">
+                                <div className="card files-card position-relative">
+                                    <div className="card-body">                        
+                                        <EmployeeFiles employee_id={this.state.employee_id} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> }
 
                 </div>
             </div>
