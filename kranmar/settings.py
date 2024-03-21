@@ -139,6 +139,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = str(BASE_DIR / "staticfiles" )
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

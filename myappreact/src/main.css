@@ -276,7 +276,7 @@ table td .react-select-custom > div:not([class$="-menu"]) input{
 }
 
 .substitutions-table .fancySearchRow th, .holidays-table .fancySearchRow th{
-    padding-top: 1em !important;
+    padding-top: 1.4rem !important;
 }
 
 .to-history-btn{
@@ -588,6 +588,12 @@ nav .navbar-toggler span{
     cursor: pointer;
 }
 
+#infoBox{
+    right: 0;
+    margin-right: 1rem;
+    position: absolute;
+}
+
 .redirect-icon{
     font-size: smaller;
     cursor: pointer;
@@ -764,21 +770,21 @@ nav .navbar-toggler span{
 .text-smooth-pink{
     color: rgb(232, 8, 240);
     
-    -webkit-transition: color 1000ms linear;
-    -moz-transition: color 1000ms linear;
-    -o-transition: color 1000ms linear;
-    -ms-transition:color 1000ms linear;
-    transition: color 1000ms linear;
+    -webkit-transition: color 1300ms linear;
+    -moz-transition: color 1300ms linear;
+    -o-transition: color 1300ms linear;
+    -ms-transition:color 1300ms linear;
+    transition: color 1300ms linear;
 }
 
 .text-smooth-orange{
     color: rgb(245, 125, 12);
     
-    -webkit-transition: color 1000ms linear;
-    -moz-transition: color 1000ms linear;
-    -o-transition: color 1000ms linear;
-    -ms-transition: color 1000ms linear;
-    transition: color 1000ms linear;
+    -webkit-transition: color 1300ms linear;
+    -moz-transition: color 1300ms linear;
+    -o-transition: color 1300ms linear;
+    -ms-transition: color 1300ms linear;
+    transition: color 1300ms linear;
 }
 
 .files .files-dropzone{
@@ -792,10 +798,19 @@ nav .navbar-toggler span{
     align-items: center;
 }
 
+.files-list-item-preview{
+    display: flex;
+    justify-content: center;
+}
+
 .files-list-item-preview-image{
     width: 150px;
     height: auto;
-    padding-top: 1rem;;
+    padding-top: 0;
+}
+
+.files-list-item-content-item{
+    max-width: 140px;
 }
 
 .files-list-item-remove{
@@ -813,6 +828,152 @@ nav .navbar-toggler span{
 .files-list-item-remove-container{
     position: absolute;
     right: 0;
+}
+
+.bg-custom{
+    background-color: var(--customColorDefaultDark) !important;
+    color: white !important;
+}
+
+.border-radious-custom{
+    border-radius: 5px;;
+}
+
+.employee-file{
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.employee-file-cover{
+    width: 120px;
+    height: 170px;
+    box-shadow: 0px 0px 10px rgb(173, 173, 173);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.employee-file-cover img{
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+}
+
+.employee-file-upload-cover{
+    width: 120px;
+    height: 170px;
+    box-shadow: 0px 0px 10px rgb(173, 173, 173);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+    margin-top: 10px;
+}
+
+.employee-file-upload-cover img{
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+}
+
+.employee-file .file-name{
+    width: 100%;
+    margin: 0;
+    line-height: 1.2rem;
+    padding-top: 5px;
+}
+
+.employee-file .file-name p{
+    margin: 0;
+}
+
+.files-list-item-remove{
+    margin-right: 14px !important;
+}
+
+.files-list-item-remove.existing-files-remove{
+    margin-right: 14px !important;
+    padding-top: 0;
+    font-size: 1.8rem;
+}
+
+.files-list-item-download-container{
+    position: absolute;
+    bottom: 0;
+    right: 8px;
+    padding-top: 0;
+    font-size: 1.9rem;
+}
+
+.files-list-item-prevew-container{
+    position: absolute;
+    bottom: 60px;
+    right: 30px;
+    padding-top: 0;
+}
+
+.files-list-item-prevew-container button, .files-list-item-prevew-container button:hover, .files-list-item-prevew-container button:active{
+    font-size: 2rem;
+    padding:  2px 8px;
+    background-color: rgba(255, 255, 255, 0.664);
+    border-radius: 10px;
+}
+
+.employee-file .file-extension-name{
+    font-size: larger;
+    position: relative;
+    top: -30px;
+}
+
+#file-preview{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 100%;
+}
+
+#file-preview button{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    z-index: 21;
+    font-size: 2rem;
+    padding: 0.05rem 0.8rem;
+    background-color: rgba(255, 255, 255, 0.664);
+}
+
+#file-preview:has(iframe) button{
+    right: unset;
+    left: 60px;
+}
+
+#file-preview img{
+    width: 100%;
+    z-index: 20;
+}
+
+.hidden-little-iframe{
+    width: 0;
+    height: 0;
+}
+
+#file-preview:has(> iframe){
+    max-width: 900px;
+}
+
+#file-preview iframe{
+    width: 100%;
+    z-index: 20;
+    height: 900px;
+    max-height: 95vh;
 }
 
 /* --RESPONSIVE-- */
@@ -904,6 +1065,10 @@ nav .navbar-toggler span{
     
     .custom-accordion-class{
         width: calc(100vw - 0.2em);
+    }
+
+    #file-preview{
+        width: 95%;
     }
 
 }

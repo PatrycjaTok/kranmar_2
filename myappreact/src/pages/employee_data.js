@@ -5,7 +5,7 @@ import withReactContent from 'sweetalert2-react-content';
 import Cookies from "universal-cookie";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTrash, faEdit, faUser} from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit, faUser, faTimes} from "@fortawesome/free-solid-svg-icons";
 import fancyTable from "../scripts/fancytable.min.js";
 import baseURL from "../utils/request";
 import baseFunctions from "../utils/base_functions";
@@ -15,7 +15,7 @@ import SelectActionTypes from "../elements/select_action_types.js";
 import EmployeeFiles from "../elements/employee_files.js";
 
 const cookies = new Cookies();
-library.add(faTrash, faEdit, faUser);
+library.add(faTrash, faEdit, faUser, faTimes);
 
 class Employee extends React.Component{
     constructor(props){
@@ -278,8 +278,19 @@ class Employee extends React.Component{
     
     }
 
+    closeFilePreview = () =>{
+        let filePreview = $('#file-preview');
+
+        if(filePreview.length > 0 && !filePreview.hasClass('d-none')){
+            filePreview.addClass('d-none');
+        }
+    }
+
     componentDidMount(){
         this.fetchData(); 
+        $('.employee-data-container').click(()=>{
+            this.closeFilePreview();
+        });
 
         setTimeout(() => { 
             $(".custom-fancytable").fancyTable({
@@ -289,6 +300,7 @@ class Employee extends React.Component{
                 searchable: true,
                 globalSearch: false,
                 perPage: 80,
+                inputPlaceholder: 'Szukaj...'
             });
 
             $('.no-action, .no-action a').off();	           
@@ -301,7 +313,7 @@ class Employee extends React.Component{
         const substitutions_history = this.state.substitutions_history;
        
         return(
-            <div>
+            <div className="position-relative employee-data-container">
                 <h2 className="text-center pb-2 pb-lg-3"><span className="font-smaller px-1 customTextColor"><FontAwesomeIcon icon={faUser}/></span>{this.state.employee_full_name}</h2>
                 
                 <div className="accordion custom-accordion-class" id="accordionExample">
@@ -428,6 +440,13 @@ class Employee extends React.Component{
                             </div>
                         </div>
                     </div> }
+
+                    {this.state.employee_id && 
+                        <div id='file-preview' className='d-none py-1'>
+                            <button className="btn text-danger" onClick={()=>{this.closeFilePreview()}}><FontAwesomeIcon icon={faTimes} /></button>
+                            <div></div>
+                        </div>
+                    }
 
                 </div>
             </div>

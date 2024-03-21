@@ -80,3 +80,27 @@ class Holiday(models.Model):
 
     class Meta:
         ordering = ["-date_from"]
+
+
+def employee_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return "myappreact/src/employees_files/employee_{0}/{1}".format(instance.employee.id, filename)
+
+
+class File(models.Model):
+    objects = models.Manager()
+
+    FILE_TYPES = {
+        'building_license': 'Uprawnienia',
+        'medical': 'Badania lekarskie',
+        'bhp': 'BHP',
+        'other': 'Inne',
+    }
+
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    creation_date = models.DateField(null=True)
+    employee = models.ForeignKey(Employee, default=None, on_delete=models.CASCADE)
+    file = models.FileField(upload_to=employee_directory_path, max_length=10000)
+
+    class Meta:
+        ordering = ["-creation_date"]

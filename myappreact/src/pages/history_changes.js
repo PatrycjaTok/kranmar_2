@@ -236,6 +236,7 @@ class HistoryChanges extends React.Component{
                 searchable: true,
                 globalSearch: false,
                 perPage: 80,
+                inputPlaceholder: 'Szukaj...'
             });
 
             $('.no-action, .no-action a').off();	      

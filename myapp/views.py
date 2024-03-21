@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.models import User
 from django.db.models import F, Value, Subquery, OuterRef, Q
 from django.db.models.functions import Concat
@@ -12,7 +14,7 @@ import datetime
 
 import traceback
 
-from myapp.models import Employee, Company, Substitution, Holiday
+from myapp.models import Employee, Company, Substitution, Holiday, File
 
 
 @api_view(['GET'])
@@ -570,7 +572,7 @@ class HolidayRemoveView(View):
                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
 
             holiday_id = int(data.get('holiday_id', None))
-            if holiday_id:
+            if holiday_id and holiday_id is not None:
                 try:
                     holiday = Holiday.objects.get(user_id=request.user.id, id=holiday_id)
                     holiday.delete()
@@ -589,7 +591,7 @@ class GetHolidayByIdView(View):
                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
 
             holiday_id = int(data.get('holiday_id', None))
-            if holiday_id:
+            if holiday_id and holiday_id is not None:
                 try:
                     holiday = list(Holiday.objects.filter(id=holiday_id, user_id=request.user.id).values())[0]
 
@@ -612,7 +614,7 @@ class HolidayEditView(View):
                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
 
             holiday_id = int(data.get('holiday_id', None))
-            if holiday_id:
+            if holiday_id and holiday_id is not None:
                 date_from = datetime.datetime.fromisoformat(data.get('date_from')).date() if data.get('date_from') else None
                 date_to = datetime.datetime.fromisoformat(data.get('date_to')).date() if data.get('date_to') else None
                 employee = data.get('employee', None)
@@ -628,6 +630,85 @@ class HolidayEditView(View):
                                     status=400)
 
 
+# Files page
+class FilesAddView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                files = request.FILES.dict()
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+
+            try:
+                creation_date = datetime.datetime.now().date()
+                employee_id = request.POST.get('employee_id', None)
+
+                if employee_id is None or not employee_id:
+                    return JsonResponse(
+                        {"action_success": False, "messages": {"errors": "Nie znaleziono pracownika"}},
+                        status=400)
+                employee = Employee.objects.get(id=int(employee_id), user_id=request.user.id)
+
+                for file_id, file in files.items():
+                    new_file = File(user=request.user, creation_date=creation_date, employee=employee, file=file)
+                    new_file.save()
+
+                return JsonResponse(
+                    {"action_success": True, "messages": {"success": "Pliki zostały pomyślnie dodane!"}})
+            except:
+                print(traceback.format_exc())
+                return JsonResponse(
+                    {"action_success": False, "messages": {"errors": "Nie udało się dodać plików."}},
+                    status=400)
+
+
+class EmployeeFilesView(View):
+
+    def get(self, request):
+        if request.user.is_authenticated:
+
+            try:
+                data = request.GET
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            try:
+                employee_id = data.get('employee_id', None)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie znaleziono pracownika"}}, status=400)
+
+            try:
+                files = list(File.objects.filter(employee_id=employee_id, user_id=request.user.id).values())
+                return JsonResponse({"files": files})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować plików."}},
+                                status=400)
+
+
+class FileRemoveView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            file_id = int(data.get('file_id', None))
+            if file_id and file_id is not None:
+                try:
+                    file = File.objects.get(id=file_id, user_id=request.user.id)
+                    file.file.delete()
+                    file.delete()
+                    return JsonResponse({"action_success": True})
+
+                except:
+                    print(traceback.format_exc())
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+# Other
 class InfoBoxData(View):
 
     def get(self, request):

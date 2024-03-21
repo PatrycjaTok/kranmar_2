@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1 Holidays Page update: &#10;1.1 Collapse legend for past holidays&#10;1.2 Adding input with year (selecting year for holidays display)&#10;2. Holidays info Box created (displaying on Dashboard page)">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Files section for each employee create. - frontend">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kranmar/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/kranmar/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/comapnies.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/comapnies.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/pages/employee_data.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/employee_data.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/employees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/history_changes.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/history_changes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/holidays.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/holidays.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -399,7 +405,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710790680384</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Files section for each employee create. - frontend">
+      <option name="closed" value="true" />
+      <created>1710853977962</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1710853977962</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -414,7 +428,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Employees page update:&#10;- adding view for creating new employee&#10;- adding view to end data to frontend&#10;- show employees in a table&#10;2. Displaying username below nav" />
     <MESSAGE value="1. Employees page update&#10;2. Navbar update (collapse nav after click on mobile)" />
     <MESSAGE value="Library adding: fancytable" />
     <MESSAGE value="1. Employee page update: edit employee update&#10;2. Date inputs update (adding cover-label with dd-mm-yyyy format)" />
@@ -439,6 +452,7 @@
     <MESSAGE value="css little fix" />
     <MESSAGE value="Holidays Page update: change line color on chart when label hover;&#10;InfoBox update: Don't show message when agreement with employee ends" />
     <MESSAGE value="1 Holidays Page update: &#10;1.1 Collapse legend for past holidays&#10;1.2 Adding input with year (selecting year for holidays display)&#10;2. Holidays info Box created (displaying on Dashboard page)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1 Holidays Page update: &#10;1.1 Collapse legend for past holidays&#10;1.2 Adding input with year (selecting year for holidays display)&#10;2. Holidays info Box created (displaying on Dashboard page)" />
+    <MESSAGE value="Files section for each employee create. - frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="Files section for each employee create. - frontend" />
   </component>
 </project>

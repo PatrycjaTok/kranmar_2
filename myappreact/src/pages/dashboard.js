@@ -551,6 +551,7 @@ class Dashboard extends React.Component{
                 searchable: true,
                 globalSearch: false,
                 perPage: 80,
+                inputPlaceholder: 'Szukaj...'
             });
 
             $('.no-action, .no-action a').off();	 
@@ -565,7 +566,7 @@ class Dashboard extends React.Component{
        
         return(
             <div className="position-relative">
-            <h2 className="text-center pb-2 pb-lg-3">Zastępstwa <span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span> <span className={this.state.holidaysInfoBox.classes} id="holidaysInfoBox"><FontAwesomeIcon icon={faUmbrellaBeach} /></span></h2>
+            <h2 className="text-center pb-2 pb-lg-3 position-relative">Zastępstwa <span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span> <span className={this.state.holidaysInfoBox.classes} id="holidaysInfoBox"><FontAwesomeIcon icon={faUmbrellaBeach} /></span></h2>
             <button className="btn btn-secondary to-history-btn" onClick={()=>{this.ToHistorySwal()}}>Przenieś <FontAwesomeIcon icon={faExchangeAlt} className="px-2" title="Przeniś do historii"></FontAwesomeIcon></button>
             <div className="table-wrapper">
                 <div></div>

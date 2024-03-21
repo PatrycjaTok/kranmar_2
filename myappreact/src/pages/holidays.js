@@ -567,6 +567,7 @@ class Holidays extends React.Component{
                 searchable: true,
                 globalSearch: false,
                 perPage: 40,
+                inputPlaceholder: 'Szukaj...'
             });
 
             $('.no-action, .no-action a').off();	 
