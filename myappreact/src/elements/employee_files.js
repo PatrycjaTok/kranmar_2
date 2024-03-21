@@ -198,6 +198,79 @@ class EmployeeFiles extends React.Component{
         })  
     }
 
+    handleRemoveAllCheckedFiles = (ev) =>{
+        let self = this;
+        let evTarget = $(ev.target);
+        let checkedFiles = evTarget.closest('.existing-files-container').find('.employee-file-cover.checked');
+        let filesNames = [];
+        let filesIds = [];
+        
+        if(checkedFiles.length === 0){return;}
+
+        for (const [key, fileDiv] of Object.entries(checkedFiles)) {
+            let fileDivJQ = $(fileDiv);
+            let fileName = fileDivJQ.closest('.employee-file').find('.file-name').find('p').text();
+            let fileId = fileDivJQ.data('file_id');
+
+            if(fileName.length > 0){
+                filesNames.push(fileName);
+                filesIds.push(fileId);
+            };
+        }
+
+        withReactContent(Swal).fire({
+            html: <div>
+                <h3 className="text-danger">Czy na pewno chcesz <br></br>usunąć pliki:</h3>
+                <h4><span>{filesNames.join(', ')}</span> ?</h4>
+            </div>,
+            showConfirmButton: true,
+            showCancelButton: true,
+            icon: 'warning',
+            confirmButtonText: 'Tak, usuń',
+            cancelButtonText: 'Nie'
+            // timerProgressBar: true
+        })
+        .then((result)=>{
+            if(result.isConfirmed){
+                $.ajax({
+                    url: baseURL + '/file-remove-multiple/',
+                    method: 'POST',
+                    dataType: 'json',
+                    async: false,
+                    headers: {
+                      "Content-Type": 'application/json',
+                      "X-CSRFToken": cookies.get("csrftoken")
+                    },
+                    data: JSON.stringify({"files_ids": filesIds}),
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data) {
+                        withReactContent(Swal).fire({
+                            title: `Pomyślnie usunięto pliki.`,
+                            showConfirmButton: false,
+                            icon: 'success',
+                            timer: 3000,
+                            // timerProgressBar: true
+                        }).then(()=>{
+                            self.fetchData();
+                        });   
+                    },
+                    error: function(xhr, status, err) {
+                        // let errorText = xhr.responseJSON.messages.errors;
+                        withReactContent(Swal).fire({
+                            title: 'Nie udało się usunąć plików.',
+                            showConfirmButton: false,
+                            icon: 'error',
+                            timer: 3000,
+                            // timerProgressBar: true
+                        })                 
+                    }
+                });
+            }
+        })  
+    }
+
     handleImageFilePreview = (ev) =>{
         let evTarget = $(ev.target);
         let smallImg = evTarget.closest('.employee-file').find('.employee-file-cover img').clone();
@@ -212,6 +285,10 @@ class EmployeeFiles extends React.Component{
         let previewContainer = $('#file-preview');
         previewContainer.find('div').html('').append(smallIframe);
         previewContainer.removeClass('d-none');
+    }
+
+    handleExistingFileClick = (ev) =>{
+        $(ev.target).closest('.employee-file-cover').toggleClass('checked');
     }
 
     componentDidMount(){
@@ -239,7 +316,7 @@ class EmployeeFiles extends React.Component{
                             clickable>
                             Przeciągnij tu pliki lub kliknij by wybrać
                         </Files>
-                        <button className='btn btn-danger mt-1' onClick={this.handleClearFiles}>Usuń wszystkie pliki</button>
+                        <button className='btn btn-danger mt-1' onClick={this.handleClearFiles}>Usuń wgrane pliki</button>
                         <button className='btn btn-success mt-1 mx-2' onClick={this.handleUploadFiles}>Zapisz pliki</button>
                     </div>
 
@@ -271,9 +348,12 @@ class EmployeeFiles extends React.Component{
                     )}
                 </div> 
 
-                <div className='col'>
-                    <p className='col w-100 bg-custom px-2 py-2 text-center border-radious-custom'>Zapisane pliki</p>
-                    <div className='d-flex flex-wrap'>
+                <div className='col existing-files-container px-0 pb-2'>
+                    <p className='col w-100 bg-custom px-2 py-2 text-center border-radious-custom mb-1'>Zapisane pliki</p>
+                    <div className='w-100 mb-2 px-2'>
+                        <button className='btn btn-danger' onClick={(ev)=>{this.handleRemoveAllCheckedFiles(ev)}}>Usuń zaznaczone</button>
+                    </div>
+                    <div className='d-flex flex-wrap px-2'>
                         {existing_files.map(file => {
                             let file_id = file.id;
                             let is_image = file.file.endsWith('.jpg') || file.file.endsWith('.png');
@@ -287,7 +367,7 @@ class EmployeeFiles extends React.Component{
                                 <div key={file_id} className='d-inline-flex position-relative'>
                                     <div className='employee-file text-center'>
                                         <div className='position-relative'>
-                                            <div className='employee-file-cover'>{is_image
+                                            <div className='employee-file-cover' data-file_id={file_id} onClick={(ev)=>{this.handleExistingFileClick(ev)}}>{is_image
                                             ? <img src={require(`../employees_files/${file_url_in_employee_files}`)} />
                                             : <p className='file-extension-name'>{file_extension}</p>
                                             }</div>

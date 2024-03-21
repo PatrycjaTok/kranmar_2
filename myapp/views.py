@@ -656,7 +656,6 @@ class FilesAddView(View):
                 return JsonResponse(
                     {"action_success": True, "messages": {"success": "Pliki zostały pomyślnie dodane!"}})
             except:
-                print(traceback.format_exc())
                 return JsonResponse(
                     {"action_success": False, "messages": {"errors": "Nie udało się dodać plików."}},
                     status=400)
@@ -687,6 +686,8 @@ class EmployeeFilesView(View):
 
 
 class FileRemoveView(View):
+    multiple = False
+
     def post(self, request):
         if request.user.is_authenticated:
             try:
@@ -694,18 +695,31 @@ class FileRemoveView(View):
             except:
                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
 
-            file_id = int(data.get('file_id', None))
-            if file_id and file_id is not None:
-                try:
-                    file = File.objects.get(id=file_id, user_id=request.user.id)
-                    file.file.delete()
-                    file.delete()
-                    return JsonResponse({"action_success": True})
+            if not self.multiple:
+                file_id = int(data.get('file_id', None))
+                if file_id and file_id is not None:
+                    try:
+                        file = File.objects.get(id=file_id, user_id=request.user.id)
+                        file.file.delete()
+                        file.delete()
+                        return JsonResponse({"action_success": True})
 
-                except:
-                    print(traceback.format_exc())
-                    return JsonResponse({"action_success": False},
-                                    status=400)
+                    except:
+                        return JsonResponse({"action_success": False},
+                                        status=400)
+            else:
+                files_ids = data.get('files_ids', None)
+                if files_ids and files_ids is not None:
+                    try:
+                        for file_id in files_ids:
+                            file = File.objects.get(id=file_id, user_id=request.user.id)
+                            file.file.delete()
+                            file.delete()
+
+                        return JsonResponse({"action_success": True})
+                    except:
+                            return JsonResponse({"action_success": False},
+                                                status=400)
 
 
 # Other

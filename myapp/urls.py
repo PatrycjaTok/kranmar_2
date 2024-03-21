@@ -43,5 +43,6 @@ urlpatterns = [
     path('get-holidays-info-box-data/', views.HolidaysInfoBoxData.as_view()),
     path('files-add/', views.FilesAddView.as_view()),
     path('get-employee-files/', views.EmployeeFilesView.as_view()),
-    path('file-remove/', views.FileRemoveView.as_view()),
+    path('file-remove/', views.FileRemoveView.as_view(multiple=False)),
+    path('file-remove-multiple/', views.FileRemoveView.as_view(multiple=True)),
 ]
