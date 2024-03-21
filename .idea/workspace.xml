@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Files section for each employee create. - frontend">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Files section for each employee - update">
+      <change afterPath="$PROJECT_DIR$/myapp/migrations/0010_file.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myapp/migrations/0011_remove_file_type_alter_file_file.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/2009-stadium-about.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/copertina_img-theme-park_v2.jpg__1200x700_q100_crop_subsampling-2_upscale.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/spiaca-krolewna-oppman.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/2009-stadium-about.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/copertina_img-theme-park_v2.jpg__1200x700_q100_crop_subsampling-2_upscale.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/kopciuszek.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/playground.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kranmar/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/kranmar/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
@@ -413,7 +422,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710853977962</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Files section for each employee - update">
+      <option name="closed" value="true" />
+      <created>1711033563019</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1711033563019</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -428,7 +445,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Employees page update&#10;2. Navbar update (collapse nav after click on mobile)" />
     <MESSAGE value="Library adding: fancytable" />
     <MESSAGE value="1. Employee page update: edit employee update&#10;2. Date inputs update (adding cover-label with dd-mm-yyyy format)" />
     <MESSAGE value="1. Companies page update" />
@@ -453,6 +469,7 @@
     <MESSAGE value="Holidays Page update: change line color on chart when label hover;&#10;InfoBox update: Don't show message when agreement with employee ends" />
     <MESSAGE value="1 Holidays Page update: &#10;1.1 Collapse legend for past holidays&#10;1.2 Adding input with year (selecting year for holidays display)&#10;2. Holidays info Box created (displaying on Dashboard page)" />
     <MESSAGE value="Files section for each employee create. - frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="Files section for each employee create. - frontend" />
+    <MESSAGE value="Files section for each employee - update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Files section for each employee - update" />
   </component>
 </project>
