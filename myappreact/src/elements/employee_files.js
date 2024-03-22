@@ -49,7 +49,7 @@ class EmployeeFiles extends React.Component{
               "Content-Type": 'application/json',
               "X-CSRFToken": cookies.get("csrftoken")
             },
-            data: {"employee_id" : this.props.employee_id},
+            data: {"employee_id" : self.props.employee_id},
             xhrFields: {
                 withCredentials: true
             },
@@ -204,6 +204,7 @@ class EmployeeFiles extends React.Component{
         let checkedFiles = evTarget.closest('.existing-files-container').find('.employee-file-cover.checked');
         let filesNames = [];
         let filesIds = [];
+        let checkAllChecked = $('#checkAllFilesCheckbox').prop('checked');
         
         if(checkedFiles.length === 0){return;}
 
@@ -220,8 +221,8 @@ class EmployeeFiles extends React.Component{
 
         withReactContent(Swal).fire({
             html: <div>
-                <h3 className="text-danger">Czy na pewno chcesz <br></br>usunąć pliki:</h3>
-                <h4><span>{filesNames.join(', ')}</span> ?</h4>
+                <h3 className="text-danger">Czy na pewno chcesz <br></br>usunąć {checkAllChecked ? 'wszystkie pliki?': 'pliki:'} </h3>
+                {!checkAllChecked && <h4><span>{filesNames.join(', ')}</span> ?</h4>}
             </div>,
             showConfirmButton: true,
             showCancelButton: true,
@@ -273,9 +274,11 @@ class EmployeeFiles extends React.Component{
 
     handleImageFilePreview = (ev) =>{
         let evTarget = $(ev.target);
-        let smallImg = evTarget.closest('.employee-file').find('.employee-file-cover img').clone();
+        // let smallImg = evTarget.closest('.employee-file').find('.employee-file-cover img').clone();
+        let smallImgSrc = evTarget.closest('.employee-file').find('.employee-file-cover img').prop('src');
+        let newImg = `<img src=${smallImgSrc}></img>`;
         let previewContainer = $('#file-preview');
-        previewContainer.find('div').html('').append(smallImg);
+        previewContainer.find('div').html('').append(newImg);
         previewContainer.removeClass('d-none');
     }
 
@@ -291,6 +294,17 @@ class EmployeeFiles extends React.Component{
         $(ev.target).closest('.employee-file-cover').toggleClass('checked');
     }
 
+    checkAllFiles = async (ev) =>{
+        let evTarget = $(ev.target);
+        let isChecked = evTarget.closest('div').find('input[type="checkbox"]').prop("checked");
+        
+        if(isChecked){
+            evTarget.closest('.existing-files-container').find('.employee-file .employee-file-cover').addClass('checked');
+        }else{
+            evTarget.closest('.existing-files-container').find('.employee-file .employee-file-cover').removeClass('checked');
+        }
+    }
+
     componentDidMount(){
         this.fetchData(); 
     }
@@ -298,7 +312,7 @@ class EmployeeFiles extends React.Component{
     render(){
         let files = this.state.files;
         let  existing_files = this.state.existing_files;
-
+        // let emailHref = `mailto:''?subject=Pliki pracownika ` + this.props.employee_full_name +`&body=W załączniku przesyłam pliki pracownika ` + this.props.employee_full_name + `.`;
         return(
             <div className='row'>
 
@@ -316,8 +330,8 @@ class EmployeeFiles extends React.Component{
                             clickable>
                             Przeciągnij tu pliki lub kliknij by wybrać
                         </Files>
-                        <button className='btn btn-danger mt-1' onClick={this.handleClearFiles}>Usuń wgrane pliki</button>
-                        <button className='btn btn-success mt-1 mx-2' onClick={this.handleUploadFiles}>Zapisz pliki</button>
+                        <button className='btn btn-danger mt-1 w-100 w-sm-auto' onClick={this.handleClearFiles}>Usuń wgrane pliki</button>
+                        <button className='btn btn-success mt-1 mx-sm-2 w-100 w-sm-auto' onClick={this.handleUploadFiles}>Zapisz pliki</button>
                     </div>
 
                     {files.length > 0 && (
@@ -348,12 +362,14 @@ class EmployeeFiles extends React.Component{
                     )}
                 </div> 
 
-                <div className='col existing-files-container px-0 pb-2'>
+                <div className='col existing-files-container px-0 pb-2 mt-4 mt-sm-0'>
                     <p className='col w-100 bg-custom px-2 py-2 text-center border-radious-custom mb-1'>Zapisane pliki</p>
-                    <div className='w-100 mb-2 px-2'>
-                        <button className='btn btn-danger' onClick={(ev)=>{this.handleRemoveAllCheckedFiles(ev)}}>Usuń zaznaczone</button>
+                    <div className='w-100 px-2'>
+                        <div className='d-inline-block px-2 mb-2 cursor-pointer w-100 w-sm-auto text-center'><input type='checkbox' id='checkAllFilesCheckbox' onClick={(ev)=>{this.checkAllFiles(ev)}}></input><label htmlFor='checkAllFilesCheckbox' className='cursor-pointer px-1'>Zaznacz wszystkie</label></div>
+                        {/* <div className='d-inline-block px-2 mb-2 cursor-pointer'><a href={emailHref}>Wyślij email</a></div> */}
+                        <button className='btn btn-danger mb-2 w-100 w-sm-auto' onClick={(ev)=>{this.handleRemoveAllCheckedFiles(ev)}}>Usuń zaznaczone</button>
                     </div>
-                    <div className='d-flex flex-wrap px-2'>
+                    <div className='d-flex flex-wrap px-2 justify-content-center justify-content-sm-start'>
                         {existing_files.map(file => {
                             let file_id = file.id;
                             let is_image = file.file.endsWith('.jpg') || file.file.endsWith('.png');
@@ -422,6 +438,7 @@ class EmployeeFiles extends React.Component{
 
 EmployeeFiles.defaultProps = {
     employee_id: '',
+    employee_full_name: ''
 };
 
 export default EmployeeFiles;

@@ -27,10 +27,11 @@ class Employee extends React.Component{
             substitutions_history: [],
             actionTypes: {},
             employee_full_name: '',
+            filesSectionClicked: false
         }
     }
 
-    fetchData = () =>{
+    fetchData = (extraData=[]) =>{
         let self = this;
         let employee_id =  new URLSearchParams(window.location.search).get('empl');
         let company_id =  new URLSearchParams(window.location.search).get('comp');
@@ -48,18 +49,31 @@ class Employee extends React.Component{
             },
             data: JSON.stringify({
                 employee_id : employee_id,
-                company_id: company_id
+                company_id: company_id,
+                extraData: extraData
             }),
             xhrFields: {
                 withCredentials: true
             },
             success: function(data) {
                 self.setState({
-                    substitutions: data.substitutions,
-                    substitutions_history: data.substitutions_history,
+                    // substitutions: data.substitutions,
+                    // substitutions_history: data.substitutions_history,
                     actionTypes: data.action_types,
                     employee_full_name: data.employee_full_name
-                });                         
+                });  
+
+                if(extraData.includes('substitutions')){
+                    self.setState({
+                        substitutions: data.substitutions,
+                    });  
+                }   
+                
+                if(extraData.includes('substitutions_history')){
+                    self.setState({
+                        substitutions_history: data.substitutions_history,
+                    });  
+                }
             },
             error: function(xhr, status, err) {
                 let errorText = xhr.responseJSON.messages.errors;   
@@ -122,7 +136,7 @@ class Employee extends React.Component{
                             timer: 3000,
                             // timerProgressBar: true
                         }).then(()=>{
-                            self.fetchData();
+                            self.fetchData(['substitutions']);
                         });   
                     },
                     error: function(xhr, status, err) {
@@ -265,7 +279,7 @@ class Employee extends React.Component{
                             timer: 3000,
                             // timerProgressBar: true
                         }).then(()=>{
-                            self.fetchData();
+                            self.fetchData(['substitutions']);
                         });
                     };        
                 });
@@ -283,6 +297,12 @@ class Employee extends React.Component{
 
         if(filePreview.length > 0 && !filePreview.hasClass('d-none')){
             filePreview.addClass('d-none');
+        }
+    }
+
+    handleAccordionBtnClick = (sectionTYpeArray) => {
+        if(this.state[sectionTYpeArray[0]].length === 0){
+            this.fetchData(sectionTYpeArray);
         }
     }
 
@@ -320,7 +340,7 @@ class Employee extends React.Component{
                     
                     <div className="accordion-item">
                         <h2 className="accordion-header">
-                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onClick={()=>{this.handleAccordionBtnClick(['substitutions'])}}>
                                 <h4 className="w-100 text-center text-primary mb-0">Zastępstwa</h4>
                             </button>
                         </h2>
@@ -328,7 +348,7 @@ class Employee extends React.Component{
                             <div className="accordion-body p-0">
                                 <div className="card substitutions-card position-relative">
                                     <div className="card-body table-wrapper">
-                                        <table className="custom-fancytable substitutions-table">
+                                        <table className="custom-fancytable substitutions-table w-100">
                                             <thead>
                                                 <tr className="bg-primary bg-gradient text-light"> 
                                                     <th className="no-action">Nr</th>
@@ -374,7 +394,7 @@ class Employee extends React.Component{
 
                     <div className="accordion-item">
                         <h2 className="accordion-header">
-                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onClick={()=>{this.handleAccordionBtnClick(['substitutions_history'])}}>
                                 <h4 className="w-100 text-center text-primary mb-0">Historia - Zastępstwa</h4>
                             </button>
                         </h2>
@@ -382,7 +402,7 @@ class Employee extends React.Component{
                             <div className="accordion-body p-0">
                                 <div className="card history-substitutions-card position-relative">
                                     <div className="card-body table-wrapper">                        
-                                        <table className="custom-fancytable substitutions-table">
+                                        <table className="custom-fancytable substitutions-table w-100">
                                             <thead>
                                                 <tr className="bg-primary bg-gradient text-light"> 
                                                     <th className="no-action">Nr</th>
@@ -426,7 +446,7 @@ class Employee extends React.Component{
 
                     {this.state.employee_id && <div className="accordion-item">
                         <h2 className="accordion-header">
-                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" onClick={()=>{if(!this.state.filesSectionClicked){this.setState({filesSectionClicked:true})}}}>
                                 <h4 className="w-100 text-center text-primary mb-0">Pliki</h4>
                             </button>
                         </h2>
@@ -434,7 +454,9 @@ class Employee extends React.Component{
                             <div className="accordion-body p-0">
                                 <div className="card files-card position-relative">
                                     <div className="card-body">                        
-                                        <EmployeeFiles employee_id={this.state.employee_id} />
+                                        {this.state.filesSectionClicked && 
+                                            <EmployeeFiles employee_id={this.state.employee_id} employee_full_name={this.state.employee_full_name}/>
+                                            }
                                     </div>
                                 </div>
                             </div>

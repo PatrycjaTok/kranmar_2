@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="wsp">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Files page update: adding multiple files remove.">
       <change afterPath="$PROJECT_DIR$/playground.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/2009-stadium-about.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/kopciuszek.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/copertina_img-theme-park_v2.jpg__1200x700_q100_crop_subsampling-2_upscale.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/employee_data.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/employee_data.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +58,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d68999036c7f-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.14475.56" />
+        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
       </set>
     </attachedChunks>
   </component>
@@ -424,7 +423,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711033574307</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Files page update: adding multiple files remove.">
+      <option name="closed" value="true" />
+      <created>1711053163310</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1711053163310</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -439,7 +446,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Library adding: fancytable" />
     <MESSAGE value="1. Employee page update: edit employee update&#10;2. Date inputs update (adding cover-label with dd-mm-yyyy format)" />
     <MESSAGE value="1. Companies page update" />
     <MESSAGE value="Library select2 clearing" />
@@ -464,6 +470,7 @@
     <MESSAGE value="Files section for each employee create. - frontend" />
     <MESSAGE value="Files section for each employee - update" />
     <MESSAGE value="wsp" />
-    <option name="LAST_COMMIT_MESSAGE" value="wsp" />
+    <MESSAGE value="Files page update: adding multiple files remove." />
+    <option name="LAST_COMMIT_MESSAGE" value="Files page update: adding multiple files remove." />
   </component>
 </project>

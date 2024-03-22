@@ -951,8 +951,8 @@ nav .navbar-toggler span{
 }
 
 #file-preview:has(iframe) button{
-    right: unset;
-    left: 60px;
+    /* right: unset; */
+    top: 60px;;
 }
 
 #file-preview img{
@@ -972,8 +972,12 @@ nav .navbar-toggler span{
 #file-preview iframe{
     width: 100%;
     z-index: 20;
-    height: 900px;
-    max-height: 95vh;
+    height: 600px;
+    max-height: 95%;
+}
+
+.files-card{
+    min-height: 600px;
 }
 
 .existing-files-container{
@@ -986,6 +990,14 @@ nav .navbar-toggler span{
 
 .checked{
     border: rgb(27, 204, 27) solid 4px !important;
+}
+
+input[type=checkbox]{
+    cursor: pointer;
+}
+
+.cursor-pointer{
+    cursor: pointer !important;
 }
 
 /* --RESPONSIVE-- */
@@ -1113,6 +1125,10 @@ nav .navbar-toggler span{
 
     .mb-sm-0{
         margin-bottom: 0 !important;
+    }
+
+    .w-sm-auto{
+        width: auto !important;
     }
 }
 
