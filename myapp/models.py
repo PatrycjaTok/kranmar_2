@@ -3,6 +3,15 @@ from django.db import models
 from django.db.models import ForeignKey
 
 
+class UserConfig(models.Model):
+    objects = models.Manager()
+    name = 'user_config'
+
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    messages_show = models.BooleanField(default=True)
+    messages_animation = models.BooleanField(default=True)
+
+
 class Employee(models.Model):
     objects = models.Manager()
 

@@ -14,7 +14,7 @@ import datetime
 
 import traceback
 
-from myapp.models import Employee, Company, Substitution, Holiday, File
+from myapp.models import Employee, Company, Substitution, Holiday, File, UserConfig
 
 
 @api_view(['GET'])
@@ -54,8 +54,7 @@ class RegistryView(View):
         if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
             return JsonResponse({"action_success": False, "messages": {"errors": "Niektóre dane istnieją już w bazie. Wprowadź inne dane."}}, status=400)
         else:
-            user = User.objects.create_user(username=username, password=password, first_name=name, last_name=surname, email=email)
-            user.save()
+            User.objects.create_user(username=username, password=password, first_name=name, last_name=surname, email=email)
             return JsonResponse({"action_success": True, "messages": {"success": "Konto zostało utworzone."}})
 
 

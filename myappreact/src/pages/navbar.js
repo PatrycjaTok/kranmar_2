@@ -17,6 +17,11 @@ function NavBarTop(props){
             current: true,
             label: "Home/Zastępstwa",
         },
+        "/holidays" : {
+            dropdown: false,
+            current: false,
+            label: "Urlopy",
+        },
         "/employees" : {
             dropdown: false,
             current: false,
@@ -26,12 +31,7 @@ function NavBarTop(props){
             dropdown: false,
             current: false,
             label: "Firmy",
-        },
-        "/holidays" : {
-            dropdown: false,
-            current: false,
-            label: "Urlopy",
-        },
+        },       
         'navbarDropdownHistory' : {
             dropdown: true,
             current: false,
