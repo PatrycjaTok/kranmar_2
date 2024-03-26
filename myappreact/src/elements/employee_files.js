@@ -8,7 +8,7 @@ import { faTimes, faFileDownload, faSearchPlus} from "@fortawesome/free-solid-sv
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import baseURL from "../utils/request";
-import baseURLFront from "../utils/base_url_front";
+// import baseURLFront from "../utils/base_url_front";
 
 const cookies = new Cookies();
 library.add(faTimes, faFileDownload, faSearchPlus);
@@ -390,7 +390,7 @@ class EmployeeFiles extends React.Component{
 
                                             {is_image && 
                                                 <div className='files-list-item-prevew-container'>
-                                                    <button className="files-list-item-preview btn text-primary" onClick={(ev) => this.handleImageFilePreview(ev)}>
+                                                    <button className="files-list-item-preview btn text-primary" onClick={(ev) => this.handleImageFilePreview(ev)} title='Podgląd'>
                                                         <FontAwesomeIcon icon={faSearchPlus} />
                                                     </button>
                                                 </div>
@@ -398,7 +398,7 @@ class EmployeeFiles extends React.Component{
 
                                             {is_pdf && 
                                                 <div className='files-list-item-prevew-container'>
-                                                    <button className="files-list-item-preview btn text-primary" onClick={(ev) => this.handlePdfFilePreview(ev)}>
+                                                    <button className="files-list-item-preview btn text-primary" onClick={(ev) => this.handlePdfFilePreview(ev)} title='Podgląd'>
                                                         <FontAwesomeIcon icon={faSearchPlus} />
                                                     </button>
                                                     <iframe className='d-none hidden-little-iframe' src={require(`../employees_files/${file_url_in_employee_files}`)}/>
@@ -406,7 +406,7 @@ class EmployeeFiles extends React.Component{
                                             }
 
                                             <div className='files-list-item-download-container'>
-                                                <a  href={require(`../employees_files/${file_url_in_employee_files}`)} download> <FontAwesomeIcon icon={faFileDownload} /> </a>
+                                                <a  href={require(`../employees_files/${file_url_in_employee_files}`)} title='Pobierz' download> <FontAwesomeIcon icon={faFileDownload} /> </a>
                                             </div>
                                     
                                         </div>
@@ -415,7 +415,7 @@ class EmployeeFiles extends React.Component{
                                         </div>
                                     </div>
                                     <div className='files-list-item-remove-container'>
-                                        <button className="files-list-item-remove existing-files-remove btn text-danger" onClick={(ev) => this.handleExistingFileRemove(ev, file.id)}>
+                                        <button className="files-list-item-remove existing-files-remove btn text-danger" onClick={(ev) => this.handleExistingFileRemove(ev, file.id)} title='Usuń'>
                                             <FontAwesomeIcon icon={faTimes} />
                                         </button>
                                     </div>

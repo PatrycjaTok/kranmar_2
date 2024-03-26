@@ -33,7 +33,9 @@ class HomePage extends React.Component{
     this.state={
       username : '',
       date: '',
+      account_settings: {}
     }
+    this.handleAccSettingsRangeInputClick = this.handleAccSettingsRangeInputClick.bind(this);
   }
 
   whoami = () =>{
@@ -60,6 +62,64 @@ class HomePage extends React.Component{
     });
   }
 
+  accountSettings = () =>{
+    const self = this; 
+
+    $.ajax({
+      url: baseURL + '/account-settings/',
+      method: 'GET',
+      dataType: 'json',
+      xhrFields: {
+          withCredentials: true
+      },
+      headers: {
+        "Content-Type": 'application/json',
+        "X-CSRFToken": cookies.get("csrftoken")
+      },
+      // cache: false,
+      success: function(data) {
+        self.setState({account_settings: data.account_settings[0]})
+      },
+      error: function(xhr, status, err) {
+        console.log(err);
+      }
+    });
+  }
+
+  handleAccSettingsRangeInputClick(ev){
+    const self = this; 
+    let evTarget = $(ev.target);
+    let inputName = evTarget.attr('name');
+    let inputValue = Number(evTarget.val()) === 1 ? true : false;
+    let requestData = {
+      'name': inputName,
+      'value': inputValue
+    };
+
+    $.ajax({
+      url: baseURL + '/account-settings-auto-save/',
+      method: 'POST',
+      dataType: 'json',
+      xhrFields: {
+          withCredentials: true
+      },
+      headers: {
+        "Content-Type": 'application/json',
+        "X-CSRFToken": cookies.get("csrftoken")
+      },
+      data: JSON.stringify(requestData),
+      // cache: false,
+      success: function(data) {
+        self.accountSettings();
+      },
+      error: function(xhr, status, err) {
+        console.log(err);
+      }
+    });
+
+
+  }
+
   handleNavigateClick = (event) =>{
     event.preventDefault();
     
@@ -67,6 +127,7 @@ class HomePage extends React.Component{
 
   componentDidMount(){
     this.whoami();
+    this.accountSettings();
     const todayDate = new Date();
     let day = todayDate.getDate();
     let month = todayDate.getMonth();
@@ -90,14 +151,14 @@ class HomePage extends React.Component{
             <div className='content-container px-1 p-md-3'>
               <Routes>
                 {/* <Route  element={<Dashboard loginMethod={this.props.loginMethod} usernameValue={this.props.usernameValue} usernameOnChange={this.props.usernameOnChange} passwordValue={this.props.passwordValue} passwordOnChange={this.props.passwordOnChange} errors={this.props.errors} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/" /> */}
-                <Route  element={<Dashboard />} path="/" />
-                <Route element={<Employees />} path="/employees" />
-                <Route element={<Companies />} path="/companies" />
-                <Route element={<Holidays />} path="/holidays" />
-                <Route element={<HistoryChanges />} path="/history-changes" />
-                <Route element={<HistoryHolidays />} path="/history-holidays" />
-                <Route element={<Settings />} path="/settings" />
-                <Route element={<Employee />} path="/employee-data" />
+                <Route  element={<Dashboard account_settings={this.state.account_settings} />} path="/" />
+                <Route element={<Employees account_settings={this.state.account_settings} />} path="/employees" />
+                <Route element={<Companies account_settings={this.state.account_settings} />} path="/companies" />
+                <Route element={<Holidays account_settings={this.state.account_settings} />} path="/holidays" />
+                <Route element={<HistoryChanges account_settings={this.state.account_settings} />} path="/history-changes" />
+                <Route element={<HistoryHolidays account_settings={this.state.account_settings} />} path="/history-holidays" />
+                <Route element={<Settings account_settings={this.state.account_settings} handleAccSettingsRangeInputClick={this.handleAccSettingsRangeInputClick} />} path="/settings" />
+                <Route element={<Employee account_settings={this.state.account_settings} />} path="/employee-data" />
                 <Route path="*" element={<Navigate to ="/" />}/>
               </Routes>                            
             </div>        

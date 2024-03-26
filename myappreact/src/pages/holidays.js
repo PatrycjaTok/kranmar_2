@@ -144,6 +144,7 @@ class Holidays extends React.Component{
                             borderColor: color,
                             tension: 0,
                             fill: {value: 0},
+                            backgroundColor: '#0000000e',
                             // scales: { 
                             // },
                             pointRadius: 4,
@@ -515,7 +516,7 @@ class Holidays extends React.Component{
         ulElementPast.html('');
         ulElementCurrenAndPast.html('');
         
-        if(chart){   
+        if(chart && chart.legend.legendItems && chart.legend.legendItems.length > 0){   
             setTimeout(()=>{
                 chart.legend.legendItems.forEach((dataset, index) => {
                     let text = dataset.text;
@@ -545,7 +546,7 @@ class Holidays extends React.Component{
                     }
                     
                 });
-            }, 500)    
+            }, 300)    
         }
 
     }

@@ -58,41 +58,46 @@ class Employees extends React.Component{
     }
 
     fetchInfoBoxData = (setIntervalBool=true) =>{
-        let self = this;
-        
-        $.ajax({
-            url: baseURL + '/get-info-box-data/',
-            method: 'GET',
-            dataType: 'json',
-            // async: false,
-            headers: {
-              "Content-Type": 'application/json',
-              "X-CSRFToken": cookies.get("csrftoken")
-            },
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function(data) {
-                if(data.info_box_data){
-                    let result = data.info_box_data
-                    if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
-                        self.setState({infoBox: {show: true, classes:'text-warning', data: result}}, ()=>{StartDisplayingInfoBox(self.state.infoBox.data, setIntervalBool);});  
-                    }else{
-                        self.setState({infoBox: {show: false, classes:'d-none text-warning', data: {}}});  
-                    }                              
-                }               
-            },
-            error: function(xhr, status, err) {
-                let errorText = xhr.responseJSON.messages.errors;   
-                withReactContent(Swal).fire({
-                    title: errorText,
-                    showConfirmButton: false,
-                    icon: 'error',
-                    timer: 3000,
-                    // timerProgressBar: true
-                })                       
-            }
-        });
+        if(this.props.account_settings.messages_show){
+
+            if(!this.props.account_settings.messages_animation){setIntervalBool=false;}
+
+            let self = this;
+            
+            $.ajax({
+                url: baseURL + '/get-info-box-data/',
+                method: 'GET',
+                dataType: 'json',
+                // async: false,
+                headers: {
+                "Content-Type": 'application/json',
+                "X-CSRFToken": cookies.get("csrftoken")
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(data) {
+                    if(data.info_box_data){
+                        let result = data.info_box_data
+                        if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
+                            self.setState({infoBox: {show: true, classes:'text-warning', data: result}}, ()=>{StartDisplayingInfoBox(self.state.infoBox.data, setIntervalBool);});  
+                        }else{
+                            self.setState({infoBox: {show: false, classes:'d-none text-warning', data: {}}});  
+                        }                              
+                    }               
+                },
+                error: function(xhr, status, err) {
+                    let errorText = xhr.responseJSON.messages.errors;   
+                    withReactContent(Swal).fire({
+                        title: errorText,
+                        showConfirmButton: false,
+                        icon: 'error',
+                        timer: 3000,
+                        // timerProgressBar: true
+                    })                       
+                }
+            });
+        }
     }
 
     swalAddEmployee = () => {
@@ -512,7 +517,7 @@ class Employees extends React.Component{
        
         return(
             <div>
-            <h2 className="text-center">Pracownicy<span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span></h2>
+            <h2 className="text-center">Pracownicy {this.props.account_settings.messages_show && <span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span>}</h2>
             <p className="px-2 text-center"><button onClick={this.swalAddEmployee} className="btn btn-primary">Dodaj pracownika</button></p>
             <div className="table-wrapper">
                 <table className="custom-fancytable">

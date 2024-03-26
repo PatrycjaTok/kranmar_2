@@ -171,7 +171,7 @@ class App extends React.Component {
             });
             setTimeout(() => {
               window.location.replace(baseURLFront + '/');
-            }, 5000);            
+            }, 3000);            
           }
         }.bind(this),
         error: function(xhr, status, err) {
@@ -214,3 +214,5 @@ class App extends React.Component {
 export default App;
 
 /* <a href="https://www.freepik.com/free-photo/construction-site-building_3817714.htm#query=cran%20and%20people&position=37&from_view=search&track=ais&uuid=fde076d2-6daa-4f17-aede-3e9b07d9fd28">Image by lifeforstock</a> on Freepik */
+{/* <a href="https://www.freepik.com/free-photo/3d-crane-against-sunset-sky_1594716.htm#fromView=search&page=1&position=41&uuid=31aced3d-2189-402e-aab7-2ce5c22e96e6">Image by kjpargeter on Freepik</a> */}
+{/* <a href="https://www.freepik.com/free-vector/flat-construction-template_1584476.htm#fromView=search&page=1&position=50&uuid=676ae334-cf0e-4b2d-a077-87b5e5dbde7e">Image by freepik</a> */}

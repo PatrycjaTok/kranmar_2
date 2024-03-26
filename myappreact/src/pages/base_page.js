@@ -80,7 +80,7 @@ function LoginPanel(props) {
         {props.errors && <small className='text-danger new-line'>{props.errors}</small>}
         <div className='row'>
           <div className='col text-center mt-3 mt-sm-2 mt-md-1'>
-            <button type='submit' className='btn btn-primary w-100'>Zaloguj</button>
+            <button type='submit' className='btn btn-warning w-100'>Zaloguj</button>
           </div>
         </div>
       </form>
@@ -110,8 +110,8 @@ function RegistryPanel(props) {
     <div>
       <h1 className='px-4 text-primary text-center'>Zarejestruj się</h1>
       <p className='text-center pb-0 mb-0'>Aby utworzyć konto uzupełnij poniższe pola:</p>
-      <h5 className='text-success text-center fw-bolder mb-0 mt-1'>{props.successes && <span>{props.successes}</span>}</h5>
-      <p className="text-success text-center">{props.successes && <span>Zostaniesz przekierowany na stronę logowania</span>}</p>
+      <h5 className='bg-success registry-succes-message text-center fw-bolder mb-0 mt-1'>{props.successes && <span>{props.successes}</span>}</h5>
+      <p className="bg-success registry-succes-message text-center">{props.successes && <span>Zostaniesz przekierowany na stronę logowania</span>}</p>
       <form onSubmit={props.handleRegistryFormSubmit} noValidate>
         <div className='row mb-3'>
           <div className='col-12 col-sm-auto'>
@@ -165,7 +165,7 @@ function RegistryPanel(props) {
         {props.errors && <p className='mb-0 pb-0'><small className='text-danger new-line'>{props.errors}</small></p>}
         <div className='row'>
           <div className='col text-center mt-3 mt-sm-2 mt-md-1'>
-            <button className='btn btn-primary w-100'>Wyślij</button>
+            <button className='btn btn-warning w-100'>Wyślij</button>
           </div>
         </div>
       </form>

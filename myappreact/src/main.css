@@ -26,6 +26,10 @@
 
 /* --- CSS for login page --- */
 
+.registry-succes-message{
+    color: white;
+}
+
 .login-panel-frame:before{
     content: '';
     display: block;
@@ -34,8 +38,8 @@
     top: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.3;
-    background-image: url('../public/images/construction-site-building.jpg');
+    opacity: 0.8;
+    background-image: url('../public/images/3d-crane-against-sunset-sky.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-repeat: no-repeat; 
@@ -63,6 +67,14 @@
 @media only screen and (max-width: 575px) {
     .login-panel-frame .login-box{
         width: 90%;        
+    }
+
+    .swal2-confirm, .swal2-cancel, .swal2-actions{
+        width: 100%;
+    }
+
+    .swal2-cancel{
+        margin-top: 1rem;
     }
 }
 
@@ -260,11 +272,11 @@ table .td-action svg:hover, table .td-action svg:active{
 }
 
 .add-substitution-row{
-    background-color: var(--customColorDefaultLight) !important;
+    background-color: rgb(190, 241, 206) !important;
 }
 
 .add-holiday-row{
-    background-color: rgb(209, 240, 219) !important;
+    background-color: rgb(236, 236, 185)!important;
 }
 
 .fancySearchRow input{
@@ -588,11 +600,11 @@ nav .navbar-toggler span{
     cursor: pointer;
 }
 
-#infoBox{
-    right: 0;
-    margin-right: 1rem;
-    position: absolute;
-}
+/* #infoBox{ */
+    /* left: 120px; */
+    /* margin-left: 5rem; */
+    /* position: absolute; */
+/* } */
 
 .redirect-icon{
     font-size: smaller;
@@ -606,6 +618,10 @@ nav .navbar-toggler span{
 
 .font-smaller{
     font-size: smaller !important;
+}
+
+.font-12{
+    font-size: 1.2rem !important;
 }
 
 .accordion-button.collapsed{
@@ -765,6 +781,27 @@ nav .navbar-toggler span{
 
 #HolidaysChartLegend .accordion-body{
     background-color: rgb(234, 247, 253)
+}
+
+#accordionSettingsPassword .accordion-button{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    font-size: 1.1rem;
+}
+
+#accordionSettingsPassword .accordion-item{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#accordionSettingsPassword .accordion-button span{
+    padding-right: 0.5em;
+}
+
+#accordionSettingsPassword .accordion-body{
+    background-color: rgb(234, 247, 253);
 }
 
 .text-smooth-pink{
@@ -1000,6 +1037,57 @@ input[type=checkbox]{
     cursor: pointer !important;
 }
 
+.single-employee-data table > tbody > tr > td:nth-child(3), .single-employee-data table > tbody > tr >td:nth-child(4){
+    min-width: 180px;
+}
+
+.account-settings-container{
+    width: 600px;
+    max-width: 100%;
+}
+
+.account-settings-container li{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.account-settings-container li > div{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.account-settings-container li > div >label{
+    padding-right: 1rem;
+}
+
+.account-settings-container .accordion-body div{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.account-settings-container input[type='range']{
+    width: 90px;
+}
+
+input[type='range']{
+    cursor: pointer;
+}
+
+.settings-danger-zone{
+    background-color: rgb(233, 232, 232);
+    border-radius: 10px;
+    padding: 1rem 0.5rem;
+}
+
+.navLogo{
+    width: 24px;
+    height: auto;
+    padding-right: 5px;
+}
+
 /* --RESPONSIVE-- */
 
 /* < xl */
@@ -1093,6 +1181,10 @@ input[type=checkbox]{
 
     #file-preview{
         width: 95%;
+    }
+
+    .settings-danger-zone button{
+        width: 100%;
     }
 
 }

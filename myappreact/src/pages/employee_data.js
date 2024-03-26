@@ -333,7 +333,7 @@ class Employee extends React.Component{
         const substitutions_history = this.state.substitutions_history;
        
         return(
-            <div className="position-relative employee-data-container">
+            <div className="position-relative employee-data-container single-employee-data">
                 <h2 className="text-center pb-2 pb-lg-3"><span className="font-smaller px-1 customTextColor"><FontAwesomeIcon icon={faUser}/></span>{this.state.employee_full_name}</h2>
                 
                 <div className="accordion custom-accordion-class" id="accordionExample">

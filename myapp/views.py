@@ -721,6 +721,101 @@ class FileRemoveView(View):
                                                 status=400)
 
 
+# Settings Page
+class AccountSettingsAutoView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            name = data.get('name', None)
+            value = data.get('value', None)
+
+            if name is not None and value is not None:
+
+                try:
+                    user_config = UserConfig.objects.filter(user_id=request.user.id)[0]
+                    setattr(user_config, name, value)
+                    user_config.save()
+                    return JsonResponse(
+                        {"action_success": True, "messages": {"success": "Pomyślnie edytowano ustawienia konta."}})
+                except:
+                    return JsonResponse(
+                        {"action_success": False, "messages": {"errors": "Nie udało się edytować ustawień konta."}},
+                        status=400)
+            else:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie znaleziono ustawień"}}, status=400)
+
+
+class AccountDeleteView(View):
+
+    def post(self, request):
+        if request.user.is_authenticated:
+
+            try:
+                user = User.objects.get(username=request.user.username)
+                user.delete()
+                return JsonResponse({"action_success": True})
+
+            except:
+                print(traceback.format_exc())
+                return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class UserEmailView(View):
+
+    def get(self, request):
+        if request.user.is_authenticated:
+
+            try:
+                email = User.objects.get(id=request.user.id).email
+                return JsonResponse({"email": email})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować plików."}},
+                                status=400)
+
+
+class DangerZoneSettingsView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+
+            email = data.get('email', None)
+            new_password = data.get('new_password', None)
+            old_password = data.get('old_password', None)
+
+            if email is not None:
+                try:
+                    user = User.objects.filter(id=request.user.id, username=request.user.username)
+                    user.update(email=email)
+                    return JsonResponse({"action_success": True, "messages": {"success": "Zapisano zmiany."}})
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się zapisać zmian."}},
+                                    status=400)
+
+            if new_password is not None and old_password is not None:
+                user = authenticate(username=request.user.username, password=old_password)
+                try:
+                    if user is not None:
+                        user.set_password(new_password)
+                        user.save()
+                        return JsonResponse({"action_success": True, "messages": {"success": "Zapisano zmiany."}})
+                    else:
+                        return JsonResponse(
+                            {"action_success": False, "messages": {"errors": "Nie udało się ustawić hasła."}},
+                            status=400)
+                except:
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się zapisać zmian."}},
+                                    status=400)
+
+
 # Other
 class InfoBoxData(View):
 
@@ -984,6 +1079,15 @@ def whoami_view(request):
         "user_id": request.user.id,
         "username": request.user.username,
     })
+
+
+def account_settings_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"isAuthenticated": False})
+    return JsonResponse({
+        "account_settings": list(UserConfig.objects.filter(user_id=request.user.id).values('messages_show', 'messages_animation')),
+    })
+
 
 @api_view(['GET'])
 def get_action_types(request):
