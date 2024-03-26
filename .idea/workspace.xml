@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Signals for User create migration">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="1. Settings Page update.&#10;2. Favicon and page title update.">
+      <change afterPath="$PROJECT_DIR$/myappreact/public/favicon2.ico" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/myappreact/public/images/3d-crane-against-sunset-sky.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_2/download.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_2/spiaca-krolewna-oppman.pdf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/kopciuszek.pdf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/playground.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -468,7 +471,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711396621120</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="1. Settings Page update.&#10;2. Favicon and page title update.">
+      <option name="closed" value="true" />
+      <created>1711475744825</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1711475744825</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -483,7 +494,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dashboard page update." />
     <MESSAGE value="Dashboard little css update" />
     <MESSAGE value="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update" />
     <MESSAGE value="Dashboard page: little select fix (adding empty option for employe/company select list)" />
@@ -508,6 +518,7 @@
     <MESSAGE value="Files page update:&#10;1. button 'check all' for existing files&#10;2. lazy loading for accordion tabs (loading data on header button click)" />
     <MESSAGE value="Signals for User create - create UserConfig for each User" />
     <MESSAGE value="Signals for User create migration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Signals for User create migration" />
+    <MESSAGE value="1. Settings Page update.&#10;2. Favicon and page title update." />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Settings Page update.&#10;2. Favicon and page title update." />
   </component>
 </project>
