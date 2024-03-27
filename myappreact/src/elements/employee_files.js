@@ -8,6 +8,7 @@ import { faTimes, faFileDownload, faSearchPlus} from "@fortawesome/free-solid-sv
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import baseURL from "../utils/request";
+import baseHomeFunctions from "../utils/base_functions_home.js";
 // import baseURLFront from "../utils/base_url_front";
 
 const cookies = new Cookies();
@@ -378,6 +379,7 @@ class EmployeeFiles extends React.Component{
                             let file_url_in_employee_files = file_url.split('/employees_files/').at(-1);
                             let file_extension = file_url.split('.').at(-1);
                             let file_name = file_url.split('/').at(-1);
+                            let creation_date = baseHomeFunctions.YMDtoDMY(file.creation_date);
                             
                             return(
                                 <div key={file_id} className='d-inline-flex position-relative'>
@@ -412,6 +414,7 @@ class EmployeeFiles extends React.Component{
                                         </div>
                                         <div className='file-name'>
                                             <p>{file_name}</p>
+                                            <p className='text-secondary font-smaller-xs '>Dodano: {creation_date}</p>
                                         </div>
                                     </div>
                                     <div className='files-list-item-remove-container'>

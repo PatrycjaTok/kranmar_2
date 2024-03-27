@@ -620,6 +620,10 @@ nav .navbar-toggler span{
     font-size: smaller !important;
 }
 
+.font-smaller-xs{
+    font-size: 0.85rem !important;
+}
+
 .font-12{
     font-size: 1.2rem !important;
 }
