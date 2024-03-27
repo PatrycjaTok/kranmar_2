@@ -1,4 +1,8 @@
 import os
+import string
+import datetime
+import random
+import traceback
 
 from django.contrib.auth.models import User
 from django.db.models import F, Value, Subquery, OuterRef, Q
@@ -6,15 +10,15 @@ from django.db.models.functions import Concat
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views import View
+from pytz import utc
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.utils import json
-import datetime
+from django.core.mail import send_mail
 
-import traceback
-
-from myapp.models import Employee, Company, Substitution, Holiday, File, UserConfig
+from kranmar.settings import EMAIL_HOST_USER
+from myapp.models import Employee, Company, Substitution, Holiday, File, UserConfig, PasswordToken
 
 
 @api_view(['GET'])
@@ -61,9 +65,138 @@ class RegistryView(View):
 class ResetPasswordView(View):
 
     def post(self, request):
-        req = request.POST
-        # TODO: RESET PASSWORD
-        pass
+        try:
+            data = json.loads(request.body)
+        except:
+            return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+        email = data.get('email', None)
+
+        if email is not None:
+            try:
+                if User.objects.filter(email=email).exists():
+                    password_token = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(0, 15, 1))
+
+                    # creating PasswordToken instance
+                    now_date = datetime.datetime.now().replace(tzinfo=utc)
+                    expire_date = now_date + datetime.timedelta(hours=1)
+                    url_token = ''.join(
+                        random.choice(string.ascii_uppercase + string.digits) for i in range(0, 12, 1))
+                    new_ps_token_instance = PasswordToken(user=User.objects.get(email=email), creation_date=now_date, expire_date=expire_date, token=password_token, url_token=url_token)
+                    new_ps_token_instance.save()
+
+                    # sending email
+                    send_mail(
+                        "Zmiana hasła do aplikacji KRANMAR",
+                        F"Wykryto prośbę o zmianę hasła w aplikacji KRANMAR.\nTwój kod do zmiany hasła to:\n\n{password_token}\n\nWpisz go na stronie i utwórz nowe hasło. Kod jest ważny 1 godzinę.\n\nPozdrawiamy,\nKRANMAR",
+                        EMAIL_HOST_USER,
+                        [email],
+                        fail_silently=False,
+                    )
+                    return JsonResponse({"action_success": True,
+                                         "messages": {"success": "Wiadomość została wysłana na podany adres e-mail."},
+                                         'go_token_page': True, 'url_token': url_token})
+
+                return JsonResponse({"action_success": True, "messages": {"success": "Wiadomość została wysłana na podany adres e-mail."}, 'go_token_page': False})
+            except:
+                return JsonResponse({"action_success": False,
+                                     "messages": {"errors": "Coś poszło nie tak. Spróbuje ponownie."}},
+                                    status=400)
+        else:
+            return JsonResponse({"action_success": False,
+                                 "messages": {"errors": "Coś poszło nie tak. Spróbuje ponownie."}},
+                                status=400)
+
+
+class GetPasswordTokenByUrlView(View):
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+        except:
+            return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+        url_token = data.get('url_token', None)
+
+        if url_token is not None:
+            try:
+                if PasswordToken.objects.filter(url_token=url_token).exists():
+                    now_date = datetime.datetime.now()
+                    password_token = PasswordToken.objects.filter(url_token=url_token).first()
+
+                    if now_date.replace(tzinfo=utc) > password_token.expire_date:
+                        return JsonResponse(
+                            {"action_success": False,
+                             "messages": {"errors": "Kod do zmiany hasła wygasł. Wygeneruj kod ponownie."}})
+
+                    if password_token.used_attempts <= 0:
+                        return JsonResponse(
+                            {"action_success": False,
+                             "messages": {"errors": "Liczba prób przekroczona. Wygeneruj nowy kod"}})
+
+                    return JsonResponse({"action_success": True,
+                                         "messages": {"success": ""},
+                                         'password_token': {'used_attempts': password_token.used_attempts}})
+
+                return JsonResponse({"action_success": False,
+                                     "messages": {"errors": "Niepoprawny adres atrony."}},
+                                    status=400)
+            except:
+                return JsonResponse({"action_success": False,
+                                     "messages": {"errors": "Coś poszło nie tak. Spróbuj ponownie."}},
+                                    status=400)
+        else:
+            return JsonResponse({"action_success": False,
+                             "messages": {"errors": "Coś poszło nie tak. Spróbuj ponownie."}},
+                            status=400)
+
+
+class ResetPasswordUpdatePasswordView(View):
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+        except:
+            return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+        password_token = data.get('change_password_token', None)
+        password = data.get('password', None)
+        url_token = data.get('url_token', None)
+
+        if url_token is not None and password_token is not None and password is not None:
+            try:
+                password_token_instance = PasswordToken.objects.filter(url_token=url_token).first()
+
+                if password_token_instance is not None:
+
+                    if password_token_instance.token == password_token:
+                        user = password_token_instance.user
+                        user.set_password(password)
+                        user.save()
+                        return JsonResponse(
+                            {"action_success": True, "messages": {"success": "Hasło zostało zmienione!"}})
+                    else:
+                        used_attempts = password_token_instance.used_attempts - 1
+                        password_token_instance.used_attempts = used_attempts
+                        password_token_instance.save()
+                        return JsonResponse(
+                            {"action_success": False,
+                             "messages": {"errors": "Niepoprawny kod."}},
+                            status=400)
+
+                else:
+                    return JsonResponse(
+                        {"action_success": False, "messages": {"errors": "Nieprawidłowy adres strony."}},
+                        status=400)
+
+            except:
+                return JsonResponse({"action_success": False,
+                                     "messages": {"errors": "Coś poszło nie tak. Spróbuje ponownie."}},
+                                    status=400)
+        else:
+            return JsonResponse({"action_success": False,
+                                 "messages": {"errors": "Coś poszło nie tak. Spróbuje ponownie."}},
+                                status=400)
 
 
 class LogoutUserView(View):
@@ -760,7 +893,6 @@ class AccountDeleteView(View):
                 return JsonResponse({"action_success": True})
 
             except:
-                print(traceback.format_exc())
                 return JsonResponse({"action_success": False},
                                     status=400)
 

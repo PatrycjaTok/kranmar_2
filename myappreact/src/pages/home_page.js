@@ -150,7 +150,6 @@ class HomePage extends React.Component{
           <div className='container-xxl d-flex px-0 justify-content-center'>
             <div className='content-container px-1 p-md-3'>
               <Routes>
-                {/* <Route  element={<Dashboard loginMethod={this.props.loginMethod} usernameValue={this.props.usernameValue} usernameOnChange={this.props.usernameOnChange} passwordValue={this.props.passwordValue} passwordOnChange={this.props.passwordOnChange} errors={this.props.errors} clearErrorsMethod={this.props.clearErrorsMethod} />} path="/" /> */}
                 <Route  element={<Dashboard account_settings={this.state.account_settings} />} path="/" />
                 <Route element={<Employees account_settings={this.state.account_settings} />} path="/employees" />
                 <Route element={<Companies account_settings={this.state.account_settings} />} path="/companies" />

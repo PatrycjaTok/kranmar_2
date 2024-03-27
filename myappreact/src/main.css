@@ -64,6 +64,10 @@
     cursor: default;
 }
 
+.bg-success.registry-succes-message, .bg-success.remind-password-succes-message{
+    color: white !important;
+}
+
 @media only screen and (max-width: 575px) {
     .login-panel-frame .login-box{
         width: 90%;        

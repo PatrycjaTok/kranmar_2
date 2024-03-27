@@ -40,7 +40,7 @@ class Dashboard extends React.Component{
             actionTypes: {},
             AddSubstitutionRow: {...initialAddSubstitutionDict},
             infoBox:{show: false, classes: 'd-none text-warning'},
-            holidaysInfoBox: {show: false, classes: 'd-none text-smooth-orange'}
+            holidaysInfoBox: {show: false, classes: 'd-none text-smooth-orange'},
         }
         this.handleSubstitutedByChange = this.handleSubstitutedByChange.bind(this);
         this.handleSubstitutedChange = this.handleSubstitutedChange.bind(this);
@@ -550,8 +550,6 @@ class Dashboard extends React.Component{
 
     componentDidMount(){
         this.fetchData(); 
-        this.fetchInfoBoxData();
-        this.fetchHolidaysInfoBoxData();
 
         setTimeout(() => { 
             $(".custom-fancytable").fancyTable({
@@ -568,6 +566,11 @@ class Dashboard extends React.Component{
 
             baseHomeFunctions.bindDatesInputs($('tr.add-substitution-row'));          
         }, 300);   
+
+        setTimeout(() => { 
+            this.fetchInfoBoxData();
+            this.fetchHolidaysInfoBoxData();        
+        }, 500); 
       
     }
 

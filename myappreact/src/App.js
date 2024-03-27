@@ -192,12 +192,69 @@ class App extends React.Component {
     }
   }
 
+  handleRemindPasswordFormSubmit = (event) =>{
+    event.preventDefault();
+    let evTarget = $(event.target);
+
+    let validation = baseFunctions.formValidation(evTarget)
+
+    if(validation.validation){
+
+      const data = new FormData(event.target);
+      const objectData = JSON.stringify(Object.fromEntries(data.entries()));
+
+      $.ajax({
+        url: baseURL + '/reset-password/',
+        method: 'POST',
+        dataType: 'json',
+        headers: {
+          "Content-Type": 'application/json',
+          "X-CSRFToken": cookies.get("csrftoken")
+        },
+        data: objectData,
+        xhrFields: {
+            withCredentials: true
+        },
+        // cache: false,
+        success: function(data) {
+          if(this.isResponseOk){  
+          
+            this.setState({
+              success: data.messages.success,
+              error: '',
+            });
+
+            let location_url = data.go_token_page === true ? `/reset-password-token/?url_tk=${data.url_token}` : '/';
+            setTimeout(() => {
+              window.location.replace(baseURLFront + location_url);
+            }, 4000);            
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log('ERROR')
+          let errorText = xhr.responseJSON.messages.errors;
+          this.setState({error: errorText})
+          
+        }.bind(this)
+      });
+
+    }else{
+      let errorText = '';
+      for(let i=0; i< validation.errors.length; i++){
+        errorText += validation.errors[i];
+        if(i < validation.errors.length -1){errorText += '\n'}
+      }
+     
+      this.setState({error: errorText})
+    }
+  }
+
   render(){
     if(!this.state.isAuthenticated){
       const csrfCookie = cookies.get("csrftoken");
       return(
         <div>
-          <CustomPagesLoginPage.LoginPanelFrame loginMethod={this.Login} passwordValue={this.state.password} passwordOnChange={this.handlePasswordChange} usernameValue={this.state.username} usernameOnChange={this.handleUserNameChange} errors={this.state.error} successes={this.state.success} cookies={csrfCookie} handleRegistryFormSubmit={this.handleRegistryFormSubmit} clearErrorsMethod = {this.clearErrors} />
+          <CustomPagesLoginPage.LoginPanelFrame loginMethod={this.Login} passwordValue={this.state.password} passwordOnChange={this.handlePasswordChange} usernameValue={this.state.username} usernameOnChange={this.handleUserNameChange} errors={this.state.error} successes={this.state.success} cookies={csrfCookie} handleRegistryFormSubmit={this.handleRegistryFormSubmit} handleRemindPasswordFormSubmit={this.handleRemindPasswordFormSubmit} clearErrorsMethod={this.clearErrors}/>
         </div>
       )
     }

@@ -111,5 +111,16 @@ class File(models.Model):
     employee = models.ForeignKey(Employee, default=None, on_delete=models.CASCADE)
     file = models.FileField(upload_to=employee_directory_path, max_length=10000)
 
+
+class PasswordToken(models.Model):
+    objects = models.Manager()
+
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    creation_date = models.DateTimeField(null=True)
+    expire_date = models.DateTimeField(null=True)
+    token = models.CharField(max_length=30)
+    used_attempts = models.IntegerField(null=True, default=3)
+    url_token = models.CharField(max_length=30, default='')
+
     class Meta:
         ordering = ["-creation_date"]
