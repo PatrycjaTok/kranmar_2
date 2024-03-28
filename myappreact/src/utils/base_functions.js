@@ -68,7 +68,7 @@ formJQ.find('input[required]').each((index, input)=>{
         pattern = /^[a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ0-9\*\._][a-zA-ZąĄćĆęĘóÓłŁśŚźŹżŻńŃ\-0-9\*\._]*$/
         passwords.push(inputVal);
     }else if(inputName === 'login'){
-        pattern = /^[A-Za-z0-9][A-Za-z0-9._]{2,19}$/
+        pattern = /^[A-Za-z0-9][A-Za-z0-9\.\_\@]{2,40}$/
     }else{
         pattern = /.\n*/
     }

@@ -81,91 +81,87 @@ class Dashboard extends React.Component{
     }
 
     fetchInfoBoxData = () =>{
-        if(this.props.account_settings.messages_show){
-            let setIntervalBool = true;
+        let setIntervalBool = true;
 
-            if(!this.props.account_settings.messages_animation){setIntervalBool=false;}
-            let self = this;
-            
-            $.ajax({
-                url: baseURL + '/get-info-box-data/',
-                method: 'GET',
-                dataType: 'json',
-                // async: false,
-                headers: {
-                "Content-Type": 'application/json',
-                "X-CSRFToken": cookies.get("csrftoken")
-                },
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data) {
-                    if(data.info_box_data){
-                        let result = data.info_box_data
-                        if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
-                            self.setState({infoBox: {show: true, classes:'text-warning'}}); 
-                            StartDisplayingInfoBox(result, setIntervalBool);
-                        }else{
-                            self.setState({infoBox: {show: false, classes:'d-none text-warning'}});  
-                        }                               
-                    }               
-                },
-                error: function(xhr, status, err) {
-                    let errorText = xhr.responseJSON.messages.errors;   
-                    withReactContent(Swal).fire({
-                        title: errorText,
-                        showConfirmButton: false,
-                        icon: 'error',
-                        timer: 3000,
-                        // timerProgressBar: true
-                    })                       
-                }
-            });
-        }
+        if(!this.props.account_settings.messages_animation){setIntervalBool=false;}
+        let self = this;
+        
+        $.ajax({
+            url: baseURL + '/get-info-box-data/',
+            method: 'GET',
+            dataType: 'json',
+            // async: false,
+            headers: {
+            "Content-Type": 'application/json',
+            "X-CSRFToken": cookies.get("csrftoken")
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(data) {
+                if(data.info_box_data){
+                    let result = data.info_box_data
+                    if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
+                        self.setState({infoBox: {show: true, classes:'text-warning'}}); 
+                        StartDisplayingInfoBox(result, setIntervalBool);
+                    }else{
+                        self.setState({infoBox: {show: false, classes:'d-none text-warning'}});  
+                    }                               
+                }               
+            },
+            error: function(xhr, status, err) {
+                let errorText = xhr.responseJSON.messages.errors;   
+                withReactContent(Swal).fire({
+                    title: errorText,
+                    showConfirmButton: false,
+                    icon: 'error',
+                    timer: 3000,
+                    // timerProgressBar: true
+                })                       
+            }
+        });
     }
 
     fetchHolidaysInfoBoxData = () =>{
-        if(this.props.account_settings.messages_show){
-            let setIntervalBool = true;
+        let setIntervalBool = true;
 
-            if(!this.props.account_settings.messages_animation){setIntervalBool=false;}
-            let self = this;
-            
-            $.ajax({
-                url: baseURL + '/get-holidays-info-box-data/',
-                method: 'GET',
-                dataType: 'json',
-                // async: false,
-                headers: {
-                "Content-Type": 'application/json',
-                "X-CSRFToken": cookies.get("csrftoken")
-                },
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data) {
-                    if(data.holidays_info_box_data){
-                        let result = data.holidays_info_box_data
-                        if(result.length > 0){
-                            self.setState({holidaysInfoBox: {show: true, classes:'text-smooth-orange'}}); 
-                            StartDisplayingHolidayInfoBox(result, setIntervalBool);
-                        }else{
-                            self.setState({holidaysInfoBox: {show: false, classes:'d-none text-smooth-orange'}});  
-                        }                               
-                    }               
-                },
-                error: function(xhr, status, err) {
-                    let errorText = xhr.responseJSON.messages.errors;   
-                    withReactContent(Swal).fire({
-                        title: errorText,
-                        showConfirmButton: false,
-                        icon: 'error',
-                        timer: 3000,
-                        // timerProgressBar: true
-                    })                       
-                }
-            });
-        }
+        if(!this.props.account_settings.messages_animation){setIntervalBool=false;}
+        let self = this;
+        
+        $.ajax({
+            url: baseURL + '/get-holidays-info-box-data/',
+            method: 'GET',
+            dataType: 'json',
+            // async: false,
+            headers: {
+            "Content-Type": 'application/json',
+            "X-CSRFToken": cookies.get("csrftoken")
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(data) {
+                if(data.holidays_info_box_data){
+                    let result = data.holidays_info_box_data
+                    if(result.length > 0){
+                        self.setState({holidaysInfoBox: {show: true, classes:'text-smooth-orange'}}); 
+                        StartDisplayingHolidayInfoBox(result, setIntervalBool);
+                    }else{
+                        self.setState({holidaysInfoBox: {show: false, classes:'d-none text-smooth-orange'}});  
+                    }                               
+                }               
+            },
+            error: function(xhr, status, err) {
+                let errorText = xhr.responseJSON.messages.errors;   
+                withReactContent(Swal).fire({
+                    title: errorText,
+                    showConfirmButton: false,
+                    icon: 'error',
+                    timer: 3000,
+                    // timerProgressBar: true
+                })                       
+            }
+        });
     }
 
     setActionTypes = (actionTypes) =>{
@@ -570,7 +566,7 @@ class Dashboard extends React.Component{
         setTimeout(() => { 
             this.fetchInfoBoxData();
             this.fetchHolidaysInfoBoxData();        
-        }, 500); 
+        }, 600); 
       
     }
 

@@ -58,46 +58,43 @@ class Employees extends React.Component{
     }
 
     fetchInfoBoxData = (setIntervalBool=true) =>{
-        if(this.props.account_settings.messages_show){
+        if(!this.props.account_settings.messages_animation){setIntervalBool=false;}
 
-            if(!this.props.account_settings.messages_animation){setIntervalBool=false;}
-
-            let self = this;
-            
-            $.ajax({
-                url: baseURL + '/get-info-box-data/',
-                method: 'GET',
-                dataType: 'json',
-                // async: false,
-                headers: {
-                "Content-Type": 'application/json',
-                "X-CSRFToken": cookies.get("csrftoken")
-                },
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(data) {
-                    if(data.info_box_data){
-                        let result = data.info_box_data
-                        if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
-                            self.setState({infoBox: {show: true, classes:'text-warning', data: result}}, ()=>{StartDisplayingInfoBox(self.state.infoBox.data, setIntervalBool);});  
-                        }else{
-                            self.setState({infoBox: {show: false, classes:'d-none text-warning', data: {}}});  
-                        }                              
-                    }               
-                },
-                error: function(xhr, status, err) {
-                    let errorText = xhr.responseJSON.messages.errors;   
-                    withReactContent(Swal).fire({
-                        title: errorText,
-                        showConfirmButton: false,
-                        icon: 'error',
-                        timer: 3000,
-                        // timerProgressBar: true
-                    })                       
-                }
-            });
-        }
+        let self = this;
+        
+        $.ajax({
+            url: baseURL + '/get-info-box-data/',
+            method: 'GET',
+            dataType: 'json',
+            // async: false,
+            headers: {
+            "Content-Type": 'application/json',
+            "X-CSRFToken": cookies.get("csrftoken")
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(data) {
+                if(data.info_box_data){
+                    let result = data.info_box_data
+                    if(result.agreement_end_date.length > 0 || result.medical_end_date.length > 0 || result.building_license_end_date.length > 0){
+                        self.setState({infoBox: {show: true, classes:'text-warning', data: result}}, ()=>{StartDisplayingInfoBox(self.state.infoBox.data, setIntervalBool);});  
+                    }else{
+                        self.setState({infoBox: {show: false, classes:'d-none text-warning', data: {}}});  
+                    }                              
+                }               
+            },
+            error: function(xhr, status, err) {
+                let errorText = xhr.responseJSON.messages.errors;   
+                withReactContent(Swal).fire({
+                    title: errorText,
+                    showConfirmButton: false,
+                    icon: 'error',
+                    timer: 3000,
+                    // timerProgressBar: true
+                })                       
+            }
+        });
     }
 
     swalAddEmployee = () => {
