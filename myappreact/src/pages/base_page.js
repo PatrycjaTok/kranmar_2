@@ -117,8 +117,8 @@ function RegistryPanel(props) {
 
   return (
     <div>
-     {/* <h3 className='px-4 text-primary text-center'>Sekcja niedostępna. W celu utworzenia konta skontaktuj się z administratorem.</h3> */}
-      <h1 className='px-4 text-primary text-center'>Zarejestruj się</h1>
+     <h3 className='px-4 text-primary text-center'>Sekcja niedostępna. <br></br>W celu utworzenia konta skontaktuj się z administratorem.</h3>
+      {/* <h1 className='px-4 text-primary text-center'>Zarejestruj się</h1>
       <p className='text-center pb-0 mb-0'>Aby utworzyć konto uzupełnij poniższe pola:</p>
       <h5 className='bg-success registry-succes-message text-center fw-bolder mb-0 mt-1'>{props.successes && <span>{props.successes}</span>}</h5>
       <p className="bg-success registry-succes-message text-center">{props.successes && <span>Zostaniesz przekierowany na stronę logowania</span>}</p>
@@ -178,7 +178,7 @@ function RegistryPanel(props) {
             <button className='btn btn-warning w-100'>Wyślij</button>
           </div>
         </div>
-      </form>
+      </form> */}
       <div className='row'>
         <div className='col text-start pt-4'>
           <span className='text-primary'><FontAwesomeIcon icon={faArrowRotateLeft} /> </span>
