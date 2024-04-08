@@ -27,7 +27,11 @@ class Employee extends React.Component{
             substitutions_history: [],
             actionTypes: {},
             employee_full_name: '',
-            filesSectionClicked: false
+            filesSectionClicked: false,
+            activeFancyTabale: {
+                'collapseOne': false,
+                'collapseTwo': false
+            }
         }
     }
 
@@ -306,25 +310,35 @@ class Employee extends React.Component{
         }
     }
 
+    activateFancyTable = (parentId) =>{
+
+        if(!this.state.activeFancyTabale[parentId]){
+            let copyActiveFancyTabale = {...this.state.activeFancyTabale};
+            copyActiveFancyTabale[parentId]= true;
+            this.setState({activeFancyTabale: copyActiveFancyTabale});
+
+            setTimeout(() => { 
+                $(`#${parentId} .custom-fancytable`).fancyTable({
+                    sortColumn: 1,
+                    sortOrder: -1,
+                    pagination: true,
+                    searchable: true,
+                    globalSearch: false,
+                    perPage: 40,
+                    inputPlaceholder: 'Szukaj...'
+                });
+    
+                $('.no-action, .no-action a').off();	           
+            }, 300);   
+        }
+    }
+
     componentDidMount(){
         this.fetchData(); 
+
         $('.employee-data-container').click(()=>{
             this.closeFilePreview();
         });
-
-        setTimeout(() => { 
-            $(".custom-fancytable").fancyTable({
-                sortColumn: 1,
-                sortOrder: -1,
-                pagination: true,
-                searchable: true,
-                globalSearch: false,
-                perPage: 80,
-                inputPlaceholder: 'Szukaj...'
-            });
-
-            $('.no-action, .no-action a').off();	           
-        }, 300);   
       
     }
 
@@ -340,7 +354,7 @@ class Employee extends React.Component{
                     
                     <div className="accordion-item">
                         <h2 className="accordion-header">
-                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onClick={()=>{this.handleAccordionBtnClick(['substitutions'])}}>
+                            <button className="accordion-button collapsed p-2" onMouseUp={()=>{this.activateFancyTable('collapseOne')}} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onClick={()=>{this.handleAccordionBtnClick(['substitutions'])}}>
                                 <h4 className="w-100 text-center text-primary mb-0">Zastępstwa</h4>
                             </button>
                         </h2>
@@ -394,7 +408,7 @@ class Employee extends React.Component{
 
                     <div className="accordion-item">
                         <h2 className="accordion-header">
-                            <button className="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onClick={()=>{this.handleAccordionBtnClick(['substitutions_history'])}}>
+                            <button className="accordion-button collapsed p-2" onMouseUp={()=>{this.activateFancyTable('collapseTwo')}} type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onClick={()=>{this.handleAccordionBtnClick(['substitutions_history'])}}>
                                 <h4 className="w-100 text-center text-primary mb-0">Historia - Zastępstwa</h4>
                             </button>
                         </h2>
