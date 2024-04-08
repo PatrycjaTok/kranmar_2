@@ -4,82 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="collectstatic">
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/LICENSE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/af.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/az.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/bg.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/bn.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/bs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ca.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/cs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/da.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/de.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/dsb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/el.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/es.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/et.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/eu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/fa.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/fi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/fr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/gl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/he.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/hi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/hr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/hsb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/hu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/hy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/id.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/is.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/it.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ja.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ka.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/km.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ko.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/lt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/lv.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/mk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ms.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/nb.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ne.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/nl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/pl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ps.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/pt-BR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/pt.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ro.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/ru.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/sk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/sl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/sq.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/sr-Cyrl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/sr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/sv.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/th.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/tk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/tr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/uk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/vi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/zh-CN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/i18n/zh-TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/select2.full.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/select2/select2.full.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/css/main.c382f35a.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/css/main.c382f35a.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/js/main.4f0e7aea.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/js/main.4f0e7aea.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/js/main.4f0e7aea.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/media/2009-stadium-about.897b312e47121aad068e.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/media/3d-crane-against-sunset-sky.8da6f5e624a7888e2060.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/media/copertina_img-theme-park_v2.jpg__1200x700_q100_crop_subsampling-2_upscale.9f45feef90371546cf09.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/media/kopciuszek.e3c81ae74cc54876457c.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/media/png-transparent-dog-dog-png-pets-image-wild-life-thumbnail.e01774fe1526ae53332e.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/media/spiaca-krolewna-oppman.625b346f86f00b7270ab.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/media/spiaca-krolewna-oppman_6wIqMch.625b346f86f00b7270ab.pdf" afterDir="false" />
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Fix images adding">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/2009-stadium-about.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/copertina_img-theme-park_v2.jpg__1200x700_q100_crop_subsampling-2_upscale.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/spiaca-krolewna-oppman.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_2/download.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_2/spiaca-krolewna-oppman.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/2009-stadium-about.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/download.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/kopciuszek.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/png-transparent-dog-dog-png-pets-image-wild-life-thumbnail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/spiaca-krolewna-oppman_6wIqMch.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_url_front.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_url_front.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/request.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,30 +78,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1705513381983</updated>
-    </task>
-    <task id="LOCAL-00003" summary="workspace file update">
-      <option name="closed" value="true" />
-      <created>1706192738424</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1706192738424</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Frameworks/Libraries">
-      <option name="closed" value="true" />
-      <created>1706194017183</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1706194017183</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Frameworks/Libraries">
-      <option name="closed" value="true" />
-      <created>1706194047681</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1706194047681</updated>
     </task>
     <task id="LOCAL-00006" summary="Fix staticfiles error">
       <option name="closed" value="true" />
@@ -531,7 +447,31 @@
       <option name="project" value="LOCAL" />
       <updated>1711714220765</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="wsp">
+      <option name="closed" value="true" />
+      <created>1711714233988</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1711714233988</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Fix avtivate fancytable library on employee-data page">
+      <option name="closed" value="true" />
+      <created>1712570955858</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1712570955858</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Fix images adding">
+      <option name="closed" value="true" />
+      <created>1712576331619</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1712576331619</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -539,15 +479,25 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Other: adding date-displaying in page-frame&#10;2. Dashboard page update (with fixing bug when adding/removeing substitution)&#10;3. Employees and Companies pages update: fixing bug when adding/removeing employee/company, styles little fixes&#10;4. Fancytable library little update" />
-    <MESSAGE value="Dashboard page: little select fix (adding empty option for employe/company select list)" />
     <MESSAGE value="workspace" />
     <MESSAGE value="Info-Box create. (Informations about Employees's date-deadlines)" />
     <MESSAGE value="Info-Box create. (Informations about Employees's date-deadlines) c.d." />
@@ -569,8 +519,10 @@
     <MESSAGE value="Signals for User create - create UserConfig for each User" />
     <MESSAGE value="Signals for User create migration" />
     <MESSAGE value="1. Settings Page update.&#10;2. Favicon and page title update." />
-    <MESSAGE value="wsp" />
     <MESSAGE value="collectstatic" />
-    <option name="LAST_COMMIT_MESSAGE" value="collectstatic" />
+    <MESSAGE value="wsp" />
+    <MESSAGE value="Fix avtivate fancytable library on employee-data page" />
+    <MESSAGE value="Fix images adding" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix images adding" />
   </component>
 </project>
