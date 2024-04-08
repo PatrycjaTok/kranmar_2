@@ -4,22 +4,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Fix images adding">
+    <list default="true" id="79b3b076-4e38-43b0-9862-1be5fbcf977f" name="Changes" comment="Clearing - collectstatic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/elements/employee_files.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/2009-stadium-about.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/copertina_img-theme-park_v2.jpg__1200x700_q100_crop_subsampling-2_upscale.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_14/spiaca-krolewna-oppman.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_2/download.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_2/spiaca-krolewna-oppman.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/2009-stadium-about.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/download.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/kopciuszek.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/png-transparent-dog-dog-png-pets-image-wild-life-thumbnail.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myappreact/src/employees_files/employee_8/spiaca-krolewna-oppman_6wIqMch.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myappreact/src/pages/base_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/pages/base_page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/utils/base_url_front.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/base_url_front.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myappreact/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/myappreact/src/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/asset-manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/css/main.c382f35a.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/css/main.c382f35a.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/css/main.e94b1089.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/css/main.e94b1089.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/images/construction-site-building.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.082901b4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.082901b4.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.082901b4.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.089a2dd3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.089a2dd3.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.089a2dd3.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.4f0e7aea.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.4f0e7aea.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.4f0e7aea.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.526ddd5e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.526ddd5e.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.526ddd5e.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.57631954.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.57631954.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.57631954.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.6aef5b54.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.6aef5b54.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.6aef5b54.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.b9c607f2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.b9c607f2.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.b9c607f2.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.f289083e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.f289083e.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/js/main.f289083e.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/media/2009-stadium-about.897b312e47121aad068e.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/media/construction-site-building.91de5435e48ba3ce8764.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/media/copertina_img-theme-park_v2.jpg__1200x700_q100_crop_subsampling-2_upscale.9f45feef90371546cf09.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/media/kopciuszek.e3c81ae74cc54876457c.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/media/png-transparent-dog-dog-png-pets-image-wild-life-thumbnail.e01774fe1526ae53332e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/media/spiaca-krolewna-oppman.625b346f86f00b7270ab.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/media/spiaca-krolewna-oppman_6wIqMch.625b346f86f00b7270ab.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/css/main.e94b1089.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/css/main.e94b1089.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/js/main.174bc9a2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/js/main.174bc9a2.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/js/main.174bc9a2.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/js/main.526ddd5e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/js/main.526ddd5e.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/js/main.526ddd5e.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/staticfiles/static/media/construction-site-building.91de5435e48ba3ce8764.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
