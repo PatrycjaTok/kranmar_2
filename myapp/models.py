@@ -92,8 +92,7 @@ class Holiday(models.Model):
 
 
 def employee_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return "myappreact/src/employees_files/employee_{0}/{1}".format(instance.employee.id, filename)
+    return "myappreact/employees_files/employee_{0}/{1}".format(instance.employee.id, filename)
 
 
 class File(models.Model):

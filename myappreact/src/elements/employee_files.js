@@ -380,13 +380,13 @@ class EmployeeFiles extends React.Component{
                             let file_extension = file_url.split('.').at(-1);
                             let file_name = file_url.split('/').at(-1);
                             let creation_date = baseHomeFunctions.YMDtoDMY(file.creation_date);
-                            
+
                             return(
                                 <div key={file_id} className='d-inline-flex position-relative'>
                                     <div className='employee-file text-center'>
                                         <div className='position-relative'>
                                             <div className='employee-file-cover' data-file_id={file_id} onClick={(ev)=>{this.handleExistingFileClick(ev)}}>{is_image
-                                            ? <img src={require(`../employees_files/${file_url_in_employee_files}`)} />
+                                            ? <img src={require(`../../employees_files/${file_url_in_employee_files}`)} alt='img'/>
                                             : <p className='file-extension-name'>{file_extension}</p>
                                             }</div>
 
@@ -403,12 +403,12 @@ class EmployeeFiles extends React.Component{
                                                     <button className="files-list-item-preview btn text-primary" onClick={(ev) => this.handlePdfFilePreview(ev)} title='Podgląd'>
                                                         <FontAwesomeIcon icon={faSearchPlus} />
                                                     </button>
-                                                    <iframe className='d-none hidden-little-iframe' src={require(`../employees_files/${file_url_in_employee_files}`)}/>
+                                                    <iframe className='d-none hidden-little-iframe' src={require(`../../employees_files/${file_url_in_employee_files}`)}/>
                                                 </div>
                                             }
 
                                             <div className='files-list-item-download-container'>
-                                                <a  href={require(`../employees_files/${file_url_in_employee_files}`)} title='Pobierz' download> <FontAwesomeIcon icon={faFileDownload} /> </a>
+                                                <a  href={require(`../../employees_files/${file_url_in_employee_files}`)} title='Pobierz' download> <FontAwesomeIcon icon={faFileDownload} /> </a>
                                             </div>
                                     
                                         </div>

@@ -1154,6 +1154,10 @@ input[type='range']{
 /* < sm */
 @media only screen and (max-width: 575px) {
 
+    .homePage{
+        font-size: 16px;
+    }
+
     nav.navbar > .container-fluid{
         justify-content: center;
         width: 100%;
@@ -1170,7 +1174,7 @@ input[type='range']{
     .logoutBtnContainer{
         width: 100%;
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         margin-top: 0.1rem;
         margin-bottom: 0.3rem;
         padding-left: 0;
