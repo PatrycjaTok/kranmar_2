@@ -386,7 +386,7 @@ class EmployeeFiles extends React.Component{
                                     <div className='employee-file text-center'>
                                         <div className='position-relative'>
                                             <div className='employee-file-cover' data-file_id={file_id} onClick={(ev)=>{this.handleExistingFileClick(ev)}}>{is_image
-                                            ? <img src={require(`../../employees_files/${file_url_in_employee_files}`)} alt='img'/>
+                                            ? <img src={process.env.PUBLIC_URL + `/employees_files/${file_url_in_employee_files}`} alt='img'/>
                                             : <p className='file-extension-name'>{file_extension}</p>
                                             }</div>
 
@@ -403,12 +403,12 @@ class EmployeeFiles extends React.Component{
                                                     <button className="files-list-item-preview btn text-primary" onClick={(ev) => this.handlePdfFilePreview(ev)} title='Podgląd'>
                                                         <FontAwesomeIcon icon={faSearchPlus} />
                                                     </button>
-                                                    <iframe className='d-none hidden-little-iframe' src={require(`../../employees_files/${file_url_in_employee_files}`)}/>
+                                                    <iframe className='d-none hidden-little-iframe' src={process.env.PUBLIC_URL + `/employees_files/${file_url_in_employee_files}`}/>
                                                 </div>
                                             }
 
                                             <div className='files-list-item-download-container'>
-                                                <a  href={require(`../../employees_files/${file_url_in_employee_files}`)} title='Pobierz' download> <FontAwesomeIcon icon={faFileDownload} /> </a>
+                                                <a  href={process.env.PUBLIC_URL + `/employees_files/${file_url_in_employee_files}`} title='Pobierz' download> <FontAwesomeIcon icon={faFileDownload} /> </a>
                                             </div>
                                     
                                         </div>

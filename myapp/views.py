@@ -3,6 +3,7 @@ import string
 import datetime
 import random
 import traceback
+import uuid
 
 from django.contrib.auth.models import User
 from django.db.models import F, Value, Subquery, OuterRef, Q
@@ -782,7 +783,11 @@ class FilesAddView(View):
                 employee = Employee.objects.get(id=int(employee_id), user_id=request.user.id)
 
                 for file_id, file in files.items():
-                    new_file = File(user=request.user, creation_date=creation_date, employee=employee, file=file)
+                    random_token = str(uuid.uuid4())  # Convert UUID format to a Python string.
+                    random_token = random_token.replace("-", "")  # Remove the UUID '-'.
+                    file_token = random_token[0:28]  # Return the random string.
+
+                    new_file = File(user=request.user, file_token=file_token, creation_date=creation_date, employee=employee, file=file)
                     new_file.save()
 
                 return JsonResponse(
@@ -832,7 +837,12 @@ class FileRemoveView(View):
                 if file_id and file_id is not None:
                     try:
                         file = File.objects.get(id=file_id, user_id=request.user.id)
+                        file_path = '/'.join(str(file.file).split('/')[:-1])
                         file.file.delete()
+
+                        if os.path.isdir(file_path):
+                            os.rmdir(file_path)
+
                         file.delete()
                         return JsonResponse({"action_success": True})
 
@@ -845,7 +855,12 @@ class FileRemoveView(View):
                     try:
                         for file_id in files_ids:
                             file = File.objects.get(id=file_id, user_id=request.user.id)
+                            file_path = '/'.join(str(file.file).split('/')[:-1])
                             file.file.delete()
+
+                            if os.path.isdir(file_path):
+                                os.rmdir(file_path)
+
                             file.delete()
 
                         return JsonResponse({"action_success": True})

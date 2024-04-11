@@ -1,13 +1,17 @@
 :root {
-    --customColorDefault: #1abeff;
-    --customColorDefaultMedium: #069ad4;
-    --customColorDefaultHover: rgb(11, 121, 165);
-    --customColorDefaultDark:#055474;
-    --customColorDefaultLight: #a7daee;
-    --customColorDefaultText: #03709b;
+    --customColorDefault: #1af87e;
+    --customColorDefaultMedium: #41be7a;
+    --customColorDefaultHover: #3ca86d;
+    --customColorDefaultDark:#032713;
+    --customColorDefaulPrimaryColor:#0a582d;
+    --customColorDefaultLight: #b0f3ce;
+    --customColorDefaultText: #098842;
     --CustomHoverWhiteText: rgb(204, 204, 204);
     --CustomTextMuted: rgb(180, 180, 180);
     --CustomTextMutedHover: rgb(158, 158, 158);
+    --customDetailsColor: rgb(14, 11, 189);
+    --customAddSubstitutionRowColor: #02140a;
+    --customAddHolidayRowColor: rgb(215, 188, 228);
 
     /* Agreements colors */
     --agreementB2B: rgb(221, 188, 240);
@@ -18,10 +22,10 @@
 
 
     /* Action-types colors */
-    --actionTypeZn: rgb(255, 188, 143);
-    --actionTypeZi: rgb(172, 203, 245);
-    --actionTypeZ: rgb(239, 184, 250);
-    --actionTypeW: rgb(248, 241, 181);
+    --actionTypeZn: rgb(255, 139, 44);
+    --actionTypeZi: rgb(43, 167, 250);
+    --actionTypeZ: rgb(255, 28, 225);
+    --actionTypeW: rgb(252, 237, 100);
   }
 
 /* --- CSS for login page --- */
@@ -88,8 +92,17 @@
     font-size: 1.2rem;
 }
 
+.bg-primary{
+    background-color: var(--customColorDefaulPrimaryColor) !important;
+}
+
+.btn.btn-primary, .btn.btn-primary:active, .btn.btn-primary:hover, .btn.btn-primary:focus{
+    color: black;
+}
+
 .homePage .btn-primary{
     background-color: var(--customColorDefaultMedium);
+    border-color: var(--customColorDefaultMedium);
 }
 
 .homePage .btn-primary:hover, .homePage .btn-primary:active, .homePage .btn-primary.active{
@@ -98,6 +111,10 @@
 
 textarea:focus, input:focus{
     outline: none;
+}
+
+table :not(tfoot) > tr > td{
+    border: rgb(161, 161, 161) solid 1px !important;
 }
 
 input{
@@ -179,7 +196,7 @@ table.substitutions-table tr th:first-child, table.substitutions-table tr td:fir
     width: fit-content;
     max-width: 80px;
     min-width: unset;
-    color: rgb(255, 115, 0);
+    color: var(--customDetailsColor);
  }
 
 table thead{
@@ -245,10 +262,10 @@ table tr:nth-child(odd){
 
 table .td-action{
     color: var(--customColorDefaultMedium);
-    display: flex;
-    justify-content: space-around;
+    /* display: flex; */
+    /* justify-content: space-around; */
     padding-top: 8px;
-    align-items: center;
+    /* align-items: center; */
     height: 100%;
 }
 
@@ -257,13 +274,16 @@ table .td-action a{
 }
 
 table .td-action svg{
-    padding-left: 0.4em;
+    padding-left: 0.8em;
     padding-right: 0.4em;
 }
 
+table .td-action svg:first-child{
+    padding-left: 0.4em;
+}
+
 table .td-action, table .th-action{
-    min-width: 80px;
-    max-width: 100px;
+    width: 140px;
 }
 
 table .td-action svg:hover, table .td-action svg:active{
@@ -276,15 +296,19 @@ table .td-action svg:hover, table .td-action svg:active{
 }
 
 .add-substitution-row{
-    background-color: rgb(190, 241, 206) !important;
+    background-color: var(--customAddSubstitutionRowColor) !important;
+}
+
+.add-substitution-row td:nth-child(1){
+    color: var(--customColorDefault) !important;
 }
 
 .add-holiday-row{
-    background-color: rgb(236, 236, 185)!important;
+    background-color: var(--customAddHolidayRowColor) !important;;
 }
 
 .fancySearchRow input{
-    border: #e36105 solid 2px;
+    border: var(--customDetailsColor) solid 2px;
 }
 
 table td .react-select-custom > div:not([class$="-menu"]) input{
@@ -505,7 +529,7 @@ nav.navbar .btn:hover{
 nav .navbar-brand, nav .navbar-brand:hover, nav .navbar-brand:active, nav .navbar-brand:focus{
     color: var(--customColorDefault);
     font-weight: 500;
-    cursor: default;
+    cursor: pointer;
 }
 
 nav .navbar-toggler, nav .navbar-toggler:focus{
@@ -1174,11 +1198,14 @@ input[type='range']{
     .logoutBtnContainer{
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         margin-top: 0.1rem;
         margin-bottom: 0.3rem;
         padding-left: 0;
-        font-size: medium;
+    }
+
+    nav.navbar .logoutBtnContainer button.btn{
+        font-size: 1.3rem;
     }
 
     .content-container{
@@ -1197,6 +1224,15 @@ input[type='range']{
 
     .settings-danger-zone button{
         width: 100%;
+    }
+
+    .homePage .coverLabelForDateInput{
+        top: 0.48em;
+    }
+
+    .homePage .username-container{
+        padding-top: 0.5rem;
+        padding-bottom: 1rem;
     }
 
 }

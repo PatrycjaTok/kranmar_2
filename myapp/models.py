@@ -90,9 +90,9 @@ class Holiday(models.Model):
     class Meta:
         ordering = ["-date_from"]
 
-
 def employee_directory_path(instance, filename):
-    return "myappreact/employees_files/employee_{0}/{1}".format(instance.employee.id, filename)
+    # UWAGA! NA PRODUKCJI: return "public/employees_files/employee_{0}_{1}/{2}".format(instance.employee.id, instance.file_token, filename)
+    return "myappreact/public/employees_files/employee_{0}_{1}/{2}".format(instance.employee.id, instance.file_token, filename)
 
 
 class File(models.Model):
@@ -106,6 +106,7 @@ class File(models.Model):
     }
 
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    file_token = models.CharField(max_length=60)
     creation_date = models.DateField(null=True)
     employee = models.ForeignKey(Employee, default=None, on_delete=models.CASCADE)
     file = models.FileField(upload_to=employee_directory_path, max_length=10000)
