@@ -408,6 +408,7 @@ a.active:not(.dropdown-toggle){
 
 .custom-accordion-class{
     width: calc(100vw - 3em);
+    max-width: 100%;
 }
 
 .customTextColor{
@@ -518,7 +519,8 @@ nav.navbar .btn:hover{
 
 .username-container{
     font-size: smaller;
-    float: right;
+    width: 100vw;
+    text-align: right;
     padding-right: 1.5rem;
 }
 
