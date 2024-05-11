@@ -125,9 +125,7 @@ class HomePage extends React.Component{
     
   }
 
-  componentDidMount(){
-    this.whoami();
-    this.accountSettings();
+  createDateDisplay = () => {
     const todayDate = new Date();
     let day = todayDate.getDate();
     let month = todayDate.getMonth();
@@ -138,6 +136,20 @@ class HomePage extends React.Component{
     if(year<10){year = "0" + year;}
 
     let todayDateDisplay = `${day}-${month}-${year}`;
+    return todayDateDisplay;
+  }
+
+  handleDateCheck = () => {
+    let newDateDisplay = this.createDateDisplay();
+    if(newDateDisplay !== this.state.date){
+      this.setState({date: newDateDisplay});
+    }
+  }
+
+  componentDidMount(){
+    this.whoami();
+    this.accountSettings();
+    let todayDateDisplay = this.createDateDisplay();
     this.setState({date: todayDateDisplay});
   }
 
@@ -145,8 +157,8 @@ class HomePage extends React.Component{
 
     return(
       <div className='homePage'>
-          <NavBarTop handleLogout={this.props.handleLogout}/>
-          <div className='text-primary noHover username-container'><span className='px-2 text-dark'>{this.state.date}</span><FontAwesomeIcon icon={faUser} /><span className='px-1'>{this.state.username}</span></div>
+          <NavBarTop handleLogout={this.props.handleLogout} handleDateCheck={this.handleDateCheck}/>
+          <div className='text-primary noHover username-container'><span id='currentDateDisplay' className='px-2 text-dark'>{this.state.date}</span><FontAwesomeIcon icon={faUser} /><span className='px-1'>{this.state.username}</span></div>
           <div className='container-xxl d-flex px-0 justify-content-center'>
             <div className='content-container px-1 p-md-3'>
               <Routes>

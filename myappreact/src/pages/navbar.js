@@ -56,6 +56,9 @@ function NavBarTop(props){
         let path = location.pathname;
         let dropdownsLinksHistory = ['/history-changes', '/history-holidays']
 
+        // Check Date
+        props.handleDateCheck();
+
         if(currentLink !== path){
 
             if(!dropdownsLinksHistory.includes(path) && !dropdownsLinksHistory.includes(currentLink)){
