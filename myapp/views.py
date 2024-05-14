@@ -971,11 +971,12 @@ class InfoBoxData(View):
             try:
                 now_date = datetime.datetime.now().date()
                 deadline_date = now_date + datetime.timedelta(days=14)
+                deadline_date_2 = now_date + datetime.timedelta(days=183)
                 user_employees = Employee.objects.filter(user_id=request.user.id)
                 employees = list(user_employees.filter(
                     # Q(agreement_end_date__isnull=False) & Q(agreement_end_date__lte=deadline_date) |
                     Q(medical_end_date__isnull=False) & Q(medical_end_date__lte=deadline_date) |
-                    Q(building_license_end_date__isnull=False) & Q(building_license_end_date__lte=deadline_date)
+                    Q(building_license_end_date__isnull=False) & Q(building_license_end_date__lte=deadline_date_2)
                     ).annotate(full_name=Concat('first_name', Value(' '), 'last_name')).values())
                 agreement_end_date_list, medical_end_date_list, building_license_end_date_list = [], [], []
 
@@ -992,7 +993,7 @@ class InfoBoxData(View):
                         delta = (empl_medical_end_date - now_date).days if empl_medical_end_date > now_date else 0
                         medical_end_date_list.append({'name': employee['full_name'], 'date': empl_medical_end_date, 'delta': delta})
 
-                    if empl_building_license_end_date is not None and empl_building_license_end_date <= deadline_date:
+                    if empl_building_license_end_date is not None and empl_building_license_end_date <= deadline_date_2:
                         delta = (empl_building_license_end_date - now_date).days if empl_building_license_end_date > now_date else 0
                         building_license_end_date_list.append({'name': employee['full_name'], 'date': empl_building_license_end_date, 'delta': delta})
 
