@@ -347,7 +347,7 @@ class Companies extends React.Component{
                     <thead>
                         <tr className="bg-primary bg-gradient text-light"> 
                             <th data-sortas="case-insensitive">Nazwa firmy</th> 
-                            <th className="no-action">Komenatrz</th>
+                            <th data-sortas="case-insensitive">Komenatrz</th>
                             <th className="no-action th-action">Akcje</th> 
                         </tr> 
                     </thead>
@@ -358,7 +358,7 @@ class Companies extends React.Component{
                             return(
                             <tr key={company.id} data-company_id={company.id}>
                                 <td>{company.name}</td>                            
-                                <td className="no-search">{company.comments}</td>
+                                <td>{company.comments}</td>
                                 <td className="no-search td-action"><Link to={href}><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editCompany(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeCompany(ev)}} title="usuń" /></td>
                             </tr>
                             )

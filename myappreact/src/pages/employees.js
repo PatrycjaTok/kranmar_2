@@ -527,7 +527,7 @@ class Employees extends React.Component{
                             <th data-sortas="case-insensitive">Badania do</th> 
                             <th data-sortas="case-insensitive">Uprawnienia do</th> 
                             <th data-sortas="case-insensitive">Domyślna budowa</th> 
-                            <th className="no-action">Komenatrz</th>
+                            <th data-sortas="case-insensitive">Komenatrz</th>
                             <th className="no-action th-action">Akcje</th> 
                         </tr> 
                     </thead>
@@ -545,7 +545,7 @@ class Employees extends React.Component{
                                 <td data-sortvalue={employee.medical_end_date}>{baseHomeFunctions.YMDtoDMY(employee.medical_end_date)}</td>
                                 <td data-sortvalue={employee.building_license_end_date}>{baseHomeFunctions.YMDtoDMY(employee.building_license_end_date)}</td>
                                 <td>{employee.default_build}</td>
-                                <td className="no-search">{employee.comments}</td>
+                                <td>{employee.comments}</td>
                                 <td className="no-search td-action"><Link to={href}><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link><FontAwesomeIcon icon={faUserEdit} onClick={(ev)=>{this.editEmployee(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeEmployee(ev)}} title="usuń" /></td>
                             </tr>
                             )

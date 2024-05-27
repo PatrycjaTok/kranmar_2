@@ -586,12 +586,12 @@ class Dashboard extends React.Component{
                             <th data-sortas="case-insensitive">Data</th> 
                             <th data-sortas="case-insensitive">Zastępstwo za</th> 
                             <th data-sortas="case-insensitive">Zastąpił</th> 
-                            <th data-sortas="case-insensitive">Typ</th> 
+                            <th data-sortas="case-insensitive" className="table-td-s">Typ</th> 
                             <th data-sortas="case-insensitive">Lokalizacja</th> 
                             <th data-sortas="case-insensitive">Żuraw</th> 
-                            <th data-sortas="numeric">Ilość godzin (h)</th> 
-                            <th data-sortas="numeric">Kwota (zł)</th> 
-                            <th className="no-action">Uwagi/Komentarz</th>
+                            <th data-sortas="numeric" className="table-td-xs">Ilość godzin (h)</th> 
+                            <th data-sortas="numeric" className="table-td-xs">Kwota (zł)</th> 
+                            <th data-sortas="case-insensitive" className="table-td-xl">Uwagi/Komentarz</th>
                             <th className="no-action th-action">Akcje</th> 
                         </tr> 
                         <AddSubstitutionRow setActionTypes={this.setActionTypes} handleAddSubstitution={this.handleAddSubstitution} handleInputChange={this.handleInputChange} stateAddSubstitutionRow={this.state.AddSubstitutionRow} handleSubstitutedChange={this.handleSubstitutedChange} handleSubstitutedByChange={this.handleSubstitutedByChange} handleActionTypeChange={this.handleActionTypeChange}/>
@@ -629,7 +629,7 @@ class Dashboard extends React.Component{
                                 <td>{substitution.crane}</td>
                                 <td>{substitution.duration_hours}</td>
                                 <td>{substitution.amount}</td>
-                                <td className="no-search">{substitution.comments}</td>
+                                <td>{substitution.comments}</td>
                                 <td className="no-search td-action"><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editSubstitution(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeSubstitution(ev)}} title="usuń" /></td>
                             </tr>
                             )

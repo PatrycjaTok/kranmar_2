@@ -260,12 +260,12 @@ class HistoryChanges extends React.Component{
                             <th data-sortas="case-insensitive">Data</th> 
                             <th data-sortas="case-insensitive" className="min-w-220">Zastępstwo za</th> 
                             <th data-sortas="case-insensitive" className="min-w-220">Zastąpił</th> 
-                            <th data-sortas="case-insensitive">Typ</th> 
+                            <th data-sortas="case-insensitive" className="table-td-s">Typ</th> 
                             <th data-sortas="case-insensitive">Lokalizacja</th> 
                             <th data-sortas="case-insensitive">Żuraw</th> 
-                            <th data-sortas="numeric">Ilość godzin (h)</th> 
-                            <th data-sortas="numeric">Kwota (zł)</th> 
-                            <th className="no-action">Uwagi/Komentarz</th>
+                            <th data-sortas="numeric" className="table-td-xs">Ilość godzin (h)</th> 
+                            <th data-sortas="numeric" className="table-td-xs">Kwota (zł)</th> 
+                            <th data-sortas="case-insensitive" className="table-td-xl">Uwagi/Komentarz</th>
                         </tr>                         
                     </thead>
                     <tbody>                        
@@ -283,7 +283,7 @@ class HistoryChanges extends React.Component{
                                 <td>{substitution.crane}</td>
                                 <td>{substitution.duration_hours}</td>
                                 <td>{substitution.amount}</td>
-                                <td className="no-search">{substitution.comments}</td>                            
+                                <td>{substitution.comments}</td>                            
                             </tr>
                             )
                         })}      

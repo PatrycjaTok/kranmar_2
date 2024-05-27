@@ -1122,6 +1122,24 @@ input[type='range']{
     padding-right: 5px;
 }
 
+.table-td-xl{
+    min-width: 330px;
+}
+
+.table-td-s{
+    width: 100px;
+    min-width: 20px;
+}
+
+.table-td-xs{
+    width: 50px;
+    min-width: 20px;
+}
+
+.table-td-xxs{
+    width: 60px !important;
+}
+
 /* --RESPONSIVE-- */
 
 /* < xl */

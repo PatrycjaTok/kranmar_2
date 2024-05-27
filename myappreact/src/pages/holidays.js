@@ -640,45 +640,32 @@ class Holidays extends React.Component{
         return(
             <div className="position-relative holidays-page">
                 <h2 className="text-center pb-2 pb-lg-3">Urlopy <span className="holidays-year-container"><input className='' type='number' name='date_year' defaultValue={currentDateYear} onInput={(ev)=>{this.handleOnInputYear(ev)}}></input></span></h2>
-                <div className="table-wrapper lg-d-flex-justify-center">
-                    <table className="custom-fancytable holidays-table">
-                        <thead>
-                            <tr className="bg-primary bg-gradient text-light"> 
-                                <th className="no-action">Nr</th>
-                                <th data-sortas="case-insensitive">Od</th> 
-                                <th data-sortas="case-insensitive">Do</th> 
-                                <th data-sortas="case-insensitive">Kto</th> 
-                                <th data-sortas="numeric">Ilość dni (d)</th> 
-                                <th className="no-action">Uwagi/Komentarz</th>
-                                <th className="no-action th-action">Akcje</th> 
-                            </tr> 
-                            <AddHolidaysRow handleAddHolidays={this.handleAddHoliday} handleInputChange={this.handleInputChange} stateAddHolidayRow={this.state.AddHolidayRow} handleEmployeeChange={this.handleEmployeeChange}/>
-                        </thead>
-                        <tbody>                        
-                            {holidays.length > 0 && holidays.map((holiday, i) => {                        
-
-                                return(
-                                <tr key={holiday.id} data-holiday_id={holiday.id}>                               
-                                    <td>{i+1}</td>
-                                    <td data-sortvalue={holiday.date_from}>{baseHomeFunctions.YMDtoDMY(holiday.date_from)}</td>
-                                    <td data-sortvalue={holiday.date_to}>{baseHomeFunctions.YMDtoDMY(holiday.date_to)}</td>
-                                    <td>{holiday.employee_full_name}</td>
-                                    <td>{holiday.duration_days}</td>
-                                    <td className="no-search">{holiday.comments}</td>
-                                    <td className="no-search td-action"><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editHoliday(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeHoliday(ev)}} title="usuń" /></td>
-                                </tr>
-                                )
-                            })}      
-                        </tbody>                           
-                    </table>
-                </div>
-
-                <div id='HolidaysChartLegend' className="chart-js-custom-legend-box pt-3 pb-0">
+                
+                <div id='HolidaysChartLegend' className="chart-js-custom-legend-box pb-1">
+                    
+                    <div className="accordion pb-1" id="accordionChartLegendCurrent">
+                        <div className="accordion-item">
+                            <h2 className="accordion-header d-flex justify-content-center" id="ChartLegendCurrentHeadingOne">
+                            <button className="accordion-button collapsed p-1" type="button" data-bs-toggle="collapse" data-bs-target="#accChartLegendcollapseOne2" aria-expanded="false" aria-controls="accChartLegendcollapseOne2">
+                                <span className="fw-bolder">Pokaż legendę</span>
+                            </button>
+                            </h2>
+                            <div id="accChartLegendcollapseOne2" className="accordion-collapse collapse" aria-labelledby="ChartLegendCurrentHeadingOne" data-bs-parent="#accordionChartLegendCurrent">
+                            <div className="accordion-body p-1">
+                                <div data-piece_of_time="current_and_future">
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div className="accordion" id="accordionChartLegendPast">
                         <div className="accordion-item">
                             <h2 className="accordion-header d-flex justify-content-center" id="ChartLegendPastHeadingOne">
                             <button className="accordion-button collapsed p-1" type="button" data-bs-toggle="collapse" data-bs-target="#accChartLegendcollapseOne" aria-expanded="false" aria-controls="accChartLegendcollapseOne">
-                                <span>Pokaż legendy z przeszłości</span>
+                                <span>Legendy z przeszłości</span>
                             </button>
                             </h2>
                             <div id="accChartLegendcollapseOne" className="accordion-collapse collapse" aria-labelledby="ChartLegendPastHeadingOne" data-bs-parent="#accordionChartLegendPast">
@@ -692,10 +679,6 @@ class Holidays extends React.Component{
                         </div>
                     </div>
                     
-                    <div data-piece_of_time="current_and_future">
-                        <ul>
-                        </ul>
-                    </div>
                 </div>
 
                 <div id='HolidaysChartContainer' className="d-flex justify-content-start w-100">
@@ -740,6 +723,39 @@ class Holidays extends React.Component{
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div className="table-wrapper lg-d-flex-justify-center pt-5">
+                    <table className="custom-fancytable holidays-table">
+                        <thead>
+                            <tr className="bg-primary bg-gradient text-light"> 
+                                <th className="no-action table-td-xxs">Nr</th>
+                                <th data-sortas="case-insensitive">Od</th> 
+                                <th data-sortas="case-insensitive">Do</th> 
+                                <th data-sortas="case-insensitive">Kto</th> 
+                                <th data-sortas="numeric" className="table-td-xs">Ilość dni (d)</th> 
+                                <th data-sortas="case-insensitive">Uwagi/Komentarz</th>
+                                <th className="no-action th-action">Akcje</th> 
+                            </tr> 
+                            <AddHolidaysRow handleAddHolidays={this.handleAddHoliday} handleInputChange={this.handleInputChange} stateAddHolidayRow={this.state.AddHolidayRow} handleEmployeeChange={this.handleEmployeeChange}/>
+                        </thead>
+                        <tbody>                        
+                            {holidays.length > 0 && holidays.map((holiday, i) => {                        
+
+                                return(
+                                <tr key={holiday.id} data-holiday_id={holiday.id}>                               
+                                    <td>{i+1}</td>
+                                    <td data-sortvalue={holiday.date_from}>{baseHomeFunctions.YMDtoDMY(holiday.date_from)}</td>
+                                    <td data-sortvalue={holiday.date_to}>{baseHomeFunctions.YMDtoDMY(holiday.date_to)}</td>
+                                    <td>{holiday.employee_full_name}</td>
+                                    <td>{holiday.duration_days}</td>
+                                    <td>{holiday.comments}</td>
+                                    <td className="no-search td-action"><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editHoliday(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeHoliday(ev)}} title="usuń" /></td>
+                                </tr>
+                                )
+                            })}      
+                        </tbody>                           
+                    </table>
                 </div>
             </div>
         )
