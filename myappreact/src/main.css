@@ -673,6 +673,7 @@ nav .navbar-toggler span{
 #HolidaysChartContainer{
     overflow: auto;
     flex-direction: column;
+    margin-bottom: 3rem;
 }
 
 #HolidaysChartLegend ul{
@@ -793,6 +794,10 @@ nav .navbar-toggler span{
     border-width: 2px;
     padding-top: 1px;
     padding-bottom: 1px;
+}
+
+.holidays-page > .table-wrapper{
+    padding-top: 0 !important;
 }
 
 #HolidaysChartLegend  .accordion-item{
