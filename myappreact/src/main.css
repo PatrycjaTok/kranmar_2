@@ -297,6 +297,7 @@ table .td-action svg:hover, table .td-action svg:active{
 
 .add-substitution-row{
     background-color: var(--customAddSubstitutionRowColor) !important;
+    border: #1bf815 solid 3px;
 }
 
 .add-substitution-row td:nth-child(1){
@@ -304,11 +305,17 @@ table .td-action svg:hover, table .td-action svg:active{
 }
 
 .add-holiday-row{
-    background-color: var(--customAddHolidayRowColor) !important;;
+    background-color: var(--customAddHolidayRowColor) !important;
+    border: #f532eb solid 3px;
 }
 
 .fancySearchRow input{
     border: var(--customDetailsColor) solid 2px;
+}
+
+input[aria-label="Search column"]{
+    background-color: rgb(219, 240, 241);
+    color: red;
 }
 
 table td .react-select-custom > div:not([class$="-menu"]) input{
