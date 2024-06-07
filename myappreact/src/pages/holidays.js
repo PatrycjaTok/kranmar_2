@@ -573,7 +573,23 @@ class Holidays extends React.Component{
 
             $('.no-action, .no-action a').off();	 
 
-            baseHomeFunctions.bindDatesInputs($('tr.add-holiday-row'));          
+            baseHomeFunctions.bindDatesInputs($('tr.add-holiday-row')); 
+            
+            // scroll chart to current month
+            const scrollContainer = document.getElementById('HolidaysChartContainer');   
+            if(scrollContainer){
+                let scrollContainerWidth = scrollContainer.scrollWidth; 
+                if(scrollContainerWidth && Number(scrollContainerWidth)>0) { 
+                    let currentMonthBox = $('#HolidaysChartContainer .month-box')[Number(currentDateMonth)-1];
+                    let left = currentMonthBox.offsetLeft;
+                    // $('#HolidaysChartContainer')[0].scrollLeft = left - ($('#HolidaysChartContainer').width()/(scrollContainerWidth/$('#HolidaysChartContainer').width()));
+                    $('#HolidaysChartContainer')[0].scrollTo({
+                        left: left - ($('#HolidaysChartContainer').width()/(scrollContainerWidth/$('#HolidaysChartContainer').width())),
+                        behavior: "smooth",
+                      });
+                } 
+            }
+            
         }, 300);   
       
     }
