@@ -413,6 +413,14 @@ a.active:not(.dropdown-toggle){
     cursor: default;
 }
 
+button.navbar-toggler{
+    background-color: var(--customColorDefaulPrimaryColor);
+}
+
+button.navbar-toggler .navbar-toggler-icon{
+    filter: invert(1);
+}
+
 .custom-accordion-class{
     width: calc(100vw - 3em);
     max-width: 100%;
