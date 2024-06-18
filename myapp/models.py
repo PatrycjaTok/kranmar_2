@@ -59,7 +59,7 @@ class Substitution(models.Model):
         'zn': 'Z_nasze',
         'zi': 'Z_inne',
         'z': 'Zaliczka',
-        'w': 'Wolne',
+        'w': 'Brak_obsady',
     }
 
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
