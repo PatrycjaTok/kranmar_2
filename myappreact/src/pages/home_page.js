@@ -132,7 +132,8 @@ class HomePage extends React.Component{
     let year = todayDate.getFullYear();
 
     if(day<10){day = "0" + day;}
-    if(month<10){month = "0" + (month+1);}
+    month = month+1;
+    if(month<10){month = "0" + month;}
     if(year<10){year = "0" + year;}
 
     let todayDateDisplay = `${day}-${month}-${year}`;

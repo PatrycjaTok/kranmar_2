@@ -33,7 +33,8 @@ const currentDateYear = todayDate.getFullYear();
 let currentDateDay = todayDate.getDate();
 let currentDateMonth = todayDate.getMonth();
 if(currentDateDay<10){currentDateDay = "0" + currentDateDay;}
-if(currentDateMonth<10){currentDateMonth = "0" + (currentDateMonth+1);}
+currentDateMonth = currentDateMonth+1;
+if(currentDateMonth<10){currentDateMonth = "0" + currentDateMonth;}
 
 let todayDateYMD = `${currentDateYear}-${currentDateMonth}-${currentDateDay}`;
 let todayDateDisplay = `${currentDateDay}-${currentDateMonth}-${currentDateYear}`;
