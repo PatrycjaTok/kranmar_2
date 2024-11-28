@@ -19,7 +19,7 @@ from rest_framework.utils import json
 from django.core.mail import send_mail
 
 from kranmar.settings import EMAIL_HOST_USER
-from myapp.models import Employee, Company, Substitution, Holiday, File, UserConfig, PasswordToken
+from myapp.models import Employee, Company, Substitution, Holiday, File, UserConfig, PasswordToken, Building
 
 
 @api_view(['GET'])
@@ -761,6 +761,174 @@ class HolidayEditView(View):
                 except:
                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować urlopu."}},
                                     status=400)
+
+
+# Holidays Page
+class BuildsView(View):
+
+    def get(self, request):
+        if request.user.is_authenticated:
+
+            try:
+                data = request.GET
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            try:
+                date_year = data.get('date_year', None)
+                current_date = datetime.date(int(date_year), 1, 1) if date_year is not None else datetime.datetime.now().date()
+                first_day_of_year = datetime.date(current_date.year, 1, 1)
+                last_day_of_year = datetime.date(current_date.year, 12, 31)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Problem z konwersją dat."}}, status=400)
+
+            try:
+                builds_objs = Building.objects.filter(user_id=request.user.id)
+                builds = list(builds_objs.filter(Q(date_start__year=current_date.year) | Q(date_end__year=current_date.year)).values())
+
+                for building in builds:
+                    if building['date_start'] < first_day_of_year:
+                        building['date_start'] = None
+
+                    if building['date_end'] > last_day_of_year:
+                        building['date_end'] = None
+
+                    building['default_employees_full_names'] = [Employee.objects.get(user_id=request.user.id, id=empl_id).full_name for empl_id in building['default_employees'].split(",")]
+
+                chart_labels = []
+
+                for month in range(1, 13, 1):
+                    first_day_of_month = datetime.date(current_date.year, month, 1)
+
+                    chart_labels.append({
+                        'value': first_day_of_month,
+                        'month': True,
+                        'week': False
+                    })
+
+                    # all days
+                    next_day = first_day_of_month + datetime.timedelta(days=1)
+
+                    while next_day.month == month:
+                        # for end of december
+                        if month == 12 and next_day.day == 31:
+                            chart_labels.append({
+                                'value': next_day,
+                                'month': True,
+                                'week': False
+                            })
+                        elif next_day.weekday() == 0:
+                            chart_labels.append({
+                                'value': next_day,
+                                'month': False,
+                                'week': True
+                            })
+                        else:
+                            chart_labels.append({
+                                'value': next_day,
+                                'month': False,
+                                'week': False
+                            })
+                        next_day += datetime.timedelta(days=1)
+
+                return JsonResponse({"builds": builds, 'chart_labels': chart_labels})
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować budów."}},
+                                status=400)
+
+
+# class BuildingCreateView(View):
+#     def post(self, request):
+#         if request.user.is_authenticated:
+#             try:
+#                 data = json.loads(request.body)
+#             except:
+#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+#
+#             date_from = datetime.datetime.fromisoformat(data.get('date_from')).date() if data.get('date_from') else None
+#             date_to = datetime.datetime.fromisoformat(data.get('date_to')).date() if data.get('date_to') else None
+#             employee = int(data.get('employee', None))
+#             comments = data.get('comments', None)
+#
+#             if date_from > date_to:
+#                 return JsonResponse({"action_success": False, "messages": {"errors": 'Data "Od" musi być większa lub równa dacie "Do".'}},
+#                                     status=400)
+#
+#             try:
+#                 new_holiday = Holiday(user=request.user, date_from=date_from, date_to=date_to, employee=Employee.objects.get(id=employee, user_id=request.user.id), comments=comments)
+#                 new_holiday.save()
+#                 return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie dodano urlop."}})
+#             except:
+#                 # print(traceback.format_exc())
+#                 return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć urlopu."}},
+#                                 status=400)
+#
+#
+# class HolidayRemoveView(View):
+#     def post(self, request):
+#         if request.user.is_authenticated:
+#             try:
+#                 data = json.loads(request.body)
+#             except:
+#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+#
+#             holiday_id = int(data.get('holiday_id', None))
+#             if holiday_id and holiday_id is not None:
+#                 try:
+#                     holiday = Holiday.objects.get(user_id=request.user.id, id=holiday_id)
+#                     holiday.delete()
+#                     return JsonResponse({"action_success": True})
+#                 except:
+#                     return JsonResponse({"action_success": False},
+#                                     status=400)
+#
+#
+# class GetHolidayByIdView(View):
+#     def post(self, request):
+#         if request.user.is_authenticated:
+#             try:
+#                 data = json.loads(request.body)
+#             except:
+#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+#
+#             holiday_id = int(data.get('holiday_id', None))
+#             if holiday_id and holiday_id is not None:
+#                 try:
+#                     holiday = list(Holiday.objects.filter(id=holiday_id, user_id=request.user.id).values())[0]
+#
+#                     holiday['duration_days'] = (holiday['date_to'] - holiday['date_from']).days + 1
+#                     holiday['employee_full_name'] = Employee.objects.get(user_id=request.user.id,
+#                                                                              id=holiday['employee_id']).full_name
+#
+#                     return JsonResponse({'holiday': holiday})
+#                 except:
+#                     return JsonResponse({"action_success": False},
+#                                     status=400)
+#
+#
+# class HolidayEditView(View):
+#     def post(self, request):
+#         if request.user.is_authenticated:
+#             try:
+#                 data = json.loads(request.body)
+#             except:
+#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+#
+#             holiday_id = int(data.get('holiday_id', None))
+#             if holiday_id and holiday_id is not None:
+#                 date_from = datetime.datetime.fromisoformat(data.get('date_from')).date() if data.get('date_from') else None
+#                 date_to = datetime.datetime.fromisoformat(data.get('date_to')).date() if data.get('date_to') else None
+#                 employee = data.get('employee', None)
+#                 comments = data.get('comments', None)
+#
+#                 try:
+#                     holiday = Holiday.objects.filter(id=holiday_id, user_id=request.user.id)
+#                     holiday.update(date_from=date_from, date_to=date_to, employee=Employee.objects.get(id=employee, user_id=request.user.id), comments=comments)
+#
+#                     return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie edytowano urlop." }})
+#                 except:
+#                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować urlopu."}},
+#                                     status=400)
 
 
 # Files page

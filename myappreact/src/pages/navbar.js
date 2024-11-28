@@ -22,6 +22,11 @@ function NavBarTop(props){
             current: false,
             label: "Urlopy",
         },
+        "/builds" : {
+            dropdown: false,
+            current: false,
+            label: "Budowy",
+        },
         "/employees" : {
             dropdown: false,
             current: false,

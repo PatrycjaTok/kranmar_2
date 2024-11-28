@@ -17,6 +17,7 @@ import NavBarTop from './navbar.js';
 import Dashboard from './dashboard.js';
 import Employees from './employees.js';
 import Holidays from './holidays.js';
+import Builds from './builds.js';
 import HistoryChanges from './history_changes.js';
 import HistoryHolidays from './history_holidays.js';
 import Settings from './settings.js';
@@ -167,6 +168,7 @@ class HomePage extends React.Component{
                 <Route element={<Employees account_settings={this.state.account_settings} />} path="/employees" />
                 <Route element={<Companies account_settings={this.state.account_settings} />} path="/companies" />
                 <Route element={<Holidays account_settings={this.state.account_settings} />} path="/holidays" />
+                <Route element={<Builds account_settings={this.state.account_settings} />} path="/builds" />
                 <Route element={<HistoryChanges account_settings={this.state.account_settings} />} path="/history-changes" />
                 <Route element={<HistoryHolidays account_settings={this.state.account_settings} />} path="/history-holidays" />
                 <Route element={<Settings account_settings={this.state.account_settings} handleAccSettingsRangeInputClick={this.handleAccSettingsRangeInputClick} />} path="/settings" />

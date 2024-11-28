@@ -90,6 +90,22 @@ class Holiday(models.Model):
     class Meta:
         ordering = ["-date_from"]
 
+
+class Building(models.Model):
+    objects = models.Manager()
+
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    name = models.CharField(max_length=80)
+    crane = models.CharField(max_length=80)
+    date_start = models.DateField(null=True)
+    date_end = models.DateField(null=True)
+    manager_phone_number = models.IntegerField(null=True)
+    default_employees = models.CharField(max_length=60)
+    comments = models.CharField(max_length=200)
+
+    class Meta:
+        ordering = ["-date_start"]
+
 def employee_directory_path(instance, filename):
     # UWAGA! NA PRODUKCJI: return "public/employees_files/employee_{0}_{1}/{2}".format(instance.employee.id, instance.file_token, filename)
     return "myappreact/public/employees_files/employee_{0}_{1}/{2}".format(instance.employee.id, instance.file_token, filename)
