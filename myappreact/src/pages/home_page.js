@@ -127,7 +127,7 @@ class HomePage extends React.Component{
   }
 
   createDateDisplay = () => {
-    const todayDate = new Date();
+    let todayDate = new Date();
     let day = todayDate.getDate();
     let month = todayDate.getMonth();
     let year = todayDate.getFullYear();
@@ -142,6 +142,7 @@ class HomePage extends React.Component{
   }
 
   handleDateCheck = () => {
+    console.log('spr date"')
     let newDateDisplay = this.createDateDisplay();
     if(newDateDisplay !== this.state.date){
       this.setState({date: newDateDisplay});
