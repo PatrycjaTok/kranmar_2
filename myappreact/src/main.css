@@ -1029,6 +1029,7 @@ nav .navbar-toggler span{
     max-width: 600px;
     height: auto;
     max-height: 100%;
+    z-index: 5;
 }
 
 #file-preview button{
