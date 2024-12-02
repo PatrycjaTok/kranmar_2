@@ -28,8 +28,8 @@ const initialAddHolidayDict = {
     comments: '',
 }
 
-const todayDate = new Date();
-const currentDateYear = todayDate.getFullYear();
+let todayDate = new Date();
+let currentDateYear = todayDate.getFullYear();
 let currentDateDay = todayDate.getDate();
 let currentDateMonth = todayDate.getMonth();
 if(currentDateDay<10){currentDateDay = "0" + currentDateDay;}
@@ -526,7 +526,7 @@ class Holidays extends React.Component{
                     let firstPoint = chart.data.datasets[dataset.datasetIndex].data[0].x;
                     let secondPoint = chart.data.datasets[dataset.datasetIndex].data[1].x;
         
-                    const liElement = $(`<li><span style=" border-color:${bColor}; background-color:${bColor}"></span><p>${text}</p></li>`);
+                    let liElement = $(`<li><span style=" border-color:${bColor}; background-color:${bColor}"></span><p>${text}</p></li>`);
                     
                     liElement.click((ev)=>{
                         self.handleChartLiClick(ev, datasetIndex);
