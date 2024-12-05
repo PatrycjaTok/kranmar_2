@@ -142,7 +142,6 @@ class HomePage extends React.Component{
   }
 
   handleDateCheck = () => {
-    console.log('spr date"')
     let newDateDisplay = this.createDateDisplay();
     if(newDateDisplay !== this.state.date){
       this.setState({date: newDateDisplay});
