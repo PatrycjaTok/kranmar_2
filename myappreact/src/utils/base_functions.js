@@ -73,7 +73,7 @@ formJQ.find('input[required]').each((index, input)=>{
         pattern = /.\n*/
     }
 
-    let result = pattern.test(inputVal);
+    let result = (inputJQ.data('validate_only_length') && Number(inputJQ.data('validate_only_length')) === 1) ? true : pattern.test(inputVal);
     
     if(!result){
         inputJQ.addClass('invalid');
