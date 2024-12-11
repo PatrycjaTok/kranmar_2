@@ -48,7 +48,7 @@ urlpatterns = [
     path('building-create/', views.BuildingCreateView.as_view()),
     path('building-remove/', views.BuildingRemoveView.as_view()),
     path('get-building-data/', views.GetBuildingByIdView.as_view()),
-    # path('holiday-edit/', views.HolidayEditView.as_view()),
+    path('building-edit/', views.BuildingEditView.as_view()),
     path('files-add/', views.FilesAddView.as_view()),
     path('get-employee-files/', views.EmployeeFilesView.as_view()),
     path('file-remove/', views.FileRemoveView.as_view(multiple=False)),

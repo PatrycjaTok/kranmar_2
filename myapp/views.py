@@ -1008,30 +1008,59 @@ class GetBuildingByIdView(View):
                     return JsonResponse({"action_success": False},
                                     status=400)
 
-#
-# class HolidayEditView(View):
-#     def post(self, request):
-#         if request.user.is_authenticated:
-#             try:
-#                 data = json.loads(request.body)
-#             except:
-#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
-#
-#             holiday_id = int(data.get('holiday_id', None))
-#             if holiday_id and holiday_id is not None:
-#                 date_from = datetime.datetime.fromisoformat(data.get('date_from')).date() if data.get('date_from') else None
-#                 date_to = datetime.datetime.fromisoformat(data.get('date_to')).date() if data.get('date_to') else None
-#                 employee = data.get('employee', None)
-#                 comments = data.get('comments', None)
-#
-#                 try:
-#                     holiday = Holiday.objects.filter(id=holiday_id, user_id=request.user.id)
-#                     holiday.update(date_from=date_from, date_to=date_to, employee=Employee.objects.get(id=employee, user_id=request.user.id), comments=comments)
-#
-#                     return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie edytowano urlop." }})
-#                 except:
-#                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować urlopu."}},
-#                                     status=400)
+
+class BuildingEditView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak."}}, status=400)
+
+            building_id = int(data.get('building_id', None))
+            if building_id and building_id is not None:
+                name = data.get('name', None)
+                crane = data.get('crane', None)
+                date_start = datetime.datetime.fromisoformat(data.get('date_start')).date() if data.get(
+                    'date_start') else None
+                date_end = datetime.datetime.fromisoformat(data.get('date_end')).date() if data.get(
+                    'date_end') else None
+                company_fv = data.get('company_fv', None)
+                default_employee = data.get('default_employee', None)
+                is_jumper = data.get('is_jumper', None)
+                jumper = data.get('jumper', None)
+                comments = data.get('comments', None)
+
+                if is_jumper is not None and is_jumper.lower() == 'true':
+                    is_jumper = True
+                else:
+                    is_jumper = False
+                    jumper = None
+
+                print(is_jumper)
+
+                if date_start > date_end:
+                    return JsonResponse({"action_success": False,
+                                         "messages": {"errors": 'Data "Od" musi być większa lub równa dacie "Do".'}},
+                                        status=400)
+
+                try:
+                    building = Building.objects.filter(id=building_id, user_id=request.user.id)
+                    building.update(name=name, crane=crane, date_start=date_start, date_end=date_end,
+                                    company_fv=company_fv, default_employee=default_employee, is_jumper=is_jumper,
+                                    jumper=jumper, comments=comments)
+                    response_text = "Pomyślnie edytowano budowę: " + name
+
+                    if crane is not None:
+                        response_text += ", " + crane + "."
+                    else:
+                        response_text += "."
+
+                    return JsonResponse({"action_success": True, "messages": {"success": response_text}})
+                except:
+                    print(traceback.format_exc())
+                    return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować budowy."}},
+                                    status=400)
 
 
 # Files page
