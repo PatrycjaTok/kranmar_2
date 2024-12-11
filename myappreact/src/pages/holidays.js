@@ -591,7 +591,12 @@ class Holidays extends React.Component{
                 } 
             }
             
-        }, 300);   
+        }, 300);  
+        
+        setTimeout(() => { 
+              $('table.holidays-table th:nth-child(2) a').click();   
+              $('table.holidays-table th:nth-child(2) a').click();  
+        }, 1000); 
       
     }
 
@@ -765,7 +770,7 @@ class Holidays extends React.Component{
 
                                 return(
                                 <tr key={holiday.id} data-holiday_id={holiday.id}>                               
-                                    <td>{i+1}</td>
+                                    <td></td>
                                     <td data-sortvalue={diffDays}>{baseHomeFunctions.YMDtoDMY(holiday.date_from)}</td>
                                     <td data-sortvalue={holiday.date_to}>{baseHomeFunctions.YMDtoDMY(holiday.date_to)}</td>
                                     <td>{holiday.employee_full_name}</td>
