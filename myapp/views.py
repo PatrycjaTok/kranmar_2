@@ -1037,8 +1037,6 @@ class BuildingEditView(View):
                     is_jumper = False
                     jumper = None
 
-                print(is_jumper)
-
                 if date_start > date_end:
                     return JsonResponse({"action_success": False,
                                          "messages": {"errors": 'Data "Od" musi być większa lub równa dacie "Do".'}},
@@ -1058,7 +1056,7 @@ class BuildingEditView(View):
 
                     return JsonResponse({"action_success": True, "messages": {"success": response_text}})
                 except:
-                    print(traceback.format_exc())
+                    # print(traceback.format_exc())
                     return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się edytować budowy."}},
                                     status=400)
 
