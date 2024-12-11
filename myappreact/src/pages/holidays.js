@@ -564,7 +564,7 @@ class Holidays extends React.Component{
         setTimeout(() => { 
             $(".custom-fancytable").fancyTable({
                 sortColumn: 1,
-                sortOrder: -1,
+                sortOrder: 1,
                 pagination: true,
                 searchable: true,
                 globalSearch: false,
@@ -747,7 +747,7 @@ class Holidays extends React.Component{
                         <thead>
                             <tr className="bg-primary bg-gradient text-light"> 
                                 <th className="no-action table-td-xxs">Nr</th>
-                                <th data-sortas="case-insensitive">Od</th> 
+                                <th data-sortas="numeric">Od</th> 
                                 <th data-sortas="case-insensitive">Do</th> 
                                 <th data-sortas="case-insensitive">Kto</th> 
                                 <th data-sortas="numeric" className="table-td-xs">Ilość dni (d)</th> 
@@ -758,11 +758,15 @@ class Holidays extends React.Component{
                         </thead>
                         <tbody>                        
                             {holidays.length > 0 && holidays.map((holiday, i) => {                        
+                                let dateToday = new Date(todayDateYMD);
+                                let date2 = new Date(holiday.date_from);
+                                let diffDays = parseInt((date2 - dateToday) / (1000 * 60 * 60 * 24), 10); 
+                                if(diffDays<0){diffDays=diffDays*(-1)+365}
 
                                 return(
                                 <tr key={holiday.id} data-holiday_id={holiday.id}>                               
                                     <td>{i+1}</td>
-                                    <td data-sortvalue={holiday.date_from}>{baseHomeFunctions.YMDtoDMY(holiday.date_from)}</td>
+                                    <td data-sortvalue={diffDays}>{baseHomeFunctions.YMDtoDMY(holiday.date_from)}</td>
                                     <td data-sortvalue={holiday.date_to}>{baseHomeFunctions.YMDtoDMY(holiday.date_to)}</td>
                                     <td>{holiday.employee_full_name}</td>
                                     <td>{holiday.duration_days}</td>
