@@ -94,17 +94,27 @@ class Holiday(models.Model):
 class Building(models.Model):
     objects = models.Manager()
 
+    BUILGING_STATUSES = {
+        'upcoming': 'Nadchodząca',
+        'active': 'W trakcie',
+        'ended': 'Zakończona',
+        'bug': 'Błąd',
+    }
+
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
-    name = models.CharField(max_length=80)
-    crane = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, default=None)
+    crane = models.CharField(max_length=80, default=None, null=True, blank=True)
     date_start = models.DateField(null=True)
     date_end = models.DateField(null=True)
-    manager_phone_number = models.IntegerField(null=True)
-    default_employees = models.CharField(max_length=60)
-    comments = models.CharField(max_length=200)
+    company_fv = models.CharField(max_length=15, default=None, null=True, blank=True)
+    default_employee = models.CharField(max_length=15, default=None, null=True, blank=True)
+    is_jumper = models.BooleanField(default=False, null=True, blank=True)
+    jumper = models.CharField(max_length=15, default=None, null=True, blank=True)
+    comments = models.CharField(max_length=360, default=None, null=True, blank=True)
 
     class Meta:
         ordering = ["-date_start"]
+
 
 def employee_directory_path(instance, filename):
     # UWAGA! NA PRODUKCJI: return "public/employees_files/employee_{0}_{1}/{2}".format(instance.employee.id, instance.file_token, filename)

@@ -785,15 +785,73 @@ class BuildsView(View):
             try:
                 builds_objs = Building.objects.filter(user_id=request.user.id)
                 builds = list(builds_objs.filter(Q(date_start__year=current_date.year) | Q(date_end__year=current_date.year)).values())
+                today_date = datetime.datetime.now().date()
 
                 for building in builds:
+
+                    # status
+                    date_start = building['date_start']
+                    date_end = building['date_end']
+
+                    status = 'bug'
+                    if date_start is not None and date_end is not None:
+                        if date_end < today_date:
+                            status = 'ended'
+                        elif today_date < date_start:
+                            status = 'upcoming'
+                        else:
+                            status = 'active'
+
+                    building['status'] = {'key': status,
+                    'name': Building.BUILGING_STATUSES[status]}
+
                     if building['date_start'] < first_day_of_year:
-                        building['date_start'] = None
+                        building['date_start'] = {'value': building['date_start'],
+                                                  'show_on_chart': 0}
+                    else:
+                        building['date_start'] = {'value': building['date_start'],
+                                                  'show_on_chart': 1}
 
                     if building['date_end'] > last_day_of_year:
-                        building['date_end'] = None
+                        building['date_end'] = {'value': building['date_end'],
+                                                  'show_on_chart': 0}
+                    else:
+                        building['date_end'] = {'value': building['date_end'],
+                                                  'show_on_chart': 1}
 
-                    building['default_employees_full_names'] = [Employee.objects.get(user_id=request.user.id, id=empl_id).full_name for empl_id in building['default_employees'].split(",")]
+                    building['company_fv_full_name'] = (
+                        Company.objects.get(
+                            user_id=request.user.id, id=int(building['company_fv'])).name if (
+                                building[
+                                    'company_fv'] and Company.objects.filter(
+                            user_id=request.user.id,
+                            id=int(building['company_fv'])).exists()) else None)
+
+                    building['default_employee_full_name'] = (
+                        Employee.objects.get(user_id=request.user.id,
+                                             id=int(building['default_employee'].split('-')[-1])).full_name if
+                        (building['default_employee'].split('-')[0].startswith("employee") and Employee.objects.filter(
+                            user_id=request.user.id,
+                            id=int(building['default_employee'].split('-')[-1])).exists()) else Company.objects.get(
+                            user_id=request.user.id, id=int(building['default_employee'].split('-')[-1])).name if (
+                                    building[
+                                        'default_employee'] and Company.objects.filter(
+                                user_id=request.user.id,
+                                id=int(building['default_employee'].split('-')[-1])).exists()) else None)
+
+                    if building['is_jumper']:
+                        building['jumper_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id,
+                                                 id=int(building['jumper'].split('-')[-1])).full_name if
+                            (building['jumper'].split('-')[0].startswith(
+                                "employee") and Employee.objects.filter(
+                                user_id=request.user.id,
+                                id=int(building['jumper'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(building['jumper'].split('-')[-1])).name if (
+                                    building[
+                                        'jumper'] and Company.objects.filter(
+                                user_id=request.user.id,
+                                id=int(building['jumper'].split('-')[-1])).exists()) else None)
 
                 chart_labels = []
 
@@ -837,74 +895,119 @@ class BuildsView(View):
                                 status=400)
 
 
-# class BuildingCreateView(View):
-#     def post(self, request):
-#         if request.user.is_authenticated:
-#             try:
-#                 data = json.loads(request.body)
-#             except:
-#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
-#
-#             date_from = datetime.datetime.fromisoformat(data.get('date_from')).date() if data.get('date_from') else None
-#             date_to = datetime.datetime.fromisoformat(data.get('date_to')).date() if data.get('date_to') else None
-#             employee = int(data.get('employee', None))
-#             comments = data.get('comments', None)
-#
-#             if date_from > date_to:
-#                 return JsonResponse({"action_success": False, "messages": {"errors": 'Data "Od" musi być większa lub równa dacie "Do".'}},
-#                                     status=400)
-#
-#             try:
-#                 new_holiday = Holiday(user=request.user, date_from=date_from, date_to=date_to, employee=Employee.objects.get(id=employee, user_id=request.user.id), comments=comments)
-#                 new_holiday.save()
-#                 return JsonResponse({"action_success": True, "messages": {"success": "Pomyślnie dodano urlop."}})
-#             except:
-#                 # print(traceback.format_exc())
-#                 return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się utworzyć urlopu."}},
-#                                 status=400)
-#
-#
-# class HolidayRemoveView(View):
-#     def post(self, request):
-#         if request.user.is_authenticated:
-#             try:
-#                 data = json.loads(request.body)
-#             except:
-#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
-#
-#             holiday_id = int(data.get('holiday_id', None))
-#             if holiday_id and holiday_id is not None:
-#                 try:
-#                     holiday = Holiday.objects.get(user_id=request.user.id, id=holiday_id)
-#                     holiday.delete()
-#                     return JsonResponse({"action_success": True})
-#                 except:
-#                     return JsonResponse({"action_success": False},
-#                                     status=400)
-#
-#
-# class GetHolidayByIdView(View):
-#     def post(self, request):
-#         if request.user.is_authenticated:
-#             try:
-#                 data = json.loads(request.body)
-#             except:
-#                 return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
-#
-#             holiday_id = int(data.get('holiday_id', None))
-#             if holiday_id and holiday_id is not None:
-#                 try:
-#                     holiday = list(Holiday.objects.filter(id=holiday_id, user_id=request.user.id).values())[0]
-#
-#                     holiday['duration_days'] = (holiday['date_to'] - holiday['date_from']).days + 1
-#                     holiday['employee_full_name'] = Employee.objects.get(user_id=request.user.id,
-#                                                                              id=holiday['employee_id']).full_name
-#
-#                     return JsonResponse({'holiday': holiday})
-#                 except:
-#                     return JsonResponse({"action_success": False},
-#                                     status=400)
-#
+class BuildingCreateView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            name = data.get('name', None)
+            crane = data.get('crane', None)
+            date_start = datetime.datetime.fromisoformat(data.get('date_start')).date() if data.get('date_start') else None
+            date_end = datetime.datetime.fromisoformat(data.get('date_end')).date() if data.get('date_end') else None
+            company_fv = data.get('company_fv', None)
+            default_employee = data.get('default_employee', None)
+            is_jumper = data.get('is_jumper', None)
+            jumper = data.get('jumper', None)
+            comments = data.get('comments', None)
+
+            if is_jumper is not None and is_jumper.lower() == 'true':
+                is_jumper = True
+            else:
+                is_jumper = False
+                jumper = None
+
+            if date_start > date_end:
+                return JsonResponse({"action_success": False, "messages": {"errors": 'Data "Od" musi być większa lub równa dacie "Do".'}},
+                                    status=400)
+
+            try:
+                new_building = Building(user=request.user, name=name, crane=crane, date_start=date_start, date_end=date_end,
+                                                company_fv=company_fv, default_employee=default_employee,
+                                                is_jumper=is_jumper, jumper=jumper, comments=comments)
+                new_building.save()
+                return JsonResponse({"action_success": True, "messages": {
+                    "success": "Pomyślnie dodano budowę: " + name + " " + crane + "."}})
+            except:
+                # print(traceback.format_exc())
+                return JsonResponse({"action_success": False, "messages": {
+                    "errors": "Nie udało się utworzyć budowy: " + name + " " + crane + "."}},
+                                    status=400)
+
+
+class BuildingRemoveView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            building_id = int(data.get('building_id', None))
+            if building_id and building_id is not None:
+                try:
+                    building = Building.objects.get(user_id=request.user.id, id=building_id)
+                    building.delete()
+                    return JsonResponse({"action_success": True})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
+
+class GetBuildingByIdView(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            try:
+                data = json.loads(request.body)
+            except:
+                return JsonResponse({"action_success": False, "messages": {"errors": "Coś poszło nie tak"}}, status=400)
+
+            building_id = int(data.get('building_id', None))
+            if building_id and building_id is not None:
+                try:
+                    building = list(Building.objects.filter(id=building_id, user_id=request.user.id).values())[0]
+
+                    building['company_fv_full_name'] = (
+                        Company.objects.get(
+                            user_id=request.user.id, id=int(building['company_fv'])).name if (
+                                building[
+                                    'company_fv'] and Company.objects.filter(
+                            user_id=request.user.id,
+                            id=int(building['company_fv'])).exists()) else None)
+
+                    building['default_employee_full_name'] = (
+                        Employee.objects.get(user_id=request.user.id,
+                                             id=int(building['default_employee'].split('-')[-1])).full_name if
+                        (building['default_employee'].split('-')[0].startswith("employee") and Employee.objects.filter(
+                            user_id=request.user.id,
+                            id=int(building['default_employee'].split('-')[-1])).exists()) else Company.objects.get(
+                            user_id=request.user.id, id=int(building['default_employee'].split('-')[-1])).name if (
+                                building[
+                                    'default_employee'] and Company.objects.filter(
+                            user_id=request.user.id,
+                            id=int(building['default_employee'].split('-')[-1])).exists()) else None)
+
+                    if building['is_jumper']:
+                        building['jumper_full_name'] = (
+                            Employee.objects.get(user_id=request.user.id,
+                                                 id=int(building['jumper'].split('-')[-1])).full_name if
+                            (building['jumper'].split('-')[0].startswith(
+                                "employee") and Employee.objects.filter(
+                                user_id=request.user.id,
+                                id=int(building['jumper'].split('-')[-1])).exists()) else Company.objects.get(
+                                user_id=request.user.id, id=int(building['jumper'].split('-')[-1])).name if (
+                                    building[
+                                        'jumper'] and Company.objects.filter(
+                                user_id=request.user.id,
+                                id=int(building['jumper'].split('-')[-1])).exists()) else None)
+
+                    return JsonResponse({'building': building})
+                except:
+                    return JsonResponse({"action_success": False},
+                                    status=400)
+
 #
 # class HolidayEditView(View):
 #     def post(self, request):
