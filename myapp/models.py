@@ -113,7 +113,7 @@ class Building(models.Model):
     comments = models.CharField(max_length=360, default=None, null=True, blank=True)
 
     class Meta:
-        ordering = ["-date_start"]
+        ordering = ["date_start"]
 
 
 def employee_directory_path(instance, filename):
