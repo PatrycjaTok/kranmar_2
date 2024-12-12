@@ -810,6 +810,14 @@ nav .navbar-toggler span{
     color: rgb(131, 130, 130);
 }
 
+#HolidaysChartContainer .chartContainer{
+    height: 300px;
+}
+
+#BuildingsChartContainer .chartContainer{
+    height: 220px;
+}
+
 #HolidaysChartContainer .chartContainer, #BuildingsChartContainer .chartContainer{
     width: 100%;
     min-width: 100%;
