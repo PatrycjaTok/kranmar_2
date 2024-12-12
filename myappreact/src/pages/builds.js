@@ -93,7 +93,7 @@ class Builds extends React.Component{
             success: function(data) {
                 if(data.builds){  
                     let allDates = [];
-                    let heights = [1, 0.5, 1.5, 0.75, 1.25, ];
+                    let heights = [1, 0.5, 1.5, 0.75, 1.25];
                     let datasets = [];
                     let globalChartLabels = [];
                     let monthsChartLabels = [];

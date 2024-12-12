@@ -84,8 +84,8 @@ class Holidays extends React.Component{
             success: function(data) {
                 if(data.holidays){  
 
-                    let colors = ['red', 'blue', 'green', 'orange', '#0cc7dd', 'purple'];
-                    let heights = [0.5, 1, 1.5, 2, 2.5, 0.75, 1.25, 1.75, 2.25];
+                    let colors = ['red', 'blue', 'green', 'orange', '#0cc7dd', 'purple', '#2bcd00', '#d881ff'];
+                    let heights = [4, 3, 5, 2, 6, 1, 7, 3.5, 4.5, 2.5, 5.5, 1.5, 6.5];
                     let datasets = [];
                     let globalChartLabels = [];
                     let monthsChartLabels = [];
@@ -108,7 +108,7 @@ class Holidays extends React.Component{
                     // label for today
                     datasets.push({
                         label: 'Dziś',
-                        data: [{x: todayDateYMD, y: 0}, {x: todayDateYMD, y: 3}],
+                        data: [{x: todayDateYMD, y: 0}, {x: todayDateYMD, y: 8}],
                         borderColor: '#f11ff1',
                         tension: 0,    
                         pointStyle: false,                   
@@ -468,95 +468,95 @@ class Holidays extends React.Component{
     
     }
 
-    handleChartLiClick = (ev, datasetIndex) =>{
-        let chart = this.chartRef.current;
-        chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
+    // handleChartLiClick = (ev, datasetIndex) =>{
+    //     let chart = this.chartRef.current;
+    //     chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
         
-        // legend update
-        $(ev.target).closest('li').toggleClass('legend-box-dataset-hide')
-        chart.update();
-        ev.stopPropagation();
-    }
+    //     // legend update
+    //     $(ev.target).closest('li').toggleClass('legend-box-dataset-hide')
+    //     chart.update();
+    //     ev.stopPropagation();
+    // }
 
-    handleChartLiMouseOver = (ev, datasetIndex) =>{     
-        let activeHoverColor = '#4cff00';   
-        let chart = this.chartRef.current;
-        let metaDataset = chart.getDatasetMeta(datasetIndex).dataset;
+    // handleChartLiMouseOver = (ev, datasetIndex) =>{     
+    //     let activeHoverColor = '#4cff00';   
+    //     let chart = this.chartRef.current;
+    //     let metaDataset = chart.getDatasetMeta(datasetIndex).dataset;
 
-        metaDataset.options.borderColor = activeHoverColor;
-        metaDataset.options.borderWidth = 4;
-        metaDataset._points[0].options.borderColor = activeHoverColor;
-        metaDataset._points[0].options.backgroundColor = activeHoverColor;
-        metaDataset._points[1].options.borderColor = activeHoverColor;
-        metaDataset._points[1].options.backgroundColor = activeHoverColor;
-        chart.render();
-        ev.stopPropagation();
-    }
+    //     metaDataset.options.borderColor = activeHoverColor;
+    //     metaDataset.options.borderWidth = 4;
+    //     metaDataset._points[0].options.borderColor = activeHoverColor;
+    //     metaDataset._points[0].options.backgroundColor = activeHoverColor;
+    //     metaDataset._points[1].options.borderColor = activeHoverColor;
+    //     metaDataset._points[1].options.backgroundColor = activeHoverColor;
+    //     chart.render();
+    //     ev.stopPropagation();
+    // }
 
-    handleChartLiMouseOut = (ev, datasetIndex) =>{ 
-        let chart = this.chartRef.current;
-        let metaDataset = chart.getDatasetMeta(datasetIndex).dataset;
-        let lastHoverLineColor = $(ev.target).closest('li').find('span').css('background-color');
+    // handleChartLiMouseOut = (ev, datasetIndex) =>{ 
+    //     let chart = this.chartRef.current;
+    //     let metaDataset = chart.getDatasetMeta(datasetIndex).dataset;
+    //     let lastHoverLineColor = $(ev.target).closest('li').find('span').css('background-color');
 
-        metaDataset.options.borderColor = lastHoverLineColor;
-        metaDataset.options.borderWidth = 3;
-        metaDataset._points[0].options.borderColor = lastHoverLineColor;
-        metaDataset._points[0].options.backgroundColor = lastHoverLineColor;
-        metaDataset._points[1].options.borderColor = lastHoverLineColor;
-        metaDataset._points[1].options.backgroundColor = lastHoverLineColor;
-        chart.render();
-        ev.stopPropagation();
-    }
+    //     metaDataset.options.borderColor = lastHoverLineColor;
+    //     metaDataset.options.borderWidth = 3;
+    //     metaDataset._points[0].options.borderColor = lastHoverLineColor;
+    //     metaDataset._points[0].options.backgroundColor = lastHoverLineColor;
+    //     metaDataset._points[1].options.borderColor = lastHoverLineColor;
+    //     metaDataset._points[1].options.backgroundColor = lastHoverLineColor;
+    //     chart.render();
+    //     ev.stopPropagation();
+    // }
 
-    updateChartLegend = () => {
-        let self = this;
-        let ulElementPast = $('#HolidaysChartLegend div[data-piece_of_time="past"] ul');
-        let ulElementCurrenAndPast = $('#HolidaysChartLegend div[data-piece_of_time="current_and_future"] ul');
-        let chart = this.chartRef.current;
+    // updateChartLegend = () => {
+    //     let self = this;
+    //     let ulElementPast = $('#HolidaysChartLegend div[data-piece_of_time="past"] ul');
+    //     let ulElementCurrenAndPast = $('#HolidaysChartLegend div[data-piece_of_time="current_and_future"] ul');
+    //     let chart = this.chartRef.current;
 
-        ulElementPast.html('');
-        ulElementCurrenAndPast.html('');
+    //     ulElementPast.html('');
+    //     ulElementCurrenAndPast.html('');
         
-        if(chart && chart.legend.legendItems && chart.legend.legendItems.length > 0){   
-            setTimeout(()=>{
-                chart.legend.legendItems.forEach((dataset, index) => {
-                    let text = dataset.text;
-                    let datasetIndex = dataset.datasetIndex;
-                    let bColor = dataset.strokeStyle;
-                    let firstPoint = chart.data.datasets[dataset.datasetIndex].data[0].x;
-                    let secondPoint = chart.data.datasets[dataset.datasetIndex].data[1].x;
+    //     if(chart && chart.legend.legendItems && chart.legend.legendItems.length > 0){   
+    //         setTimeout(()=>{
+    //             chart.legend.legendItems.forEach((dataset, index) => {
+    //                 let text = dataset.text;
+    //                 let datasetIndex = dataset.datasetIndex;
+    //                 let bColor = dataset.strokeStyle;
+    //                 let firstPoint = chart.data.datasets[dataset.datasetIndex].data[0].x;
+    //                 let secondPoint = chart.data.datasets[dataset.datasetIndex].data[1].x;
         
-                    let liElement = $(`<li><span style=" border-color:${bColor}; background-color:${bColor}"></span><p>${text}</p></li>`);
+    //                 let liElement = $(`<li><span style=" border-color:${bColor}; background-color:${bColor}"></span><p>${text}</p></li>`);
                     
-                    liElement.click((ev)=>{
-                        self.handleChartLiClick(ev, datasetIndex);
-                    })
+    //                 liElement.click((ev)=>{
+    //                     self.handleChartLiClick(ev, datasetIndex);
+    //                 })
 
-                    liElement.mouseover((ev)=>{
-                        self.handleChartLiMouseOver(ev, datasetIndex);
-                    })
+    //                 liElement.mouseover((ev)=>{
+    //                     self.handleChartLiMouseOver(ev, datasetIndex);
+    //                 })
 
-                    liElement.mouseout((ev)=>{
-                        self.handleChartLiMouseOut(ev, datasetIndex);
-                    })
+    //                 liElement.mouseout((ev)=>{
+    //                     self.handleChartLiMouseOut(ev, datasetIndex);
+    //                 })
     
-                    if(firstPoint < String(todayDateYMD) && secondPoint < String(todayDateYMD)){
-                        ulElementPast.prepend(liElement);
-                    }else{
-                        ulElementCurrenAndPast.prepend(liElement);
-                    }
+    //                 if(firstPoint < String(todayDateYMD) && secondPoint < String(todayDateYMD)){
+    //                     ulElementPast.prepend(liElement);
+    //                 }else{
+    //                     ulElementCurrenAndPast.prepend(liElement);
+    //                 }
                     
-                });
-            }, 300)    
-        }
+    //             });
+    //         }, 300)    
+    //     }
 
-    }
+    // }
 
-    componentDidUpdate(prevProps, prevState){ 
-        if(prevState.chartData !== this.state.chartData){
-            this.updateChartLegend();
-        };
-    }
+    // componentDidUpdate(prevProps, prevState){ 
+    //     if(prevState.chartData !== this.state.chartData){
+    //         this.updateChartLegend();
+    //     };
+    // }
 
     componentDidMount(){
         this.fetchData(); 
@@ -618,7 +618,7 @@ class Holidays extends React.Component{
               y: {
                 beginAtZero: true,
                 stepSize: 1,
-                max: 3,
+                max: 8,
                 ticks:{
                     autoSkip: false,
                     callback: function(val, index, ticks) {
@@ -663,7 +663,7 @@ class Holidays extends React.Component{
             <div className="position-relative holidays-page">
                 <h2 className="text-center pb-2 pb-lg-3">Urlopy <span className="holidays-year-container"><input className='' type='number' name='date_year' defaultValue={currentDateYear} onInput={(ev)=>{this.handleOnInputYear(ev)}}></input></span></h2>
                 
-                <div id='HolidaysChartLegend' className="chart-js-custom-legend-box pb-1">
+                {/* <div id='HolidaysChartLegend' className="chart-js-custom-legend-box pb-1">
                     
                     <div className="accordion pb-1" id="accordionChartLegendCurrent">
                         <div className="accordion-item">
@@ -701,7 +701,7 @@ class Holidays extends React.Component{
                         </div>
                     </div>
                     
-                </div>
+                </div> */}
 
                 <div id='HolidaysChartContainer' className="d-flex justify-content-start w-100">
                     <div className="chartContainer pb-2">
