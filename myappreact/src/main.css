@@ -12,6 +12,7 @@
     --customDetailsColor: rgb(14, 11, 189);
     --customAddSubstitutionRowColor: #02140a;
     --customAddHolidayRowColor: rgb(215, 188, 228);
+    --customAddBuildingRowColor: #f05209;
 
     /* Agreements colors */
     --agreementB2B: rgb(221, 188, 240);
@@ -26,6 +27,12 @@
     --actionTypeZi: rgb(43, 167, 250);
     --actionTypeZ: rgb(255, 28, 225);
     --actionTypeW: rgb(252, 237, 100);
+
+    /* Buildings statuses colors */
+    --BuildingStatusBug: rgb(174, 51, 255);
+    --BuildingStatusUpcoming: rgb(37, 214, 46);
+    --BuildingStatusActive: rgb(255, 161, 38);
+    --BuildingStatusEnded: rgb(255, 48, 48);
   }
 
 /* --- CSS for login page --- */
@@ -150,6 +157,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     top: 0;
     width: auto;
 }
+/* 
+.form-check-input[type=checkbox] {
+    border-radius: 0.3em;
+} */
+
+.form-check-input:checked {
+    background-color: #0528c2;
+    border-color: #000000;
+}
+
+.form-check-input.is-jumper-smaller{
+    height: 1rem;
+    min-height: 35px;
+    min-width: 35px;
+}
+
+h6:has(> input.is-jumper-smaller){
+    justify-content: space-around;
+    font-size: 1.1rem;
+}
 
 div:has(> .coverLabelForDateInput), td:has(> .coverLabelForDateInput) {
     position: relative;
@@ -187,16 +214,54 @@ td .coverLabelForDateInput{
     top: 0.6em;
 }
 
+.swal2-container .edit-building-form td .coverLabelForDateInput{
+    top: 2em;
+}
+
+.swal2-container .edit-building-form td .coverLabelForDateInput{
+    top: 2em;
+}
+
+.swal2-container .edit-building-form .swal-building-table.isJumper td .coverLabelForDateInput{
+    top: 3em;
+}
+
+.add-building-row td .coverLabelForDateInput{
+    position: absolute;
+    top: 1.62em;
+}
+
+.add-building-row[data-is_jumper=true] td .coverLabelForDateInput{
+    position: absolute;
+    top: 2.62em;
+}
+
+.little-label-s{
+    font-size: 0.8em;
+}
+
+.edit-building-form .table-wrapper.swal-tabble-wrapper:has(> form > .isJumper) {
+    min-height: 240px;
+}
+
 table th, table td{
     padding: 2px 4px;
     min-width: 120px;
 }
 
 table.substitutions-table tr th:first-child, table.substitutions-table tr td:first-child, table.holidays-table tr th:first-child, table.holidays-table tr td:first-child{
-    width: fit-content;
+    width: fit-content; 
     max-width: 80px;
     min-width: unset;
     color: var(--customDetailsColor);
+ }
+
+ table.buildings-table tr th:first-child, table.buildings-table tr td:first-child{
+    width: 35px; 
+    max-width: 35px;
+    min-width: unset;
+    color: var(--customDetailsColor);
+    font-weight: bolder;
  }
 
 table thead{
@@ -210,7 +275,7 @@ table thead tr:first-child{
     z-index: 5;
 }
 
-table tr:not(.add-holiday-row, .swal-holidays-row) td:has(input[type='date']){
+table tr:not(.add-holiday-row, .swal-holidays-row, .add-building-row) td:has(input[type='date']){
     min-width: 180px;
     display: flex;
     align-items: center;
@@ -307,6 +372,18 @@ table .td-action svg:hover, table .td-action svg:active{
 .add-holiday-row{
     background-color: var(--customAddHolidayRowColor) !important;
     border: #f532eb solid 3px;
+}
+
+table tr.add-building-row td:has(input[type='date']){
+    min-width: 180px;
+}
+
+.add-building-row{
+    background-color: var(--customAddBuildingRowColor) !important;
+    border: #000000 solid 3px;
+    /* min-width: 180px;
+    display: flex;
+    align-items: center; */
 }
 
 .fancySearchRow input{
@@ -460,7 +537,11 @@ button.navbar-toggler .navbar-toggler-icon{
 }
 
 input.invalid, select.invalid, textarea.invalid{
-    border: red solid 2px;
+    border: red solid 4px;
+}
+
+.add-building-row input.invalid, .add-building-row select.invalid, .add-building-row textarea.invalid{
+    border: rgb(143, 36, 243) solid 4px;
 }
 
 .container-xxl{
@@ -678,7 +759,7 @@ nav .navbar-toggler span{
     box-shadow:  0 0 0 0.25rem rgba(114, 114, 114, 0.25);
 }
 
-#HolidaysChartContainer{
+#HolidaysChartContainer, #BuildingsChartContainer{
     overflow: auto;
     flex-direction: column;
     margin-bottom: 3rem;
@@ -729,12 +810,12 @@ nav .navbar-toggler span{
     color: rgb(131, 130, 130);
 }
 
-#HolidaysChartContainer .chartContainer{
+#HolidaysChartContainer .chartContainer, #BuildingsChartContainer .chartContainer{
     width: 100%;
     min-width: 100%;
 }
 
-#HolidaysChartContainer .chartContainer{
+#HolidaysChartContainer .chartContainer, #BuildingsChartContainer .chartContainer{
     width: 4500px;
     min-width: 4500px;
 }
@@ -1143,8 +1224,17 @@ input[type='range']{
     padding-right: 5px;
 }
 
+.table-td-xl-2{
+    min-width: 400px;
+}
+
 .table-td-xl{
     min-width: 330px;
+}
+
+.table-td-m{
+    width: 160px;
+    min-width: 20px;
 }
 
 .table-td-s{
@@ -1160,6 +1250,23 @@ input[type='range']{
 .table-td-xxs{
     width: 60px !important;
 }
+
+table.buildings-table [data-building_status='bug']{
+    background-color: var(--BuildingStatusBug);
+}
+
+table.buildings-table [data-building_status='upcoming']{
+    background-color: var(--BuildingStatusUpcoming);
+}
+
+table.buildings-table [data-building_status='active']{
+    background-color: var(--BuildingStatusActive);
+}
+
+table.buildings-table [data-building_status='ended']{
+    background-color: var(--BuildingStatusEnded);
+}
+
 
 /* --RESPONSIVE-- */
 
@@ -1270,6 +1377,17 @@ input[type='range']{
     .homePage .coverLabelForDateInput{
         top: 0.48em;
     }
+
+    .add-building-row td .coverLabelForDateInput{
+        position: absolute;
+        top: 2.2em;
+    }
+    
+    .add-building-row[data-is_jumper=true] td .coverLabelForDateInput{
+        position: absolute;
+        top: 3.3em;
+    }
+    
 
     .homePage .username-container{
         padding-top: 0.5rem;
