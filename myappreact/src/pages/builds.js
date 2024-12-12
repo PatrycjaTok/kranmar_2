@@ -730,7 +730,7 @@ class Builds extends React.Component{
                     callback: function(val, index, ticks) {
                         // console.log(this)
                         // console.log(ticks)
-                        if(this.getLabelForValue(val) == 3){
+                        if(this.getLabelForValue(val) == 2){
                             return '';
                         }
                         return;

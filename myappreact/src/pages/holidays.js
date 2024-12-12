@@ -624,7 +624,7 @@ class Holidays extends React.Component{
                     callback: function(val, index, ticks) {
                         // console.log(this)
                         // console.log(ticks)
-                        if(this.getLabelForValue(val) == 3){
+                        if(this.getLabelForValue(val) == 8){
                             return '';
                         }
                         return;
