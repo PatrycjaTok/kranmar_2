@@ -148,8 +148,8 @@ class Holidays extends React.Component{
                             backgroundColor: '#0000000e',
                             // scales: { 
                             // },
-                            pointRadius: 4,
-                            pointHoverRadius: 6,   
+                            pointRadius: 4.5,
+                            pointHoverRadius: 7,   
                             pointBackgroundColor: color,  
                             // pointBorderColor: color,   
                             pointBorderWidth: 1,                    

@@ -170,8 +170,8 @@ class Builds extends React.Component{
                             backgroundColor: '#0000000e',
                             // scales: { 
                             // },
-                            pointRadius: 4,
-                            pointHoverRadius: 6,   
+                            pointRadius: 5,
+                            pointHoverRadius: 7,   
                             pointBackgroundColor: 'rgb(0 211 11)',  
                             // pointBorderColor: color,   
                             pointBorderWidth: 1,                    
@@ -210,8 +210,8 @@ class Builds extends React.Component{
                             backgroundColor: '#0000000e',
                             // scales: { 
                             // },
-                            pointRadius: 4,
-                            pointHoverRadius: 6,   
+                            pointRadius: 5,
+                            pointHoverRadius: 7,   
                             pointBackgroundColor: 'red',  
                             // pointBorderColor: color,   
                             pointBorderWidth: 1,                    
@@ -355,8 +355,10 @@ class Builds extends React.Component{
                     }).then(()=>{
                         self.fetchData();
                         self.setState({AddBuildingRow: {...initialAddBuildingDict}}, () => { 
-                            // clear date-inputs values
-                            dataRow.find('input[type="date"]').change();
+                            // clear date-inputs values        
+                            dataRow.find('input[type="date"]').change();  
+                            // clear checkbox-inputs values
+                            dataRow.find('input[type="checkbox"]').prop('checked', false).change();                       
                         })
                     })  
                 },
