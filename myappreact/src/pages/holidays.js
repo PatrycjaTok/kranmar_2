@@ -752,11 +752,11 @@ class Holidays extends React.Component{
                         <thead>
                             <tr className="bg-primary bg-gradient text-light"> 
                                 <th className="no-action table-td-xxs">Nr</th>
-                                <th data-sortas="numeric">Od</th> 
-                                <th data-sortas="case-insensitive">Do</th> 
+                                <th data-sortas="numeric" className="table-td-m">Od</th> 
+                                <th data-sortas="case-insensitive" className="table-td-m">Do</th> 
                                 <th data-sortas="case-insensitive">Kto</th> 
                                 <th data-sortas="numeric" className="table-td-xs">Ilość dni (d)</th> 
-                                <th data-sortas="case-insensitive">Uwagi/Komentarz</th>
+                                <th data-sortas="case-insensitive" className="table-td-xl">Uwagi/Komentarz</th>
                                 <th className="no-action th-action">Akcje</th> 
                             </tr> 
                             <AddHolidaysRow handleAddHolidays={this.handleAddHoliday} handleInputChange={this.handleInputChange} stateAddHolidayRow={this.state.AddHolidayRow} handleEmployeeChange={this.handleEmployeeChange}/>

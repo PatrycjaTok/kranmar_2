@@ -583,7 +583,7 @@ class Dashboard extends React.Component{
                     <thead>
                         <tr className="bg-primary bg-gradient text-light"> 
                             <th className="no-action">Nr</th>
-                            <th data-sortas="case-insensitive">Data</th> 
+                            <th data-sortas="case-insensitive" className="table-td-xs">Data</th> 
                             <th data-sortas="case-insensitive">Zastępstwo za</th> 
                             <th data-sortas="case-insensitive">Zastąpił</th> 
                             <th data-sortas="case-insensitive" className="table-td-s">Typ</th> 

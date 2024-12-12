@@ -520,14 +520,14 @@ class Employees extends React.Component{
                 <table className="custom-fancytable">
                     <thead>
                         <tr className="bg-primary bg-gradient text-light"> 
-                            <th data-sortas="case-insensitive">Imię</th> 
-                            <th data-sortas="case-insensitive">Nazwisko</th> 
-                            <th data-sortas="case-insensitive">Typ umowy</th> 
-                            <th data-sortas="case-insensitive">Umowa do</th> 
-                            <th data-sortas="case-insensitive">Badania do</th> 
-                            <th data-sortas="case-insensitive">Uprawnienia do</th> 
-                            <th data-sortas="case-insensitive">Domyślna budowa</th> 
-                            <th data-sortas="case-insensitive">Komenatrz</th>
+                            <th data-sortas="case-insensitive" className="table-td-m">Imię</th> 
+                            <th data-sortas="case-insensitive" className="table-td-m">Nazwisko</th> 
+                            <th data-sortas="case-insensitive" className="table-td-m">Typ umowy</th> 
+                            <th data-sortas="case-insensitive" className="table-td-m">Umowa do</th> 
+                            <th data-sortas="case-insensitive" className="table-td-m">Badania do</th> 
+                            <th data-sortas="case-insensitive" className="table-td-m">Uprawnienia do</th> 
+                            {/* <th data-sortas="case-insensitive">Domyślna budowa</th>  */}
+                            <th data-sortas="case-insensitive" className="table-td-xl-2">Komenatrz</th>
                             <th className="no-action th-action">Akcje</th> 
                         </tr> 
                     </thead>
@@ -544,7 +544,7 @@ class Employees extends React.Component{
                                 <td data-sortvalue={employee.agreement_end_date}>{baseHomeFunctions.YMDtoDMY(employee.agreement_end_date)}</td>
                                 <td data-sortvalue={employee.medical_end_date}>{baseHomeFunctions.YMDtoDMY(employee.medical_end_date)}</td>
                                 <td data-sortvalue={employee.building_license_end_date}>{baseHomeFunctions.YMDtoDMY(employee.building_license_end_date)}</td>
-                                <td>{employee.default_build}</td>
+                                {/* <td>{employee.default_build}</td> */}
                                 <td>{employee.comments}</td>
                                 <td className="no-search td-action"><Link to={href}><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link><FontAwesomeIcon icon={faUserEdit} onClick={(ev)=>{this.editEmployee(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeEmployee(ev)}} title="usuń" /></td>
                             </tr>
