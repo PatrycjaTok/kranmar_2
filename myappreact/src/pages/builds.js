@@ -153,12 +153,12 @@ class Builds extends React.Component{
 
                         if(dateStart !== null && allDates.includes(dateStart)){
                             let sameDateStartCounter = (allDates.filter((date_1) => date_1 === dateStart)).length; 
-                            if(sameDateStartCounter < 5){yHeightStart = heights[sameDateStartCounter]};
+                            if(sameDateStartCounter < 7){yHeightStart = heights[sameDateStartCounter]};
                         }
                         
                         if(dateEnd !== null && allDates.includes(dateEnd)){
                             let sameDateEndCounter = (allDates.filter((date_1) => date_1 === dateEnd)).length; 
-                            if(sameDateEndCounter < 5){yHeightEnd = heights[sameDateEndCounter]};
+                            if(sameDateEndCounter < 7){yHeightEnd = heights[sameDateEndCounter]};
                         }                  
                         
                         datasets.push({
