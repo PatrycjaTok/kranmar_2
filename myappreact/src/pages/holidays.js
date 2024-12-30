@@ -261,7 +261,8 @@ class Holidays extends React.Component{
                         timer: 3000,
                         // timerProgressBar: true
                     }).then(()=>{
-                        self.fetchData();
+                        let displayedYear = $('#holidaysPageYearInput').val();
+                        self.fetchData(displayedYear);
                         self.setState({AddHolidayRow: {...initialAddHolidayDict}}, () => { 
                             // clear date-inputs values
                             dataRow.find('input[type="date"]').change();
@@ -326,7 +327,8 @@ class Holidays extends React.Component{
                             timer: 3000,
                             // timerProgressBar: true
                         }).then(()=>{
-                            self.fetchData();
+                            let displayedYear = $('#holidaysPageYearInput').val();
+                            self.fetchData(displayedYear);
                         });   
                     },
                     error: function(xhr, status, err) {
@@ -455,7 +457,8 @@ class Holidays extends React.Component{
                             timer: 3000,
                             // timerProgressBar: true
                         }).then(()=>{
-                            self.fetchData();
+                            let displayedYear = $('#holidaysPageYearInput').val();
+                            self.fetchData(displayedYear);
                         });
                     };        
                 });
@@ -693,7 +696,7 @@ class Holidays extends React.Component{
 
         return(
             <div className="position-relative holidays-page">
-                <h2 className="text-center pb-2 pb-lg-3">Urlopy <span className="holidays-year-container"><input className='' type='number' name='date_year' defaultValue={currentDateYear} onInput={(ev)=>{this.handleOnInputYear(ev)}}></input></span></h2>
+                <h2 className="text-center pb-2 pb-lg-3">Urlopy <span className="holidays-year-container"><input className='' type='number' id='holidaysPageYearInput' name='date_year' defaultValue={currentDateYear} onInput={(ev)=>{this.handleOnInputYear(ev)}}></input></span></h2>
                 
                 {/* <div id='HolidaysChartLegend' className="chart-js-custom-legend-box pb-1">
                     
