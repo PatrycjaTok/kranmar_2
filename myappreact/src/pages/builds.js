@@ -734,7 +734,12 @@ class Builds extends React.Component{
                 } 
             }
             
-        }, 300);   
+        }, 300);  
+        
+        setTimeout(() => { 
+            $('table.buildings-table th:nth-child(6) a').click();   
+            $('table.buildings-table th:nth-child(6) a').click();  
+        }, 1000); 
       
     }
 
