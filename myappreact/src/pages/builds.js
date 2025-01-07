@@ -900,7 +900,7 @@ class Builds extends React.Component{
                 
                 <div className="table-wrapper lg-d-flex-justify-center pt-5">
                     <div className="mb-3">
-                        <h6 className="mb-0 text-primary"><span className="color-text-upcoming">Nadchodzące: {this.state.buildings_counter.upcoming},</span> <span className="color-text-active">W trakcie: {this.state.buildings_counter.active},</span> <span className="color-text-ended">Zakończone: {this.state.buildings_counter.ended}</span></h6>
+                        <h6 className="mb-0 text-primary"><span className="color-text-upcoming px-1">Nadchodzące: {this.state.buildings_counter.upcoming},</span> <span className="color-text-active px-1">W trakcie: {this.state.buildings_counter.active},</span> <span className="color-text-ended px-1">Zakończone: {this.state.buildings_counter.ended}</span></h6>
                         <table className="custom-fancytable buildings-table">
                             <thead>
                                 <tr className="bg-primary bg-gradient text-light"> 
