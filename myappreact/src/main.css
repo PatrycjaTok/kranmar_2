@@ -1276,6 +1276,19 @@ table.buildings-table [data-building_status='ended']{
 }
 
 
+.color-text-upcoming{
+    color: var(--BuildingStatusUpcoming);
+}
+
+.color-text-active{
+    color: var(--BuildingStatusActive);
+}
+
+.color-text-ended{
+    color: var(--BuildingStatusEnded);
+}
+
+
 /* --RESPONSIVE-- */
 
 /* < xl */
