@@ -787,6 +787,8 @@ class BuildsView(View):
                 builds = list(builds_objs.filter(Q(date_start__year=current_date.year) | Q(date_end__year=current_date.year)).values())
                 today_date = datetime.datetime.now().date()
 
+                buildings_counter_ended, buildings_counter_upcoming, buildings_counter_active = (0, 0, 0)
+
                 for building in builds:
 
                     # status
@@ -797,10 +799,13 @@ class BuildsView(View):
                     if date_start is not None and date_end is not None:
                         if date_end < today_date:
                             status = 'ended'
+                            buildings_counter_ended += 1
                         elif today_date < date_start:
                             status = 'upcoming'
+                            buildings_counter_upcoming += 1
                         else:
                             status = 'active'
+                            buildings_counter_active += 1
 
                     building['status'] = {'key': status,
                     'name': Building.BUILGING_STATUSES[status]}
@@ -855,6 +860,12 @@ class BuildsView(View):
 
                 chart_labels = []
 
+                buildings_counter = {
+                    'ended': buildings_counter_ended,
+                    'upcoming': buildings_counter_upcoming,
+                    'active': buildings_counter_active
+                }
+
                 for month in range(1, 13, 1):
                     first_day_of_month = datetime.date(current_date.year, month, 1)
 
@@ -889,7 +900,7 @@ class BuildsView(View):
                             })
                         next_day += datetime.timedelta(days=1)
 
-                return JsonResponse({"builds": builds, 'chart_labels': chart_labels})
+                return JsonResponse({"builds": builds, 'chart_labels': chart_labels, 'buildings_counter': buildings_counter})
             except:
                 return JsonResponse({"action_success": False, "messages": {"errors": "Nie udało się załadować budów."}},
                                 status=400)

@@ -68,6 +68,11 @@ class Builds extends React.Component{
             },
             weeksChartLabels: [],
             monthsChartLabels: [],
+            buildings_counter: {
+                'ended': '-',
+                'upcoming': '-',
+                'active': '-'
+            },
         };
         this.handleEmployeeChange = this.handleEmployeeChange.bind(this);
         this.handleJumperChange = this.handleJumperChange.bind(this);
@@ -245,7 +250,7 @@ class Builds extends React.Component{
                         allDates.push(dateStart, dateEnd);
                     });
 
-                    self.setState({builds: data.builds, chartData: chartData, monthsChartLabels: monthsChartLabels, weeksChartLabels: weeksChartLabels});
+                    self.setState({builds: data.builds, chartData: chartData, monthsChartLabels: monthsChartLabels, weeksChartLabels: weeksChartLabels, buildings_counter: data.buildings_counter});
                 }               
             },
             error: function(xhr, status, err) {
@@ -895,6 +900,7 @@ class Builds extends React.Component{
                 
                 <div className="table-wrapper lg-d-flex-justify-center pt-5">
                     <div className="mb-3">
+                        <h6 className="mb-0 text-primary"><span className="color-text-upcoming">Nadchodzące: {this.state.buildings_counter.upcoming},</span> <span className="color-text-active">W trakcie: {this.state.buildings_counter.active},</span> <span className="color-text-ended">Zakończone: {this.state.buildings_counter.ended}</span></h6>
                         <table className="custom-fancytable buildings-table">
                             <thead>
                                 <tr className="bg-primary bg-gradient text-light"> 
