@@ -37,7 +37,7 @@ currentDateMonth = currentDateMonth+1;
 if(currentDateMonth<10){currentDateMonth = "0" + currentDateMonth;}
 
 let todayDateYMD = `${currentDateYear}-${currentDateMonth}-${currentDateDay}`;
-let todayDateDisplay = `${currentDateDay}-${currentDateMonth}-${currentDateYear}`;
+// let todayDateDisplay = `${currentDateDay}-${currentDateMonth}-${currentDateYear}`;
 
 class Holidays extends React.Component{
 
@@ -562,8 +562,19 @@ class Holidays extends React.Component{
     // }
 
     componentDidMount(){
-        this.fetchData(); 
+    
+        // correcting data (fix bug when computer is working all day and all night)
+        todayDate = new Date();
+        currentDateYear = todayDate.getFullYear();
+        currentDateDay = todayDate.getDate();
+        currentDateMonth = todayDate.getMonth();
+        if(currentDateDay<10){currentDateDay = "0" + currentDateDay;}
+        currentDateMonth = currentDateMonth+1;
+        if(currentDateMonth<10){currentDateMonth = "0" + currentDateMonth;}
+        todayDateYMD = `${currentDateYear}-${currentDateMonth}-${currentDateDay}`;
 
+        this.fetchData(); 
+        
         setTimeout(() => { 
             $(".custom-fancytable").fancyTable({
                 sortColumn: 1,
