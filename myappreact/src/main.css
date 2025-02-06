@@ -765,6 +765,26 @@ nav .navbar-toggler span{
     margin-bottom: 3rem;
 }
 
+#HolidaysChartContainer[data-standard_year='true'] .month-box[data-days_count='28'], #BuildingsChartContainer[data-standard_year='true'] .month-box[data-days_count='28']{
+    width: 341px;
+}
+
+#HolidaysChartContainer[data-standard_year='true'] .month-box[data-days_count='29'], #BuildingsChartContainer[data-standard_year='true'] .month-box[data-days_count='29']{
+    width: 356px;
+}
+
+#HolidaysChartContainer[data-standard_year='true'] .month-box[data-days_count='30'], #BuildingsChartContainer[data-standard_year='true'] .month-box[data-days_count='30']{
+    width: 365px;
+}
+
+#HolidaysChartContainer[data-standard_year='true'] .month-box[data-days_count='31'], #BuildingsChartContainer[data-standard_year='true'] .month-box[data-days_count='31']{
+    width: 378px;
+}
+
+#HolidaysChartContainer[data-standard_year='true'] .month-box[data-days_count='31']:last-child, #BuildingsChartContainer[data-standard_year='true'] .month-box[data-days_count='31']:last-child{
+    width: 366px;
+}
+
 #HolidaysChartLegend ul{
     display: flex;
     flex-wrap: wrap;

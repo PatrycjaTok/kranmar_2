@@ -73,6 +73,7 @@ class Builds extends React.Component{
                 'upcoming': '-',
                 'active': '-'
             },
+            yearWith365Days: false
         };
         this.handleEmployeeChange = this.handleEmployeeChange.bind(this);
         this.handleJumperChange = this.handleJumperChange.bind(this);
@@ -81,6 +82,12 @@ class Builds extends React.Component{
 
     fetchData = (date_year=currentDateYear) => {
         let self = this;
+
+        if(date_year % 4 !== 0){
+            this.setState({yearWith365Days: true});
+        }else{
+            this.setState({yearWith365Days: false});
+        }
         
         $.ajax({
             url: baseURL + '/get-builds/',
@@ -876,7 +883,7 @@ class Builds extends React.Component{
                     
                 </div> */}
 
-                <div id='BuildingsChartContainer' className="d-flex justify-content-start w-100">
+                <div id='BuildingsChartContainer' className="d-flex justify-content-start w-100" data-standard_year={this.state.yearWith365Days}>
                     <div className="chartContainer pb-2">
                         <Chart ref={this.chartRef} type='line' data={chartData} options={chartOptions}/>
                         <div className="chart-absolute-paint-area">
