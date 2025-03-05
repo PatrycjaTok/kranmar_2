@@ -126,35 +126,37 @@ class Builds extends React.Component{
                     }) 
                     
                     // label for today
-                    datasets.push({
-                        label: 'Dziś',
-                        data: [{x: todayDateYMD, y: 0}, {x: todayDateYMD, y: 2}],
-                        borderColor: '#f11ff1',
-                        tension: 0,    
-                        pointStyle: false,                   
-                        // fill: true
-                        tooltip:{
-                            callbacks:{                              
-                                label: function(context) {
-                                    let label = context.dataset.label || '';   
-
-                                    return label;
-                                },
-
-                                labelColor: function(context) {
-                                    let labelSquareBorderColor = context.element.options.borderColor;
-
-                                    return {
-                                        backgroundColor: labelSquareBorderColor,
-                                        borderColor: 'black',
-                                        borderWidth: 0,
-                                    };
-                                },
-                               
+                    if(Number(date_year) === Number(currentDateYear)){
+                        datasets.push({
+                            label: 'Dziś',
+                            data: [{x: todayDateYMD, y: 0}, {x: todayDateYMD, y: 2}],
+                            borderColor: '#f11ff1',
+                            tension: 0,    
+                            pointStyle: false,                   
+                            // fill: true
+                            tooltip:{
+                                callbacks:{                              
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';   
+    
+                                        return label;
+                                    },
+    
+                                    labelColor: function(context) {
+                                        let labelSquareBorderColor = context.element.options.borderColor;
+    
+                                        return {
+                                            backgroundColor: labelSquareBorderColor,
+                                            borderColor: 'black',
+                                            borderWidth: 0,
+                                        };
+                                    },
+                                   
+                                }
                             }
-                        }
-                    });
-                    
+                        });
+                    }
+                                        
                     data.builds.forEach(buildData => {
   
                         let dateStart = Number(buildData.date_start.show_on_chart) === 1 ? buildData.date_start.value : null;
