@@ -15,7 +15,8 @@ import SelectEmployeesAndCompanies from "../elements/select_employees_companies.
 import SelectActionTypes from "../elements/select_action_types.js";
 import AddSubstitutionRow from "../elements/add_substitution_table_row.js";
 import StartDisplayingInfoBox from "../elements/info_box.js";
-import StartDisplayingHolidayInfoBox from  "../elements/holiday_info_box.js"
+import StartDisplayingHolidayInfoBox from  "../elements/holiday_info_box.js";
+import HideColumnInTable from "../elements/hide_table_column_btn.js";
 
 const cookies = new Cookies();
 library.add(faTrash, faEdit, faExchangeAlt, faExclamationTriangle, faUmbrellaBeach);
@@ -556,7 +557,7 @@ class Dashboard extends React.Component{
                 globalSearch: false,
                 perPage: 80,
                 inputPlaceholder: 'Szukaj...',
-                beforeUpdate:function(){
+                beforeUpdate:function(){                    
                     this.isSearchMatch = function(data, search){
                         // my changes START   
                         // if(!settings.matchCase){ data=data.toUpperCase(); search = search.toUpperCase(); }                     
@@ -587,7 +588,7 @@ class Dashboard extends React.Component{
                             return false;
                         }
                     };
-                }
+                }                    
             });
 
             $('.no-action, .no-action a').off();	 
@@ -607,68 +608,69 @@ class Dashboard extends React.Component{
        
         return(
             <div className="position-relative">
-            <h2 className="text-center pb-2 pb-lg-3 position-relative">Zastępstwa {this.props.account_settings.messages_show && <span><span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span> <span className={this.state.holidaysInfoBox.classes} id="holidaysInfoBox"><FontAwesomeIcon icon={faUmbrellaBeach} /></span></span>}</h2>
-            <button className="btn btn-secondary to-history-btn" onClick={()=>{this.ToHistorySwal()}}>Przenieś <FontAwesomeIcon icon={faExchangeAlt} className="px-2" title="Przeniś do historii"></FontAwesomeIcon></button>
-            <div className="table-wrapper">
-                <div></div>
-                <table className="custom-fancytable substitutions-table">
-                    <thead>
-                        <tr className="bg-primary bg-gradient text-light"> 
-                            <th className="no-action">Nr</th>
-                            <th data-sortas="case-insensitive" className="table-td-xs">Data</th> 
-                            <th data-sortas="case-insensitive">Zastępstwo za</th> 
-                            <th data-sortas="case-insensitive">Zastąpił</th> 
-                            <th data-sortas="case-insensitive" className="table-td-s">Typ</th> 
-                            <th data-sortas="case-insensitive">Lokalizacja</th> 
-                            <th data-sortas="case-insensitive">Żuraw</th> 
-                            <th data-sortas="numeric" className="table-td-xs">Ilość godzin (h)</th> 
-                            <th data-sortas="numeric" className="table-td-xs">Kwota (zł)</th> 
-                            <th data-sortas="case-insensitive" className="table-td-xl">Uwagi/Komentarz</th>
-                            <th className="no-action th-action">Akcje</th> 
-                        </tr> 
-                        <AddSubstitutionRow setActionTypes={this.setActionTypes} handleAddSubstitution={this.handleAddSubstitution} handleInputChange={this.handleInputChange} stateAddSubstitutionRow={this.state.AddSubstitutionRow} handleSubstitutedChange={this.handleSubstitutedChange} handleSubstitutedByChange={this.handleSubstitutedByChange} handleActionTypeChange={this.handleActionTypeChange}/>
-                    </thead>
-                    <tbody>                        
-                        {substitutions.map((substitution, i) => {
-                            const actionTypeClassName = `action-type-${substitution.action_type}`;
-                            let substitutedButton = '';
-                            
-                            if((substitution.substituted).startsWith('employee-')){
-                                let href = "/employee-data?empl=" + (substitution.substituted).split('-')[1];
-                                substitutedButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>)
-                            }else if((substitution.substituted).startsWith('company-')){
-                                let href = "/employee-data?comp=" + (substitution.substituted).split('-')[1];
-                                substitutedButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>)
-                            }
-                            
-                            let substitutedByButton = '';
-                            if((substitution.substituted_by).startsWith('employee-')){
-                                let href = "/employee-data?empl=" + (substitution.substituted_by).split('-')[1];
-                                substitutedByButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>) 
-                            }else if((substitution.substituted_by).startsWith('company-')){
-                                let href = "/employee-data?comp=" + (substitution.substituted_by).split('-')[1];
-                                substitutedByButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>) 
-                            }
+                <div className="hide-show-table-column"><HideColumnInTable></HideColumnInTable></div>
+                <h2 className="text-center pb-2 pb-lg-3 position-relative">Zastępstwa {this.props.account_settings.messages_show && <span><span className={this.state.infoBox.classes} id="infoBox"><FontAwesomeIcon icon={faExclamationTriangle} /></span> <span className={this.state.holidaysInfoBox.classes} id="holidaysInfoBox"><FontAwesomeIcon icon={faUmbrellaBeach} /></span></span>}</h2>
+                <button className="btn btn-secondary to-history-btn" onClick={()=>{this.ToHistorySwal()}}>Przenieś <FontAwesomeIcon icon={faExchangeAlt} className="px-2" title="Przeniś do historii"></FontAwesomeIcon></button>
+                <div className="table-wrapper">
+                    <div></div>
+                    <table className="custom-fancytable substitutions-table">
+                        <thead>                        
+                            <tr className="bg-primary bg-gradient text-light"> 
+                                <th className="no-action">Nr</th>
+                                <th data-sortas="case-insensitive" className="table-td-xs">Data</th>
+                                <th data-sortas="case-insensitive">Zastępstwo za</th> 
+                                <th data-sortas="case-insensitive">Zastąpił</th> 
+                                <th data-sortas="case-insensitive" className="table-td-s">Typ</th> 
+                                <th data-sortas="case-insensitive">Lokalizacja</th> 
+                                <th data-sortas="case-insensitive">Żuraw</th> 
+                                <th data-sortas="numeric" className="table-td-xs">Ilość godzin (h)</th> 
+                                <th data-sortas="numeric" className="table-td-xs">Kwota (zł)</th> 
+                                <th data-sortas="case-insensitive" className="table-td-xl">Uwagi/Komentarz</th>
+                                <th className="no-action th-action">Akcje</th> 
+                            </tr>                        
+                            <AddSubstitutionRow setActionTypes={this.setActionTypes} handleAddSubstitution={this.handleAddSubstitution} handleInputChange={this.handleInputChange} stateAddSubstitutionRow={this.state.AddSubstitutionRow} handleSubstitutedChange={this.handleSubstitutedChange} handleSubstitutedByChange={this.handleSubstitutedByChange} handleActionTypeChange={this.handleActionTypeChange}/>
+                        </thead>
+                        <tbody>                        
+                            {substitutions.map((substitution, i) => {
+                                const actionTypeClassName = `action-type-${substitution.action_type}`;
+                                let substitutedButton = '';
+                                
+                                if((substitution.substituted).startsWith('employee-')){
+                                    let href = "/employee-data?empl=" + (substitution.substituted).split('-')[1];
+                                    substitutedButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>)
+                                }else if((substitution.substituted).startsWith('company-')){
+                                    let href = "/employee-data?comp=" + (substitution.substituted).split('-')[1];
+                                    substitutedButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>)
+                                }
+                                
+                                let substitutedByButton = '';
+                                if((substitution.substituted_by).startsWith('employee-')){
+                                    let href = "/employee-data?empl=" + (substitution.substituted_by).split('-')[1];
+                                    substitutedByButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>) 
+                                }else if((substitution.substituted_by).startsWith('company-')){
+                                    let href = "/employee-data?comp=" + (substitution.substituted_by).split('-')[1];
+                                    substitutedByButton = (<Link to={href} className="redirect-icon px-1"><FontAwesomeIcon icon={faExternalLinkAlt} title="Pokaż"/></Link>) 
+                                }
 
-                            return(
-                            <tr key={substitution.id} data-substitution_id={substitution.id}>                               
-                                <td>{i+1}</td>
-                                <td data-sortvalue={substitution.date}>{baseHomeFunctions.YMDtoDMY(substitution.date)}</td>
-                                <td><span>{substitution.substituted_full_name}</span> {substitutedButton}</td>
-                                <td><span>{substitution.substituted_by_full_name}</span> {substitutedByButton}</td>
-                                <td className={actionTypeClassName}>{this.state.actionTypes[substitution.action_type]}</td>
-                                <td>{substitution.location}</td>
-                                <td>{substitution.crane}</td>
-                                <td>{substitution.duration_hours}</td>
-                                <td>{substitution.amount}</td>
-                                <td>{substitution.comments}</td>
-                                <td className="no-search td-action"><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editSubstitution(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeSubstitution(ev)}} title="usuń" /></td>
-                            </tr>
-                            )
-                        })}      
-                    </tbody>                           
-                </table>
-            </div>
+                                return(
+                                <tr key={substitution.id} data-substitution_id={substitution.id}>                               
+                                    <td>{i+1}</td>
+                                    <td data-sortvalue={substitution.date}>{baseHomeFunctions.YMDtoDMY(substitution.date)}</td>
+                                    <td><span>{substitution.substituted_full_name}</span> {substitutedButton}</td>
+                                    <td><span>{substitution.substituted_by_full_name}</span> {substitutedByButton}</td>
+                                    <td className={actionTypeClassName}>{this.state.actionTypes[substitution.action_type]}</td>
+                                    <td>{substitution.location}</td>
+                                    <td>{substitution.crane}</td>
+                                    <td>{substitution.duration_hours}</td>
+                                    <td>{substitution.amount}</td>
+                                    <td>{substitution.comments}</td>
+                                    <td className="no-search td-action"><FontAwesomeIcon icon={faEdit} onClick={(ev)=>{this.editSubstitution(ev)}} title="edytuj"/><FontAwesomeIcon icon={faTrash} onClick={(ev)=>{this.removeSubstitution(ev)}} title="usuń" /></td>
+                                </tr>
+                                )
+                            })}      
+                        </tbody>                           
+                    </table>
+                </div>
             </div>
         )
     }

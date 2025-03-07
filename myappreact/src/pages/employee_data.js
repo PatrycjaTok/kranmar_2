@@ -13,6 +13,8 @@ import baseHomeFunctions from "../utils/base_functions_home.js";
 import SelectEmployeesAndCompanies from "../elements/select_employees_companies.js";
 import SelectActionTypes from "../elements/select_action_types.js";
 import EmployeeFiles from "../elements/employee_files.js";
+import StartDisplayingHolidayInfoBox from  "../elements/holiday_info_box.js";
+import HideColumnInTable from "../elements/hide_table_column_btn.js";
 
 const cookies = new Cookies();
 library.add(faTrash, faEdit, faUser, faTimes);
@@ -392,6 +394,7 @@ class Employee extends React.Component{
                         </h2>
                         <div id="collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <div className="accordion-body p-0">
+                            <div className="hide-show-table-column"><HideColumnInTable></HideColumnInTable></div>
                                 <div className="card substitutions-card position-relative">
                                     <div className="card-body table-wrapper">
                                         <table className="custom-fancytable substitutions-table w-100">
