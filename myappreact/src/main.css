@@ -1322,9 +1322,10 @@ table.buildings-table [data-building_status='ended']{
 }
 
 .hide-show-table-column{
-    width: 100%;
-    text-align: end;
+    /* width: 100%; */
+    /* text-align: end; */
     position: absolute;
+    right: 0;
     padding: 0 1rem;
     z-index: 3;
 }
