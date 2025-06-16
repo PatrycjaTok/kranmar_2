@@ -147,10 +147,12 @@ class Holidays extends React.Component{
                     data.holidays.forEach(holidayData => {
                         const color = colors[0];
                         const yHeight = heights[0];
+                        let date_from = holidayData.date_from;
+                        let date_to = holidayData.date_to;
                         
                         datasets.push({
                             label: holidayData.employee_full_name,
-                            data: [{x: holidayData.date_from, y: yHeight}, {x: holidayData.date_to, y: yHeight}],
+                            data: [{x: date_from, y: yHeight}, {x: date_to, y: yHeight}],
                             borderColor: color,
                             tension: 0,
                             fill: {value: 0},
@@ -165,7 +167,10 @@ class Holidays extends React.Component{
                             tooltip:{
                                 callbacks:{
                                     label: function(context) {
-                                        let label = context.dataset.label || '';   
+                                        let label = '';   
+                                        if((date_from !== date_to) || ((date_from === date_to) && context.dataIndex === 0)){
+                                            label = context.dataset.label || '';   
+                                        }
 
                                         return label;
                                     },
@@ -181,7 +186,18 @@ class Holidays extends React.Component{
                                     },
 
                                     afterLabel: function(context) {                  
-                                        let afterLabel = context.dataIndex === 0 ? 'start' : 'koniec';
+                                        let afterLabel = '';
+
+                                        if(date_from !== date_to){
+                                            afterLabel = context.dataIndex === 0 ? 'start' : 'koniec';
+                                        }
+
+                                        if((date_from !== date_to) || ((date_from === date_to) && context.dataIndex === 0)){
+                                            let comm = String(holidayData.comments);
+                                            let addComm = (comm && comm.length > 0) ? ((date_from !== date_to) ? `\n--Komentarz--\n${comm}` : `--Komentarz--\n${comm}`) : '';
+                                            afterLabel += addComm;
+                                        }
+
                                         return afterLabel;
                                     },
                                 }
