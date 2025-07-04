@@ -219,7 +219,11 @@ class Builds extends React.Component{
                                     },
 
                                     afterLabel: function(context) {                  
-                                        let afterLabel = 'Start budowy';
+                                        let afterLabel = buildData.company_fv_full_name && buildData.company_fv_full_name.length > 1 ? buildData.company_fv_full_name : '<brak firmy>';
+                                        afterLabel += ' - Start budowy';
+                                        let comm = String(buildData.comments);
+                                        let addComm = (comm && comm.length > 0) ? `\n--Komentarz--\n${comm}` : '';
+                                        afterLabel += addComm;
                                         return afterLabel;
                                     },
                                 }
@@ -259,8 +263,12 @@ class Builds extends React.Component{
                                         };
                                     },
 
-                                    afterLabel: function(context) {                  
-                                        let afterLabel = 'Koniec budowy';
+                                    afterLabel: function(context) {
+                                        let afterLabel = buildData.company_fv_full_name && buildData.company_fv_full_name.length > 1 ? buildData.company_fv_full_name : '<brak firmy>';
+                                        afterLabel += ' - Koniec budowy';
+                                        let comm = String(buildData.comments);
+                                        let addComm = (comm && comm.length > 0) ? `\n--Komentarz--\n${comm}` : '';
+                                        afterLabel += addComm;
                                         return afterLabel;
                                     },
                                 }
